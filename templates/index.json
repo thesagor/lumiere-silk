@@ -86,6 +86,7 @@
     }
   },
   "order": [
+    "hero",
     "trust-bar",
     "brand-intro",
     "collection",
