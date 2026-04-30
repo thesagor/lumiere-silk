@@ -1,0 +1,155 @@
+{%- liquid
+  assign featured_collection = collections[section.settings.collection]
+  assign has_collection = false
+  if featured_collection != blank and featured_collection.products_count > 0
+    assign has_collection = true
+  endif
+
+  assign cta_url = section.settings.button_url
+  if cta_url == blank and has_collection
+    assign cta_url = featured_collection.url
+  endif
+-%}
+
+<section class="collection-section section-pad" aria-label="{{ section.settings.heading | escape }}">
+  <div class="container">
+
+    <div class="collection-header fade-in">
+      {%- if section.settings.label != blank -%}
+        <p class="text-label">{{ section.settings.label | escape }}</p>
+      {%- endif -%}
+      <h2 class="collection-title heading-serif">{{ section.settings.heading }}</h2>
+      {%- if section.settings.body != blank -%}
+        <p class="collection-body">{{ section.settings.body }}</p>
+      {%- endif -%}
+    </div>
+
+    <div class="collection-grid">
+      {%- if has_collection -%}
+        {%- for product in featured_collection.products limit: section.settings.products_to_show -%}
+          {%- render 'product-card', product: product -%}
+        {%- endfor -%}
+      {%- else -%}
+        {%- assign placeholder_images = 'lumiere-sig-scarf-1.png,lumiere-sig-scarf-2.png,lumiere-sig-scarf-3.png' | split: ',' -%}
+        {%- assign placeholder_titles = section.settings.placeholder_titles | split: '|' -%}
+        {%- for i in (1..section.settings.products_to_show) -%}
+          {%- assign image_index = forloop.index0 | modulo: placeholder_images.size -%}
+          {%- assign title_index = forloop.index0 | modulo: placeholder_titles.size -%}
+          {%- assign placeholder_image = placeholder_images[image_index] -%}
+          {%- assign placeholder_title = placeholder_titles[title_index] | default: section.settings.placeholder_title -%}
+          <div class="product-card product-card--placeholder">
+            <div class="product-card-image">
+              <img
+                src="{{ placeholder_image | asset_url }}"
+                alt="{{ placeholder_title | escape }}"
+                loading="lazy"
+              >
+            </div>
+            <div class="product-card-info">
+              <p class="product-card-vendor">Lumiere Silk</p>
+              <p class="product-card-title">{{ placeholder_title | default: 'Signature Silk Scarf' }}</p>
+              <p class="product-card-price">{{ section.settings.placeholder_price | default: 'Coming soon' }}</p>
+            </div>
+          </div>
+        {%- endfor -%}
+      {%- endif -%}
+    </div>
+
+    <div class="collection-cta fade-in">
+      {%- if section.settings.tagline != blank -%}
+        <p class="collection-tagline">{{ section.settings.tagline | escape }}</p>
+      {%- endif -%}
+      {%- if section.settings.button_label != blank and cta_url != blank -%}
+        <a href="{{ cta_url }}" class="btn btn-primary">
+          {{ section.settings.button_label | escape }}
+        </a>
+      {%- endif -%}
+    </div>
+
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Featured Collection",
+  "tag": "div",
+  "settings": [
+    {
+      "type": "text",
+      "id": "label",
+      "label": "Label",
+      "default": "The Collection"
+    },
+    {
+      "type": "textarea",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Signature Silk Scarves"
+    },
+    {
+      "type": "textarea",
+      "id": "body",
+      "label": "Body text",
+      "default": "Our silk scarves are designed to feel timeless, feminine, and effortlessly elegant. With a focus on beauty, texture, and versatility, each piece is selected to add softness and sophistication to everyday style."
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection"
+    },
+    {
+      "type": "range",
+      "id": "products_to_show",
+      "min": 2,
+      "max": 6,
+      "step": 1,
+      "label": "Products to show",
+      "default": 3
+    },
+    {
+      "type": "text",
+      "id": "tagline",
+      "label": "Tagline (italic, above button)",
+      "default": "Classic pieces made to be worn, loved, and gifted."
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label",
+      "default": "View Collection"
+    },
+    {
+      "type": "url",
+      "id": "button_url",
+      "label": "Button URL (leave blank to use collection URL)"
+    },
+    {
+      "type": "header",
+      "content": "Placeholder fallback (when no collection selected)"
+    },
+    {
+      "type": "text",
+      "id": "placeholder_title",
+      "label": "Placeholder product title",
+      "default": "Signature Silk Scarf"
+    },
+    {
+      "type": "textarea",
+      "id": "placeholder_titles",
+      "label": "Placeholder product titles, separated with |",
+      "default": "Signature Silk Scarf|Elegant Silk Scarf|Silk Scarf Gift Box"
+    },
+    {
+      "type": "text",
+      "id": "placeholder_price",
+      "label": "Placeholder price text",
+      "default": "Coming soon"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Featured Collection"
+    }
+  ]
+}
+{% endschema %}

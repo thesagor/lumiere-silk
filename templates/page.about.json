@@ -1,0 +1,11 @@
+{
+  "sections": {
+    "main-page-about": {
+      "type": "main-page-about",
+      "settings": {
+        "hero_heading": "A Legacy of Quiet Luxury"
+      }
+    }
+  },
+  "order": ["main-page-about"]
+}

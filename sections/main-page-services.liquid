@@ -1,0 +1,91 @@
+{%- liquid
+  assign banner_title = section.settings.banner_title | default: page.title
+-%}
+
+<div class="page-banner">
+  <h1 class="page-banner-title heading-serif">{{ banner_title | escape }}</h1>
+  {%- if section.settings.banner_subtitle != blank -%}
+    <p class="page-banner-subtitle">{{ section.settings.banner_subtitle | escape }}</p>
+  {%- endif -%}
+</div>
+
+<div class="container">
+  <div class="page-content">
+    <div style="max-width: 880px; margin: 0 auto;">
+
+      {%- if section.settings.intro != blank -%}
+        <div class="page-intro" style="text-align:center; margin-bottom:3rem;">
+          {{ section.settings.intro }}
+        </div>
+      {%- endif -%}
+
+      <div class="services-grid" style="display:grid; gap:2rem; grid-template-columns:repeat(auto-fit,minmax(260px,1fr));">
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'service' -%}
+            <article class="service-card" {{ block.shopify_attributes }} style="padding:2rem; background:var(--color-cream,#f5f0e8); border:1px solid var(--color-border,#e8e2d9); border-radius:4px; text-align:center;">
+              {%- if block.settings.icon != blank -%}
+                {%- assign service_icon_alt = block.settings.title | escape -%}
+                <div class="service-icon" style="margin-bottom:1rem;">
+                  {{ block.settings.icon | image_url: width: 80 | image_tag: loading: 'lazy', alt: service_icon_alt, style: 'width:48px;height:48px;object-fit:contain;display:inline-block;' }}
+                </div>
+              {%- endif -%}
+              <h3 class="heading-serif" style="margin-bottom:0.75rem;">{{ block.settings.title | escape }}</h3>
+              {%- if block.settings.body != blank -%}
+                <div style="color:var(--color-muted,#8a7d6f); line-height:1.7;">{{ block.settings.body }}</div>
+              {%- endif -%}
+            </article>
+          {%- endif -%}
+        {%- else -%}
+          <article class="service-card" style="padding:2rem; background:var(--color-cream,#f5f0e8); border:1px solid var(--color-border,#e8e2d9); border-radius:4px; text-align:center;">
+            <h3 class="heading-serif" style="margin-bottom:0.75rem;">Personal Styling</h3>
+            <p style="color:var(--color-muted,#8a7d6f);">Curated scarf-and-accessory pairings to suit your wardrobe and occasion.</p>
+          </article>
+          <article class="service-card" style="padding:2rem; background:var(--color-cream,#f5f0e8); border:1px solid var(--color-border,#e8e2d9); border-radius:4px; text-align:center;">
+            <h3 class="heading-serif" style="margin-bottom:0.75rem;">Gift Concierge</h3>
+            <p style="color:var(--color-muted,#8a7d6f);">Thoughtful gift selection with elegant packaging and a hand-written note.</p>
+          </article>
+          <article class="service-card" style="padding:2rem; background:var(--color-cream,#f5f0e8); border:1px solid var(--color-border,#e8e2d9); border-radius:4px; text-align:center;">
+            <h3 class="heading-serif" style="margin-bottom:0.75rem;">Care & Restoration</h3>
+            <p style="color:var(--color-muted,#8a7d6f);">Guidance on caring for your silk pieces so they last for years.</p>
+          </article>
+        {%- endfor -%}
+      </div>
+
+      {%- if section.settings.cta_label != blank and section.settings.cta_url != blank -%}
+        <div style="text-align:center; margin-top:3rem;">
+          <a href="{{ section.settings.cta_url }}" class="btn btn-primary">{{ section.settings.cta_label | escape }}</a>
+        </div>
+      {%- endif -%}
+
+      {%- if page.content != blank -%}
+        <div class="page-body" style="margin-top:3rem;">{{ page.content }}</div>
+      {%- endif -%}
+
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Services Page",
+  "settings": [
+    { "type": "text", "id": "banner_title", "label": "Banner title (defaults to page title)" },
+    { "type": "text", "id": "banner_subtitle", "label": "Banner subtitle" },
+    { "type": "richtext", "id": "intro", "label": "Intro text" },
+    { "type": "text", "id": "cta_label", "label": "CTA button label" },
+    { "type": "url", "id": "cta_url", "label": "CTA button URL" }
+  ],
+  "blocks": [
+    {
+      "type": "service",
+      "name": "Service",
+      "settings": [
+        { "type": "image_picker", "id": "icon", "label": "Icon (optional)" },
+        { "type": "text", "id": "title", "label": "Title", "default": "Service title" },
+        { "type": "richtext", "id": "body", "label": "Description" }
+      ]
+    }
+  ],
+  "presets": [{ "name": "Services Page" }]
+}
+{% endschema %}

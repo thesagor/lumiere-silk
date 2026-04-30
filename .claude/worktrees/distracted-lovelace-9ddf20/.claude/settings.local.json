@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python -c \"import json,sys; [json.load\\(open\\(f\\)\\) and print\\(f,'ok'\\) for f in ['templates/index.json','templates/404.json','templates/cart.json','templates/collection.json','templates/page.about.json','templates/page.contact.json','templates/page.design.json','templates/page.faq.json','templates/page.json','templates/page.services.json','templates/page.wishlist.json','templates/password.json','templates/product.json','templates/search.json','config/settings_schema.json','config/settings_data.json']]\")",
+      "Bash(python)"
+    ]
+  }
+}

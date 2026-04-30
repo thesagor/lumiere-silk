@@ -1,0 +1,18 @@
+{
+  "current": {
+    "color_ivory": "#faf8f5",
+    "color_cream": "#f5f0e8",
+    "color_blush": "#f0e8e4",
+    "color_gold": "#c9a96e",
+    "color_warm_black": "#2a2218",
+    "color_text_muted": "#8a7d6f",
+    "color_border": "#e8e2d9",
+    "heading_font": "cormorant",
+    "body_font_size": 16,
+    "button_style": "filled",
+    "cart_type": "drawer",
+    "animations_enabled": true,
+    "logo_width": 160
+  },
+  "presets": {}
+}

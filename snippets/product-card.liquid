@@ -1,0 +1,91 @@
+{% comment %}
+  Renders a product card.
+  Usage: {% render 'product-card', product: product %}
+{% endcomment %}
+
+{%- assign card_product = product -%}
+
+<article class="product-card" aria-label="{{ card_product.title | escape }}">
+  <a href="{{ card_product.url }}" class="product-card-image" tabindex="-1" aria-hidden="true">
+    {%- if card_product.featured_image -%}
+      {%- assign card_image_alt = card_product.featured_image.alt | default: card_product.title | escape -%}
+      {{
+        card_product.featured_image
+        | image_url: width: 600
+        | image_tag:
+          loading: 'lazy',
+          sizes: '(max-width: 480px) 100vw, (max-width: 768px) 50vw, 33vw',
+          alt: card_image_alt
+      }}
+    {%- else -%}
+      {{ 'product-1' | placeholder_svg_tag }}
+    {%- endif -%}
+
+    {%- if card_product.available == false -%}
+      <span class="product-card-badge">Sold Out</span>
+    {%- elsif card_product.compare_at_price > card_product.price -%}
+      <span class="product-card-badge">Sale</span>
+    {%- elsif card_product.tags contains 'new' or card_product.tags contains 'New' -%}
+      <span class="product-card-badge badge-new">New</span>
+    {%- elsif card_product.tags contains 'bestseller' or card_product.tags contains 'Bestseller' -%}
+      <span class="product-card-badge">Bestseller</span>
+    {%- endif -%}
+
+    {%- if card_product.available -%}
+      <div class="product-card-actions">
+        <button
+          class="product-card-atc"
+          data-atc
+          data-variant-id="{{ card_product.selected_or_first_available_variant.id }}"
+          aria-label="Add {{ card_product.title | escape }} to cart"
+        >
+          Add to Bag
+        </button>
+      </div>
+    {%- endif -%}
+
+    <div class="product-card-icons product-card-icons--{{ settings.card_icon_alignment | default: 'right' }}">
+      {%- if settings.enable_wishlist -%}
+        <button
+          type="button"
+          class="product-card-icon-btn"
+          data-wishlist-toggle
+          data-product-id="{{ card_product.id }}"
+          data-product-title="{{ card_product.title | escape }}"
+          data-product-url="{{ card_product.url }}"
+          data-product-image="{% if card_product.featured_image %}{{ card_product.featured_image | image_url: width: 400 }}{% endif %}"
+          data-product-price="{{ card_product.price | money | escape }}"
+          aria-label="Add {{ card_product.title | escape }} to wishlist"
+        >
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 21s-7-4.35-9.5-8.5C.5 9 3 5 6.5 5c2 0 3.5 1 5.5 3 2-2 3.5-3 5.5-3C21 5 23.5 9 21.5 12.5 19 16.65 12 21 12 21z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+        </button>
+      {%- endif -%}
+      {%- if settings.enable_quickview -%}
+        <button
+          type="button"
+          class="product-card-icon-btn"
+          data-quickview
+          data-product-handle="{{ card_product.handle }}"
+          aria-label="Quick view {{ card_product.title | escape }}"
+        >
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z" stroke="currentColor" stroke-width="1.5"/><circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.5"/></svg>
+        </button>
+      {%- endif -%}
+    </div>
+  </a>
+
+  <div class="product-card-info">
+    {%- if card_product.vendor != blank -%}
+      <p class="product-card-vendor">{{ card_product.vendor }}</p>
+    {%- endif -%}
+    <h3 class="product-card-title">
+      <a href="{{ card_product.url }}">{{ card_product.title }}</a>
+    </h3>
+    <div class="product-card-price">
+      <span>{{ card_product.price | money }}</span>
+      {%- if card_product.compare_at_price > card_product.price -%}
+        <s>{{ card_product.compare_at_price | money }}</s>
+      {%- endif -%}
+    </div>
+  </div>
+</article>

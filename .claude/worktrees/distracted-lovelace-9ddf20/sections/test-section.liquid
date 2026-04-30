@@ -1,0 +1,55 @@
+<section class="test-section" style="padding:4rem 1rem;text-align:center;background:#faf8f5;color:#2a2218;">
+  <div style="max-width:720px;margin:0 auto;">
+    {%- if section.settings.heading != blank -%}
+      <h2 style="font-size:2rem;margin:0 0 1rem;">{{ section.settings.heading | escape }}</h2>
+    {%- endif -%}
+    {%- if section.settings.body != blank -%}
+      <p style="font-size:1rem;line-height:1.6;margin:0 0 1.5rem;">{{ section.settings.body | escape }}</p>
+    {%- endif -%}
+    {%- if section.settings.button_label != blank and section.settings.button_url != blank -%}
+      <a href="{{ section.settings.button_url }}"
+         style="display:inline-block;padding:0.75rem 1.5rem;border:1px solid #2a2218;text-decoration:none;color:#2a2218;">
+        {{ section.settings.button_label | escape }}
+      </a>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Test Section",
+  "tag": "section",
+  "class": "shopify-section--test",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Hello from a working section"
+    },
+    {
+      "type": "textarea",
+      "id": "body",
+      "label": "Body",
+      "default": "If you can see this in the storefront and add it from the theme editor, your theme is loading sections correctly."
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label",
+      "default": "Learn more"
+    },
+    {
+      "type": "url",
+      "id": "button_url",
+      "label": "Button URL"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Test Section",
+      "category": "Custom"
+    }
+  ]
+}
+{% endschema %}

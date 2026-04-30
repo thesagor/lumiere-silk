@@ -1,0 +1,69 @@
+<!-- Collection banner -->
+<div class="collection-banner">
+  {%- if collection.image -%}
+    <div style="position:absolute;inset:0;z-index:0;overflow:hidden;">
+      {{ collection.image | image_url: width: 1600 | image_tag: loading: 'eager', style: 'width:100%;height:100%;object-fit:cover;opacity:0.25;' }}
+    </div>
+  {%- endif -%}
+  <div style="position:relative;z-index:1;">
+    {%- if collection.title == 'All' or collection.handle == 'all' -%}
+      <p class="text-label" style="margin-bottom:0.875rem;">Shop</p>
+    {%- endif -%}
+    <h1 class="collection-banner-title heading-serif">{{ collection.title }}</h1>
+    {%- if collection.description != blank -%}
+      <p class="collection-banner-desc">{{ collection.description }}</p>
+    {%- endif -%}
+  </div>
+</div>
+
+<div class="container" style="padding-top:2rem; padding-bottom:4rem;">
+
+  <!-- Toolbar -->
+  <div class="collection-toolbar">
+    <p class="collection-count">
+      {{ collection.products_count }}
+      {{ collection.products_count | pluralize: 'product', 'products' }}
+    </p>
+    <div class="collection-sort">
+      <select id="sort-by" aria-label="Sort products">
+        {%- assign sort_by = collection.sort_by | default: collection.default_sort_by -%}
+        <option value="manual" {% if sort_by == 'manual' %}selected{% endif %}>Featured</option>
+        <option value="price-ascending" {% if sort_by == 'price-ascending' %}selected{% endif %}>Price: Low to High</option>
+        <option value="price-descending" {% if sort_by == 'price-descending' %}selected{% endif %}>Price: High to Low</option>
+        <option value="title-ascending" {% if sort_by == 'title-ascending' %}selected{% endif %}>Alphabetically: A–Z</option>
+        <option value="created-descending" {% if sort_by == 'created-descending' %}selected{% endif %}>Newest First</option>
+        <option value="best-selling" {% if sort_by == 'best-selling' %}selected{% endif %}>Best Selling</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- Products -->
+  {%- if collection.products_count > 0 -%}
+    <div class="products-grid">
+      {%- for product in collection.products -%}
+        {%- render 'product-card', product: product -%}
+      {%- endfor -%}
+    </div>
+
+    <!-- Pagination -->
+    {%- if paginate.pages > 1 -%}
+      <div style="text-align:center; margin-top:3rem;">
+        {{ paginate | default_pagination | replace: '&laquo; Previous', '← Previous' | replace: 'Next &raquo;', 'Next →' }}
+      </div>
+    {%- endif -%}
+
+  {%- else -%}
+    <div style="text-align:center; padding:5rem 0;">
+      <p class="text-muted" style="font-family:var(--font-heading); font-size:1.25rem;">No products found in this collection.</p>
+      <a href="{{ routes.all_products_collection_url }}" class="btn btn-outline" style="margin-top:1.5rem;">Browse All Products</a>
+    </div>
+  {%- endif -%}
+
+</div>
+
+{% schema %}
+{
+  "name": "Collection",
+  "settings": []
+}
+{% endschema %}

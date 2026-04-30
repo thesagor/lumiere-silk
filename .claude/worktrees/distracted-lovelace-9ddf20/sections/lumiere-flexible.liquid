@@ -1,0 +1,332 @@
+{%- liquid
+  assign bg = section.settings.background
+  assign text_color = section.settings.text_color
+  assign content_align = section.settings.content_align
+  assign max_width = section.settings.max_width
+-%}
+
+<section
+  class="flex-section{% if section.settings.padded %} section-pad{% endif %} flex-section--{{ content_align }}"
+  style="
+    {%- if bg != blank -%}background-color: {{ bg }};{%- endif -%}
+    {%- if text_color != blank -%}color: {{ text_color }};{%- endif -%}
+  "
+  aria-label="{{ section.settings.aria_label | default: 'Section' | escape }}"
+>
+  <div class="container">
+    <div class="flex-section-inner" style="max-width: {{ max_width }}px; margin: 0 auto;">
+      {%- for block in section.blocks -%}
+        {%- case block.type -%}
+
+          {%- when 'label' -%}
+            <p class="text-label" {{ block.shopify_attributes }}>
+              {{ block.settings.text | escape }}
+            </p>
+
+          {%- when 'heading' -%}
+            <{{ block.settings.tag }}
+              class="heading-serif flex-heading flex-heading--{{ block.settings.size }}"
+              {{ block.shopify_attributes }}
+            >
+              {{ block.settings.text }}
+            </{{ block.settings.tag }}>
+
+          {%- when 'text' -%}
+            <div class="flex-text" {{ block.shopify_attributes }}>
+              {{ block.settings.body }}
+            </div>
+
+          {%- when 'image' -%}
+            <div class="flex-image" {{ block.shopify_attributes }}>
+              {%- if block.settings.image != blank -%}
+                {{
+                  block.settings.image
+                  | image_url: width: 1600
+                  | image_tag:
+                    loading: 'lazy',
+                    sizes: '(max-width: 768px) 100vw, ' | append: max_width | append: 'px',
+                    alt: block.settings.alt | default: block.settings.image.alt | escape
+                }}
+              {%- else -%}
+                {{ 'lifestyle-1' | placeholder_svg_tag }}
+              {%- endif -%}
+              {%- if block.settings.caption != blank -%}
+                <p class="flex-image-caption">{{ block.settings.caption | escape }}</p>
+              {%- endif -%}
+            </div>
+
+          {%- when 'image_with_text' -%}
+            <div class="flex-image-text flex-image-text--{{ block.settings.layout }}" {{ block.shopify_attributes }}>
+              <div class="flex-image-text-media">
+                {%- if block.settings.image != blank -%}
+                  {{
+                    block.settings.image
+                    | image_url: width: 1200
+                    | image_tag:
+                      loading: 'lazy',
+                      sizes: '(max-width: 768px) 100vw, 50vw',
+                      alt: block.settings.heading | escape
+                  }}
+                {%- else -%}
+                  {{ 'lifestyle-2' | placeholder_svg_tag }}
+                {%- endif -%}
+              </div>
+              <div class="flex-image-text-body">
+                {%- if block.settings.label != blank -%}
+                  <p class="text-label">{{ block.settings.label | escape }}</p>
+                {%- endif -%}
+                {%- if block.settings.heading != blank -%}
+                  <h3 class="heading-serif">{{ block.settings.heading }}</h3>
+                {%- endif -%}
+                {%- if block.settings.body != blank -%}
+                  <div class="flex-text">{{ block.settings.body }}</div>
+                {%- endif -%}
+                {%- if block.settings.button_label != blank and block.settings.button_url != blank -%}
+                  <a href="{{ block.settings.button_url }}" class="btn btn-primary">
+                    {{ block.settings.button_label | escape }}
+                  </a>
+                {%- endif -%}
+              </div>
+            </div>
+
+          {%- when 'button' -%}
+            {%- if block.settings.label != blank and block.settings.url != blank -%}
+              <div class="flex-button-wrap" {{ block.shopify_attributes }}>
+                <a
+                  href="{{ block.settings.url }}"
+                  class="btn btn-{{ block.settings.style }}"
+                >
+                  {{ block.settings.label | escape }}
+                </a>
+              </div>
+            {%- endif -%}
+
+          {%- when 'spacer' -%}
+            <div
+              class="flex-spacer"
+              style="height: {{ block.settings.height }}px;"
+              aria-hidden="true"
+              {{ block.shopify_attributes }}
+            ></div>
+
+          {%- when 'divider' -%}
+            <div class="flex-divider" aria-hidden="true" {{ block.shopify_attributes }}>
+              <span class="hero-title-rule-line"></span>
+              <span class="hero-title-rule-diamond">◆</span>
+              <span class="hero-title-rule-line"></span>
+            </div>
+
+          {%- when 'html' -%}
+            <div class="flex-custom-html" {{ block.shopify_attributes }}>
+              {{ block.settings.html }}
+            </div>
+
+          {%- when 'product' -%}
+            {%- assign block_product = all_products[block.settings.product] -%}
+            {%- if block_product != blank and block_product != empty -%}
+              <div class="flex-product" {{ block.shopify_attributes }}>
+                {%- render 'product-card', product: block_product -%}
+              </div>
+            {%- endif -%}
+
+        {%- endcase -%}
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Flexible Section",
+  "tag": "div",
+  "class": "lumiere-section-flexible",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Build custom page sections from your designHTML mockups using these blocks. For pure HTML paste, use the Custom HTML section."
+    },
+    {
+      "type": "select",
+      "id": "content_align",
+      "label": "Content alignment",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "range",
+      "id": "max_width",
+      "min": 480,
+      "max": 1400,
+      "step": 20,
+      "unit": "px",
+      "label": "Max content width",
+      "default": 880
+    },
+    {
+      "type": "checkbox",
+      "id": "padded",
+      "label": "Add vertical padding",
+      "default": true
+    },
+    {
+      "type": "color",
+      "id": "background",
+      "label": "Background color"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color"
+    },
+    {
+      "type": "text",
+      "id": "aria_label",
+      "label": "ARIA label"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "label",
+      "name": "Eyebrow label",
+      "settings": [
+        { "type": "text", "id": "text", "label": "Text", "default": "Lumière Silk" }
+      ]
+    },
+    {
+      "type": "heading",
+      "name": "Heading",
+      "settings": [
+        { "type": "textarea", "id": "text", "label": "Heading", "default": "Beautifully crafted." },
+        {
+          "type": "select",
+          "id": "tag",
+          "label": "Tag",
+          "options": [
+            { "value": "h1", "label": "H1" },
+            { "value": "h2", "label": "H2" },
+            { "value": "h3", "label": "H3" }
+          ],
+          "default": "h2"
+        },
+        {
+          "type": "select",
+          "id": "size",
+          "label": "Size",
+          "options": [
+            { "value": "small", "label": "Small" },
+            { "value": "medium", "label": "Medium" },
+            { "value": "large", "label": "Large" }
+          ],
+          "default": "medium"
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "name": "Rich text",
+      "settings": [
+        { "type": "richtext", "id": "body", "label": "Text", "default": "<p>Tell your brand story here.</p>" }
+      ]
+    },
+    {
+      "type": "image",
+      "name": "Image",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Image" },
+        { "type": "text", "id": "alt", "label": "Alt text" },
+        { "type": "text", "id": "caption", "label": "Caption (optional)" }
+      ]
+    },
+    {
+      "type": "image_with_text",
+      "name": "Image + text",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Image" },
+        {
+          "type": "select",
+          "id": "layout",
+          "label": "Layout",
+          "options": [
+            { "value": "image-left", "label": "Image left" },
+            { "value": "image-right", "label": "Image right" }
+          ],
+          "default": "image-left"
+        },
+        { "type": "text", "id": "label", "label": "Eyebrow label" },
+        { "type": "text", "id": "heading", "label": "Heading" },
+        { "type": "richtext", "id": "body", "label": "Body" },
+        { "type": "text", "id": "button_label", "label": "Button label" },
+        { "type": "url", "id": "button_url", "label": "Button URL" }
+      ]
+    },
+    {
+      "type": "button",
+      "name": "Button",
+      "settings": [
+        { "type": "text", "id": "label", "label": "Label", "default": "Shop Now" },
+        { "type": "url", "id": "url", "label": "URL" },
+        {
+          "type": "select",
+          "id": "style",
+          "label": "Style",
+          "options": [
+            { "value": "primary", "label": "Primary" },
+            { "value": "outline", "label": "Outline" },
+            { "value": "outline-light", "label": "Outline light" }
+          ],
+          "default": "primary"
+        }
+      ]
+    },
+    {
+      "type": "product",
+      "name": "Product card",
+      "settings": [
+        { "type": "product", "id": "product", "label": "Product" }
+      ]
+    },
+    {
+      "type": "spacer",
+      "name": "Spacer",
+      "settings": [
+        {
+          "type": "range",
+          "id": "height",
+          "min": 8,
+          "max": 200,
+          "step": 4,
+          "unit": "px",
+          "label": "Height",
+          "default": 40
+        }
+      ]
+    },
+    {
+      "type": "divider",
+      "name": "Divider (◆)",
+      "settings": []
+    },
+    {
+      "type": "html",
+      "name": "Custom HTML",
+      "settings": [
+        { "type": "html", "id": "html", "label": "HTML" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Flexible Section",
+      "blocks": [
+        { "type": "label" },
+        { "type": "heading" },
+        { "type": "text" }
+      ]
+    }
+  ]
+}
+{% endschema %}

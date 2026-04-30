@@ -1,0 +1,110 @@
+{%- liquid
+  assign linked_collection = collections[section.settings.collection]
+  assign cta_url = section.settings.button_url
+  if cta_url == blank and linked_collection != blank and linked_collection.products_count > 0
+    assign cta_url = linked_collection.url
+  endif
+-%}
+
+<section class="gift-sets-section section-pad" aria-label="Gift sets">
+  <div class="container">
+    <div class="gift-sets-grid">
+
+      {%- assign gift_sets_alt = section.settings.heading | escape -%}
+      <div class="gift-sets-image fade-in">
+        {%- if section.settings.image != blank -%}
+          {{
+            section.settings.image
+            | image_url: width: 800
+            | image_tag:
+              loading: 'lazy',
+              sizes: '(max-width: 768px) 100vw, 50vw',
+              alt: gift_sets_alt
+          }}
+        {%- else -%}
+          <img
+            src="{{ 'lumiere-gift-sets.jpg' | asset_url }}"
+            alt="{{ section.settings.heading | escape }}"
+            loading="lazy"
+          >
+        {%- endif -%}
+      </div>
+
+      <div class="gift-sets-text fade-in">
+        {%- if section.settings.label != blank -%}
+          <p class="text-label">{{ section.settings.label | escape }}</p>
+        {%- endif -%}
+        <h2 class="gift-sets-title heading-serif">{{ section.settings.heading }}</h2>
+        <p class="gift-sets-body">{{ section.settings.body }}</p>
+        {%- if section.settings.tagline != blank -%}
+          <p class="gift-sets-tagline">{{ section.settings.tagline | escape }}</p>
+        {%- endif -%}
+        {%- if section.settings.button_label != blank and cta_url != blank -%}
+          <a href="{{ cta_url }}" class="btn btn-primary">
+            {{ section.settings.button_label | escape }}
+          </a>
+        {%- endif -%}
+      </div>
+
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Gift Sets",
+  "tag": "div",
+  "settings": [
+    {
+      "type": "text",
+      "id": "label",
+      "label": "Label",
+      "default": "Gifting"
+    },
+    {
+      "type": "textarea",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Gift-Ready Elegance"
+    },
+    {
+      "type": "textarea",
+      "id": "body",
+      "label": "Body text",
+      "default": "More than an accessory, Lumière Silk is designed to be a beautiful gifting experience. Explore scarf gift boxes and thoughtfully paired sets created for special moments, personal treats, and meaningful gestures."
+    },
+    {
+      "type": "text",
+      "id": "tagline",
+      "label": "Tagline",
+      "default": "Beautifully chosen. Elegantly presented."
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Linked collection (used if Button URL is blank)"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label",
+      "default": "Shop Gift Sets"
+    },
+    {
+      "type": "url",
+      "id": "button_url",
+      "label": "Button URL (leave blank to use linked collection)"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Gift Sets"
+    }
+  ]
+}
+{% endschema %}

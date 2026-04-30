@@ -1,0 +1,36 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-page-services",
+      "blocks": {
+        "styling": {
+          "type": "service",
+          "settings": {
+            "title": "Personal Styling",
+            "body": "<p>Curated scarf-and-accessory pairings tailored to your wardrobe, season, and occasion.</p>"
+          }
+        },
+        "gifting": {
+          "type": "service",
+          "settings": {
+            "title": "Gift Concierge",
+            "body": "<p>Thoughtful gift selection, elegant packaging, and an optional hand-written note.</p>"
+          }
+        },
+        "care": {
+          "type": "service",
+          "settings": {
+            "title": "Care & Restoration",
+            "body": "<p>Personalised guidance on caring for your silk pieces so they remain beautiful for years.</p>"
+          }
+        }
+      },
+      "block_order": ["styling", "gifting", "care"],
+      "settings": {
+        "banner_subtitle": "Thoughtful services, beautifully delivered.",
+        "intro": "<p>Lumière Silk offers a small set of personal services designed to make every piece feel meaningful — from selecting the right scarf, to wrapping the perfect gift, to caring for it long after.</p>"
+      }
+    }
+  },
+  "order": ["main"]
+}

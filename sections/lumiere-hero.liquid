@@ -1,0 +1,136 @@
+<section class="hero-section" aria-label="Hero banner">
+
+  <div class="hero-bg" id="hero-bg">
+    {%- if section.settings.image != blank -%}
+      {%- assign hero_alt = section.settings.heading | escape -%}
+      {{
+        section.settings.image
+        | image_url: width: 2400
+        | image_tag:
+          loading: 'eager',
+          fetchpriority: 'high',
+          sizes: '100vw',
+          alt: hero_alt,
+          class: 'hero-image'
+      }}
+    {%- else -%}
+      <img
+        src="{{ 'lumiere-hero-new.jpg' | asset_url }}"
+        alt="{{ section.settings.heading | escape }}"
+        class="hero-image"
+        loading="eager"
+        fetchpriority="high"
+      >
+    {%- endif -%}
+  </div>
+
+  <div class="hero-overlay"></div>
+  <div class="hero-top-border" aria-hidden="true"></div>
+  <div class="hero-deco-line hero-deco-line--tall" aria-hidden="true"></div>
+  <div class="hero-deco-line hero-deco-line--short" aria-hidden="true"></div>
+
+  <div class="hero-content">
+    <div class="container">
+      <div class="hero-text-block">
+        {%- if section.settings.label != blank -%}
+          <p class="hero-label">{{ section.settings.label | escape }}</p>
+        {%- endif -%}
+
+        {%- if section.settings.heading != blank -%}
+          <h1 class="hero-title">{{ section.settings.heading }}</h1>
+        {%- endif -%}
+
+        {%- if section.settings.subheading != blank -%}
+          <p class="hero-subtitle">{{ section.settings.subheading }}</p>
+        {%- endif -%}
+
+        <div class="hero-actions">
+          {%- if section.settings.button_1_label != blank and section.settings.button_1_url != blank -%}
+            <a href="{{ section.settings.button_1_url }}" class="btn btn-outline-light hero-btn-primary" id="hero-cta-1">
+              {{ section.settings.button_1_label | escape }}
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+          {%- endif -%}
+          {%- if section.settings.button_2_label != blank and section.settings.button_2_url != blank -%}
+            <a href="{{ section.settings.button_2_url }}" class="btn btn-ghost-light" id="hero-cta-2">
+              {{ section.settings.button_2_label | escape }}
+            </a>
+          {%- endif -%}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-scroll-indicator" aria-hidden="true">
+    <span class="hero-scroll-text">Scroll</span>
+    <div class="hero-scroll-line">
+      <div class="hero-scroll-dot"></div>
+    </div>
+  </div>
+
+</section>
+
+{% schema %}
+{
+  "name": "Hero Banner",
+  "tag": "div",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Hero image"
+    },
+    {
+      "type": "text",
+      "id": "label",
+      "label": "Label (small text above heading)",
+      "default": "Lumiere Silk"
+    },
+    {
+      "type": "textarea",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Elegant Silk, Beautifully Gifted"
+    },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Discover elegant silk scarves and gift-ready pieces designed to bring beauty, softness, and refinement to everyday life."
+    },
+    {
+      "type": "text",
+      "id": "button_1_label",
+      "label": "Button 1 label",
+      "default": "Shop Scarves"
+    },
+    {
+      "type": "url",
+      "id": "button_1_url",
+      "label": "Button 1 URL"
+    },
+    {
+      "type": "text",
+      "id": "button_2_label",
+      "label": "Button 2 label",
+      "default": "Explore Gift Sets"
+    },
+    {
+      "type": "url",
+      "id": "button_2_url",
+      "label": "Button 2 URL"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Hero Banner",
+      "settings": {
+        "heading": "Elegant Silk, Beautifully Gifted",
+        "subheading": "Discover elegant silk scarves and gift-ready pieces designed to bring beauty, softness, and refinement to everyday life.",
+        "button_1_label": "Shop Scarves",
+        "button_2_label": "Explore Gift Sets"
+      }
+    }
+  ]
+}
+{% endschema %}

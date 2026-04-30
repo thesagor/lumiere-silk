@@ -1,0 +1,109 @@
+<div class="page-banner">
+  <h1 class="page-banner-title heading-serif">Frequently Asked Questions</h1>
+</div>
+
+<div class="container">
+  <div class="page-content">
+    <div style="max-width:720px; margin:0 auto;">
+
+      {%- for block in section.blocks -%}
+        {%- case block.type -%}
+          {%- when 'faq_item' -%}
+            <div class="faq-item" {{ block.shopify_attributes }}>
+              <button class="faq-question" aria-expanded="false">
+                {{ block.settings.question }}
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 9l-7 7-7-7"/>
+                </svg>
+              </button>
+              <div class="faq-answer" aria-hidden="true">
+                <div class="faq-answer-inner">{{ block.settings.answer }}</div>
+              </div>
+            </div>
+        {%- endcase -%}
+      {%- else -%}
+
+        <!-- Default FAQ content from requirements.md -->
+        {%- assign default_faqs = '
+          What products do you offer?|Lumière Silk offers elegant silk scarves, gift-ready sets, and selected accessories designed with softness, refinement, and timeless beauty in mind.
+          Do your products come in gift packaging?|Some products include gift-ready packaging or gift box presentation. Please refer to the individual product description for details.
+          Do you ship within Canada?|Yes, Lumière Silk currently focuses mainly on shipping within Canada.
+          Do you ship to the United States?|At this stage, our primary focus is Canada. U.S. shipping may be added in the future.
+          How long does shipping take?|Shipping times may vary depending on the destination and shipping method selected at checkout. A confirmation email with tracking information will be provided when available.
+          Can I return or exchange an item?|Eligible items may be returned or exchanged within 7 days of delivery, provided they are unused, in original condition, and returned with the original packaging.
+          Are gift sets and accessories returnable?|For hygiene and product protection reasons, certain items such as earrings or selected gift sets may be final sale unless they arrive damaged or incorrect.
+          How should I care for my scarf?|We recommend gentle handling in cool water with mild detergent, avoiding harsh chemicals, and following the care instructions provided on the product page.
+          How can I contact you?|You can reach us at lumieresilk.ca@gmail.com — we are happy to assist.
+        ' | split: newline -%}
+
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">What products do you offer?<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 9l-7 7-7-7"/></svg></button>
+          <div class="faq-answer"><div class="faq-answer-inner">Lumière Silk offers elegant silk scarves, gift-ready sets, and selected accessories designed with softness, refinement, and timeless beauty in mind.</div></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">Do your products come in gift packaging?<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 9l-7 7-7-7"/></svg></button>
+          <div class="faq-answer"><div class="faq-answer-inner">Some products include gift-ready packaging or gift box presentation. Please refer to the individual product description for details.</div></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">Do you ship within Canada?<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 9l-7 7-7-7"/></svg></button>
+          <div class="faq-answer"><div class="faq-answer-inner">Yes, Lumière Silk currently focuses mainly on shipping within Canada.</div></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">Do you ship to the United States?<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 9l-7 7-7-7"/></svg></button>
+          <div class="faq-answer"><div class="faq-answer-inner">At this stage, our primary focus is Canada. U.S. shipping may be added in the future.</div></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">How long does shipping take?<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 9l-7 7-7-7"/></svg></button>
+          <div class="faq-answer"><div class="faq-answer-inner">Shipping times may vary depending on the destination and shipping method selected at checkout. A confirmation email with tracking information will be provided when available. Processing time is 2–5 business days.</div></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">Can I return or exchange an item?<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 9l-7 7-7-7"/></svg></button>
+          <div class="faq-answer"><div class="faq-answer-inner">Eligible items may be returned or exchanged within 7 days of delivery, provided they are unused, in original condition, and returned with the original packaging.</div></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">Are gift sets and accessories returnable?<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 9l-7 7-7-7"/></svg></button>
+          <div class="faq-answer"><div class="faq-answer-inner">For hygiene and product protection reasons, certain items such as earrings or selected gift sets may be final sale unless they arrive damaged or incorrect.</div></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">How should I care for my scarf?<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 9l-7 7-7-7"/></svg></button>
+          <div class="faq-answer"><div class="faq-answer-inner">Hand wash gently in cool water with mild detergent, do not wring, lay flat to dry away from direct sunlight, and iron on the lowest setting inside out. Avoid harsh chemicals.</div></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">How can I contact you?<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 9l-7 7-7-7"/></svg></button>
+          <div class="faq-answer"><div class="faq-answer-inner">You can reach us at <a href="mailto:lumieresilk.ca@gmail.com">lumieresilk.ca@gmail.com</a> — we are happy to assist with any questions.</div></div>
+        </div>
+
+      {%- endfor -%}
+
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "FAQ Page",
+  "blocks": [
+    {
+      "type": "faq_item",
+      "name": "FAQ Item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "question",
+          "label": "Question"
+        },
+        {
+          "type": "richtext",
+          "id": "answer",
+          "label": "Answer"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "FAQ Page"
+    }
+  ]
+}
+{% endschema %}

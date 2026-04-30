@@ -1,0 +1,87 @@
+<section class="brand-intro-section section-pad" aria-label="Brand introduction">
+  <div class="container">
+    <div class="brand-intro-grid">
+
+      <div class="brand-intro-text fade-in">
+        {%- if section.settings.label != blank -%}
+          <p class="text-label">{{ section.settings.label | escape }}</p>
+        {%- endif -%}
+        <h2 class="brand-intro-title heading-serif">{{ section.settings.heading }}</h2>
+        <p class="brand-intro-body">{{ section.settings.body }}</p>
+        {%- if section.settings.button_label != blank and section.settings.button_url != blank -%}
+          <a href="{{ section.settings.button_url }}" class="btn btn-outline" style="margin-top:2rem;">
+            {{ section.settings.button_label | escape }}
+          </a>
+        {%- endif -%}
+      </div>
+
+      <div class="brand-intro-image fade-in">
+        {%- if section.settings.image != blank -%}
+          {%- assign brand_intro_alt = section.settings.heading | escape -%}
+          {{
+            section.settings.image
+            | image_url: width: 800
+            | image_tag:
+              loading: 'lazy',
+              sizes: '(max-width: 768px) 100vw, 50vw',
+              alt: brand_intro_alt
+          }}
+        {%- else -%}
+          <img
+            src="{{ 'lumiere-brand-intro.jpg' | asset_url }}"
+            alt="{{ section.settings.heading | escape }}"
+            loading="lazy"
+          >
+        {%- endif -%}
+      </div>
+
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Brand Introduction",
+  "tag": "div",
+  "settings": [
+    {
+      "type": "text",
+      "id": "label",
+      "label": "Label",
+      "default": "Our Philosophy"
+    },
+    {
+      "type": "textarea",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Timeless Beauty, Thoughtfully Presented"
+    },
+    {
+      "type": "textarea",
+      "id": "body",
+      "label": "Body text",
+      "default": "Lumière Silk is a premium accessories and gifting brand centered around elegance, softness, and refined details. From silk scarves to beautifully presented gift sets, each piece is chosen to offer a graceful and elevated experience for both personal use and meaningful gifting."
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label"
+    },
+    {
+      "type": "url",
+      "id": "button_url",
+      "label": "Button URL"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Brand Introduction"
+    }
+  ]
+}
+{% endschema %}

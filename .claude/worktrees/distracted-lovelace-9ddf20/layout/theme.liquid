@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="{{ request.locale.iso_code }}">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#faf8f5">
+    <link rel="canonical" href="{{ canonical_url }}">
+
+    {%- if settings.favicon != blank -%}
+      <link rel="icon" type="image/png" href="{{ settings.favicon | image_url: width: 32, height: 32 }}">
+    {%- endif -%}
+
+    <title>
+      {%- if request.page_type == 'index' -%}
+        {{ shop.name }} — Elegant Silk Scarves &amp; Gift Sets
+      {%- elsif page_title == shop.name -%}
+        {{ page_title }}
+      {%- else -%}
+        {{ page_title }} &mdash; {{ shop.name }}
+      {%- endif -%}
+    </title>
+
+    {%- if page_description -%}
+      <meta name="description" content="{{ page_description | escape }}">
+    {%- endif -%}
+
+    {{ content_for_header }}
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    {{ 'lumiere.css' | asset_url | stylesheet_tag }}
+  </head>
+
+  <body class="page-{{ request.page_type }}{% if settings.animations_enabled %} animations-enabled{% endif %}">
+    <a class="skip-link" href="#main-content">Skip to content</a>
+
+    {% section 'announcement-bar' %}
+    {% section 'header' %}
+
+    <main id="main-content" tabindex="-1" role="main">
+      {{ content_for_layout }}
+    </main>
+
+    {% section 'footer' %}
+
+    {%- render 'cart-drawer' -%}
+
+    <div id="lumiere-overlay" class="lumiere-overlay" aria-hidden="true"></div>
+
+    <script src="{{ 'lumiere.js' | asset_url }}" defer="defer"></script>
+  </body>
+</html>

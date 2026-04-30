@@ -1,0 +1,159 @@
+<header class="site-header" role="banner" id="site-header">
+  <div class="container">
+    <div class="header-inner">
+
+      <!-- Hamburger (mobile) -->
+      <button class="hamburger-btn" id="hamburger-btn" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+      <!-- Logo -->
+      <a href="{{ routes.root_url }}" class="header-logo" aria-label="{{ shop.name }} — Home">
+        {%- if section.settings.logo != blank -%}
+          {{ section.settings.logo | image_url: width: 200 | image_tag: loading: 'eager', alt: shop.name, style: 'height:' | append: section.settings.logo_height | append: 'px;width:auto;' }}
+        {%- else -%}
+          <span class="header-logo-text">{{ shop.name }}</span>
+        {%- endif -%}
+      </a>
+
+      <!-- Desktop Nav -->
+      <nav class="header-nav" aria-label="Main navigation">
+        {%- assign main_menu = section.settings.menu | default: linklists['main-menu'] -%}
+        {%- for link in main_menu.links -%}
+          {%- assign link_title = link.title | strip | downcase -%}
+          {%- assign link_url = link.url -%}
+          {%- if link_title == 'home' -%}
+            {%- assign link_url = routes.root_url -%}
+          {%- endif -%}
+          {%- if link.links != blank -%}
+            <div class="nav-item nav-item--dropdown">
+              <a href="{{ link_url }}" class="nav-link {% if link.active or request.page_type == 'index' and link_title == 'home' %}active{% endif %}" aria-haspopup="true">
+                {{ link.title }}
+                <svg class="nav-chevron" width="10" height="6" viewBox="0 0 10 6" fill="none" aria-hidden="true">
+                  <path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </a>
+              <div class="nav-dropdown" role="menu">
+                {%- for child in link.links -%}
+                  <a href="{{ child.url }}" class="nav-dropdown-item {% if child.active %}active{% endif %}" role="menuitem">{{ child.title }}</a>
+                {%- endfor -%}
+              </div>
+            </div>
+          {%- else -%}
+            <div class="nav-item">
+              <a href="{{ link_url }}" class="nav-link {% if link.active or request.page_type == 'index' and link_title == 'home' %}active{% endif %}">{{ link.title }}</a>
+            </div>
+          {%- endif -%}
+        {%- endfor -%}
+      </nav>
+
+      <!-- Header Actions -->
+      <div class="header-actions">
+        <!-- Search -->
+        <button class="header-icon-btn search-desktop" id="search-btn" aria-label="Search" title="Search">
+          {%- render 'icon-search' -%}
+        </button>
+
+        <!-- Account -->
+        {%- if shop.customer_accounts_enabled -%}
+          <a href="{%- if customer -%}{{ routes.account_url }}{%- else -%}{{ routes.account_login_url }}{%- endif -%}"
+             class="header-icon-btn" aria-label="Account" title="Account">
+            {%- render 'icon-account' -%}
+          </a>
+        {%- endif -%}
+
+        <!-- Cart -->
+        <button class="header-icon-btn header-cart-btn" data-open-cart aria-label="Open cart" title="Cart">
+          {%- render 'icon-cart' -%}
+          <span class="cart-count" data-cart-count aria-live="polite" data-count="{{ cart.item_count }}">
+            {{ cart.item_count }}
+          </span>
+        </button>
+      </div>
+
+    </div>
+  </div>
+</header>
+
+<!-- Mobile Nav -->
+<nav class="mobile-nav" id="mobile-nav" aria-label="Mobile navigation" aria-hidden="true">
+  <div class="mobile-nav-header">
+    <a href="{{ routes.root_url }}" class="mobile-nav-logo" aria-label="{{ shop.name }}">{{ shop.name }}</a>
+    <button class="mobile-nav-close" id="mobile-nav-close" aria-label="Close menu">
+      {%- render 'icon-close' -%}
+    </button>
+  </div>
+  <div class="mobile-nav-links">
+    {%- assign main_menu = section.settings.menu | default: linklists['main-menu'] -%}
+    {%- for link in main_menu.links -%}
+      {%- assign link_title = link.title | strip | downcase -%}
+      {%- assign link_url = link.url -%}
+      {%- if link_title == 'home' -%}
+        {%- assign link_url = routes.root_url -%}
+      {%- endif -%}
+      <a href="{{ link_url }}" class="mobile-nav-link">{{ link.title }}</a>
+    {%- endfor -%}
+  </div>
+  <div class="mobile-nav-footer">
+    <a href="{{ routes.search_url }}" class="mobile-nav-sub">Search</a>
+    {%- if shop.customer_accounts_enabled -%}
+      <a href="{%- if customer -%}{{ routes.account_url }}{%- else -%}{{ routes.account_login_url }}{%- endif -%}" class="mobile-nav-sub">Account</a>
+    {%- endif -%}
+  </div>
+</nav>
+
+<!-- Search Overlay -->
+<div class="search-overlay" id="search-overlay" aria-hidden="true" role="search">
+  <button class="search-overlay-close" id="search-overlay-close" aria-label="Close search">
+    {%- render 'icon-close' -%}
+  </button>
+  <div class="search-overlay-inner">
+    <p class="search-overlay-label">What are you looking for?</p>
+    <form class="search-form" action="{{ routes.search_url }}" method="get" role="search">
+      <input type="hidden" name="type" value="product">
+      <input
+        class="search-input"
+        type="search"
+        name="q"
+        placeholder="Search scarves, gift sets…"
+        autocomplete="off"
+        aria-label="Search products"
+        id="search-input"
+      >
+      <button class="search-submit" type="submit" aria-label="Submit search">
+        {%- render 'icon-search' -%}
+      </button>
+    </form>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Header",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo image"
+    },
+    {
+      "type": "range",
+      "id": "logo_height",
+      "min": 24,
+      "max": 56,
+      "step": 2,
+      "unit": "px",
+      "label": "Logo height",
+      "default": 36
+    },
+    {
+      "type": "link_list",
+      "id": "menu",
+      "label": "Main menu",
+      "default": "main-menu"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,28 @@
+<!-- Cart Drawer -->
+<div class="cart-drawer" id="cart-drawer" role="dialog" aria-modal="true" aria-label="Shopping cart">
+  <div class="cart-drawer-header">
+    <h2 class="cart-drawer-title">Your Bag</h2>
+    <button class="cart-drawer-close" id="cart-drawer-close" aria-label="Close cart">
+      {%- render 'icon-close' -%}
+    </button>
+  </div>
+
+  <div class="cart-drawer-items" id="cart-drawer-items">
+    <!-- Populated by JS -->
+  </div>
+
+  <div class="cart-drawer-empty" id="cart-drawer-empty" style="display:none;">
+    <p>Your bag is empty</p>
+    <a href="{{ routes.all_products_collection_url }}" class="btn btn-outline" style="font-size:0.75rem;">Shop Now</a>
+  </div>
+
+  <div class="cart-drawer-footer" id="cart-drawer-footer" style="display:none;">
+    <div class="cart-subtotal">
+      <span class="cart-subtotal-label">Subtotal</span>
+      <span class="cart-subtotal-amount" id="cart-subtotal-amount">$0.00</span>
+    </div>
+    <p class="cart-tax-note">Taxes and shipping calculated at checkout</p>
+    <a href="{{ routes.cart_url }}/checkout" class="cart-checkout-btn">Checkout</a>
+    <a href="{{ routes.all_products_collection_url }}" class="cart-continue-btn">Continue Shopping</a>
+  </div>
+</div>

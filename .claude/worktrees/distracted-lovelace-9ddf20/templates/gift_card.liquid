@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="{{ request.locale.iso_code }}">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{ 'gift_cards.issued.title' | t }}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+    {{ 'lumiere.css' | asset_url | stylesheet_tag }}
+    {{ content_for_header }}
+  </head>
+  <body style="background:var(--color-cream); min-height:100vh; display:flex; align-items:center; justify-content:center; padding:2rem;">
+    <div style="text-align:center; max-width:500px;">
+      <h1 style="font-family:var(--font-heading); font-size:2rem; margin-bottom:1rem;">{{ shop.name }}</h1>
+      <p style="font-family:var(--font-heading); font-style:italic; color:var(--color-text-muted); margin-bottom:2rem;">A gift of quiet luxury</p>
+      <div style="background:var(--color-ivory); padding:2.5rem; border:1px solid var(--color-border);">
+        <p style="font-size:0.75rem; letter-spacing:0.12em; text-transform:uppercase; color:var(--color-gold); margin-bottom:0.75rem;">Gift Card</p>
+        <p style="font-family:var(--font-heading); font-size:2.5rem; margin-bottom:0.5rem;">{{ gift_card.initial_value | money }}</p>
+        <p style="color:var(--color-text-muted); font-size:0.875rem; margin-bottom:1.5rem;">
+          Balance: {{ gift_card.balance | money }}
+        </p>
+        <div style="background:var(--color-cream); padding:1rem; font-family:monospace; font-size:1.125rem; letter-spacing:0.1em; margin-bottom:1.5rem;">
+          {{ gift_card.code | format_code }}
+        </div>
+        {{ gift_card.qr_identifier | qr_code }}
+      </div>
+      <p style="margin-top:1.5rem;">
+        <a href="{{ shop.url }}" class="btn btn-primary">Visit {{ shop.name }}</a>
+      </p>
+    </div>
+  </body>
+</html>

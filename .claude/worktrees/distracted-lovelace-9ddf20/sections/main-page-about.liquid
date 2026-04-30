@@ -1,0 +1,133 @@
+<!-- About page hero -->
+<div class="about-hero">
+  <div class="about-hero-bg">
+    {%- if section.settings.hero_image != blank -%}
+      {{ section.settings.hero_image | image_url: width: 1600 | image_tag: loading: 'eager', alt: 'About Lumière Silk' }}
+    {%- else -%}
+      <div style="background:var(--color-cream);width:100%;height:100%;"></div>
+    {%- endif -%}
+  </div>
+  <div class="about-hero-overlay"></div>
+  <div class="about-hero-content container">
+    <p class="text-label">Our Story</p>
+    <h1 class="about-hero-title heading-serif">{{ section.settings.hero_heading | default: 'A Legacy of Quiet Luxury' }}</h1>
+  </div>
+</div>
+
+<!-- Philosophy -->
+<section class="about-section" style="background:var(--color-ivory);">
+  <div class="container">
+    <div class="about-section-inner fade-in">
+      <p class="text-label">Our Philosophy</p>
+      <h2 class="about-section-title heading-serif">Beauty in Simplicity</h2>
+      <p class="about-section-body">
+        Lumière Silk was created from a deep love of elegance, softness, and thoughtful design. We believe that the most meaningful things in life are the ones chosen with care — pieces that feel beautiful from the moment they are held to the moment they are given.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- Craftsmanship -->
+<section class="about-section" style="background:var(--color-cream);">
+  <div class="container">
+    <div class="brand-intro-grid">
+      <div class="brand-intro-text fade-in">
+        <p class="text-label">Craftsmanship</p>
+        <h2 class="brand-intro-title heading-serif">Made with Intention</h2>
+        <p class="brand-intro-body">
+          Every piece in our collection is selected for its quality, beauty, and feel. Our silk scarves are crafted from premium mulberry silk, chosen for its natural luminosity and lasting softness. From material selection to final presentation, each step reflects our commitment to a refined and elevated experience.
+        </p>
+        <p class="brand-intro-body" style="margin-top:1rem;">
+          Our packaging is designed to be as thoughtful as the product itself — creating a gifting experience that begins before the silk is even touched.
+        </p>
+      </div>
+      <div class="brand-intro-image fade-in">
+        {%- if section.settings.craft_image != blank -%}
+          {{ section.settings.craft_image | image_url: width: 800 | image_tag: loading: 'lazy', alt: 'Silk craftsmanship' }}
+        {%- else -%}
+          <div style="background:var(--color-blush);width:100%;height:100%;"></div>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Values -->
+<section class="about-section" style="background:var(--color-ivory);">
+  <div class="container">
+    <div class="about-section-inner fade-in" style="margin-bottom:3rem;">
+      <p class="text-label">What We Believe</p>
+      <h2 class="about-section-title heading-serif">Our Values</h2>
+    </div>
+    <div class="about-values fade-in">
+      <div class="about-value-card">
+        <div class="about-value-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/>
+          </svg>
+        </div>
+        <h3 class="about-value-title heading-serif">Timeless Design</h3>
+        <p class="about-value-body">Pieces chosen to transcend seasons — classic, graceful, and effortlessly elegant.</p>
+      </div>
+      <div class="about-value-card">
+        <div class="about-value-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+          </svg>
+        </div>
+        <h3 class="about-value-title heading-serif">Thoughtful Gifting</h3>
+        <p class="about-value-body">Beautiful presentation that makes every piece feel like a considered, meaningful gift.</p>
+      </div>
+      <div class="about-value-card">
+        <div class="about-value-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/>
+          </svg>
+        </div>
+        <h3 class="about-value-title heading-serif">Premium Quality</h3>
+        <p class="about-value-body">Only materials and designs that meet our standard of refinement and lasting beauty.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="brand-story-section section-pad">
+  <div class="container">
+    <div class="brand-story-inner">
+      <p class="text-label">Discover</p>
+      <div class="brand-story-divider"></div>
+      <h2 class="brand-story-title heading-serif">Beautifully Crafted for Those Who Appreciate the Quiet Luxury of Silk</h2>
+      <a href="{{ routes.all_products_collection_url }}" class="btn btn-outline-light">Shop the Collection</a>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "About Page",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "hero_image",
+      "label": "Hero image"
+    },
+    {
+      "type": "text",
+      "id": "hero_heading",
+      "label": "Hero heading",
+      "default": "A Legacy of Quiet Luxury"
+    },
+    {
+      "type": "image_picker",
+      "id": "craft_image",
+      "label": "Craftsmanship image"
+    }
+  ],
+  "presets": [
+    {
+      "name": "About Page"
+    }
+  ]
+}
+{% endschema %}

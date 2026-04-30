@@ -1,0 +1,20 @@
+{%- assign requested_path = request.path | downcase -%}
+{%- if requested_path == '/home' or requested_path == '/pages/home' -%}
+  <script>
+    window.location.replace('{{ routes.root_url }}');
+  </script>
+{%- endif -%}
+
+<div class="not-found-page">
+  <p class="text-label not-found-label">404</p>
+  <h1 class="not-found-title heading-serif">Page Not Found</h1>
+  <p class="not-found-body">If you just entered the storefront password, return home to continue to the homepage.</p>
+  <a href="{{ routes.root_url }}" class="btn btn-primary">Return Home</a>
+</div>
+
+{% schema %}
+{
+  "name": "404",
+  "settings": []
+}
+{% endschema %}

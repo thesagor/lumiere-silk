@@ -1,0 +1,40 @@
+{
+  "sections": {
+    "intro": {
+      "type": "lumiere-flexible",
+      "blocks": {
+        "label": { "type": "label", "settings": { "text": "Lumière Silk" } },
+        "heading": {
+          "type": "heading",
+          "settings": {
+            "text": "Design pages from your mockups",
+            "tag": "h1",
+            "size": "large"
+          }
+        },
+        "divider": { "type": "divider", "settings": {} },
+        "intro_text": {
+          "type": "text",
+          "settings": {
+            "body": "<p>Use the Flexible Section below to compose pages block by block, or paste raw HTML from <code>designHTML/</code> mockups into the Custom HTML section.</p>"
+          }
+        }
+      },
+      "block_order": ["label", "heading", "divider", "intro_text"],
+      "settings": {
+        "content_align": "center",
+        "max_width": 760,
+        "padded": true
+      }
+    },
+    "custom_html": {
+      "type": "lumiere-custom-html",
+      "settings": {
+        "padded": true,
+        "full_width": false,
+        "aria_label": "Custom designed section"
+      }
+    }
+  },
+  "order": ["intro", "custom_html"]
+}

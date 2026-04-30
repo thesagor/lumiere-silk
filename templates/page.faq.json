@@ -1,0 +1,11 @@
+{
+  "sections": {
+    "main-page-faq": {
+      "type": "main-page-faq",
+      "blocks": {},
+      "block_order": [],
+      "settings": {}
+    }
+  },
+  "order": ["main-page-faq"]
+}

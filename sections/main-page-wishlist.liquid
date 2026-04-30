@@ -1,0 +1,101 @@
+{%- liquid
+  assign banner_title = section.settings.banner_title | default: page.title | default: 'Wishlist'
+-%}
+
+<div class="page-banner">
+  <h1 class="page-banner-title heading-serif">{{ banner_title | escape }}</h1>
+  {%- if section.settings.banner_subtitle != blank -%}
+    <p class="page-banner-subtitle">{{ section.settings.banner_subtitle | escape }}</p>
+  {%- endif -%}
+</div>
+
+<div class="container">
+  <div class="page-content">
+    <div style="max-width: 1100px; margin: 0 auto;">
+
+      {%- if section.settings.intro != blank -%}
+        <div class="page-intro" style="text-align:center; margin-bottom:2.5rem; color:var(--color-muted,#8a7d6f);">
+          {{ section.settings.intro }}
+        </div>
+      {%- endif -%}
+
+      <div
+        id="lumiere-wishlist"
+        class="wishlist-grid"
+        data-empty-message="{{ section.settings.empty_message | default: 'Your wishlist is empty.' | escape }}"
+        data-shop-url="{{ routes.collections_url }}"
+        style="display:grid; gap:1.5rem; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); min-height:200px;"
+        aria-live="polite"
+      >
+        <p class="wishlist-empty" style="grid-column:1/-1; text-align:center; padding:3rem 1rem; color:var(--color-muted,#8a7d6f);">
+          {{ section.settings.empty_message | default: 'Your wishlist is empty.' }}
+        </p>
+      </div>
+
+      <div style="text-align:center; margin-top:2.5rem;">
+        <a href="{{ routes.collections_url }}" class="btn btn-outline">Continue browsing</a>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+  (function () {
+    var key = 'lumiere_wishlist';
+    var grid = document.getElementById('lumiere-wishlist');
+    if (!grid) return;
+
+    function read() {
+      try { return JSON.parse(localStorage.getItem(key)) || []; } catch (e) { return []; }
+    }
+    function write(items) { localStorage.setItem(key, JSON.stringify(items)); }
+
+    function renderEmpty() {
+      grid.innerHTML = '<p class="wishlist-empty" style="grid-column:1/-1; text-align:center; padding:3rem 1rem; color:var(--color-muted,#8a7d6f);">' + grid.dataset.emptyMessage + '</p>';
+    }
+
+    function render() {
+      var items = read();
+      if (!items.length) { renderEmpty(); return; }
+      grid.innerHTML = '';
+      items.forEach(function (item) {
+        var card = document.createElement('article');
+        card.className = 'product-card wishlist-card';
+        card.innerHTML =
+          '<a href="' + item.url + '" class="product-card-image">' +
+            (item.image ? '<img src="' + item.image + '" alt="' + (item.title || '') + '" loading="lazy">' : '') +
+          '</a>' +
+          '<div class="product-card-info">' +
+            '<h3 class="product-card-title"><a href="' + item.url + '">' + (item.title || '') + '</a></h3>' +
+            (item.price ? '<div class="product-card-price"><span>' + item.price + '</span></div>' : '') +
+            '<button type="button" class="btn btn-outline" data-remove="' + item.id + '" style="margin-top:0.75rem; font-size:0.75rem;">Remove</button>' +
+          '</div>';
+        grid.appendChild(card);
+      });
+    }
+
+    grid.addEventListener('click', function (e) {
+      var btn = e.target.closest('[data-remove]');
+      if (!btn) return;
+      var id = btn.getAttribute('data-remove');
+      write(read().filter(function (i) { return String(i.id) !== String(id); }));
+      render();
+    });
+
+    render();
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Wishlist Page",
+  "settings": [
+    { "type": "text", "id": "banner_title", "label": "Banner title (defaults to page title)" },
+    { "type": "text", "id": "banner_subtitle", "label": "Banner subtitle", "default": "Saved pieces, ready when you are." },
+    { "type": "richtext", "id": "intro", "label": "Intro text" },
+    { "type": "text", "id": "empty_message", "label": "Empty wishlist message", "default": "Your wishlist is empty." }
+  ],
+  "presets": [{ "name": "Wishlist Page" }]
+}
+{% endschema %}

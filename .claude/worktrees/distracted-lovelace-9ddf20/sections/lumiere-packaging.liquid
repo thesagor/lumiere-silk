@@ -1,0 +1,81 @@
+<section class="packaging-section section-pad" aria-label="Packaging experience">
+  <div class="container">
+    <div class="packaging-grid">
+
+      {%- assign packaging_alt = section.settings.heading | escape -%}
+      <div class="packaging-image fade-in">
+        {%- if section.settings.image != blank -%}
+          {{
+            section.settings.image
+            | image_url: width: 800
+            | image_tag:
+              loading: 'lazy',
+              sizes: '(max-width: 768px) 100vw, 50vw',
+              alt: packaging_alt
+          }}
+        {%- else -%}
+          <img
+            src="{{ 'lumiere-gift-packaging.jpg' | asset_url }}"
+            alt="{{ section.settings.heading | escape }}"
+            loading="lazy"
+          >
+        {%- endif -%}
+      </div>
+
+      <div class="packaging-text fade-in">
+        {%- if section.settings.label != blank -%}
+          <p class="text-label">{{ section.settings.label | escape }}</p>
+        {%- endif -%}
+        <h2 class="packaging-title heading-serif">{{ section.settings.heading }}</h2>
+        <p class="packaging-body">{{ section.settings.body }}</p>
+        {%- if section.settings.tagline != blank -%}
+          <p class="packaging-tagline">{{ section.settings.tagline | escape }}</p>
+        {%- endif -%}
+      </div>
+
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Packaging Experience",
+  "tag": "div",
+  "settings": [
+    {
+      "type": "text",
+      "id": "label",
+      "label": "Label",
+      "default": "Presentation"
+    },
+    {
+      "type": "textarea",
+      "id": "heading",
+      "label": "Heading",
+      "default": "The Art of Gifting"
+    },
+    {
+      "type": "textarea",
+      "id": "body",
+      "label": "Body text",
+      "default": "Every detail matters — from the softness of the silk to the presentation of the final box. Our packaging is designed to feel refined, graceful, and ready to gift, creating a memorable unboxing experience that reflects the beauty of the brand."
+    },
+    {
+      "type": "text",
+      "id": "tagline",
+      "label": "Tagline",
+      "default": "Refined packaging, thoughtful details, timeless impression."
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Packaging Experience"
+    }
+  ]
+}
+{% endschema %}

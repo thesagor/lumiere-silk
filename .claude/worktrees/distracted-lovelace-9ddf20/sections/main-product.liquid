@@ -1,0 +1,226 @@
+{%- assign current_variant = product.selected_or_first_available_variant -%}
+{%- assign product_form_id = 'product-form-' | append: product.id -%}
+
+<div class="container">
+  {%- render 'breadcrumb' -%}
+
+  <div class="product-layout">
+
+    <!-- Gallery -->
+    <div class="product-gallery">
+      <div class="product-gallery-main">
+        {%- if product.featured_image -%}
+          <img
+            id="product-main-img"
+            src="{{ product.featured_image | image_url: width: 900 }}"
+            alt="{{ product.featured_image.alt | default: product.title | escape }}"
+            width="{{ product.featured_image.width }}"
+            height="{{ product.featured_image.height }}"
+            loading="eager"
+          >
+        {%- else -%}
+          {{ 'product-1' | placeholder_svg_tag }}
+        {%- endif -%}
+      </div>
+
+      {%- if product.images.size > 1 -%}
+        <div class="product-gallery-thumbs">
+          {%- for image in product.images limit: 5 -%}
+            <button
+              class="product-gallery-thumb {% if forloop.first %}active{% endif %}"
+              data-src="{{ image | image_url: width: 900 }}"
+              aria-label="View image {{ forloop.index }}"
+            >
+              <img
+                src="{{ image | image_url: width: 150 }}"
+                alt="{{ image.alt | default: product.title | escape }}"
+                width="72"
+                height="88"
+                loading="lazy"
+              >
+            </button>
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+    </div>
+
+    <!-- Product info -->
+    <div class="product-info">
+      <p class="product-vendor">{{ product.vendor }}</p>
+      <h1 class="product-title heading-serif">{{ product.title }}</h1>
+
+      <div class="product-price-wrap">
+        <span class="product-price" id="product-price">
+          {{ current_variant.price | money }}
+        </span>
+        {%- if current_variant.compare_at_price > current_variant.price -%}
+          <span class="product-price-compare" id="product-compare-price">
+            {{ current_variant.compare_at_price | money }}
+          </span>
+        {%- else -%}
+          <span class="product-price-compare" id="product-compare-price" style="display:none;"></span>
+        {%- endif -%}
+      </div>
+
+      {%- if product.description != blank -%}
+        <p class="product-short-desc">
+          {{ product.description | strip_html | truncatewords: 30 }}
+        </p>
+      {%- endif -%}
+
+      <!-- Product Form -->
+      {%- form 'product', product, id: product_form_id, class: 'product-form', id: 'product-form' -%}
+        <input type="hidden" name="id" value="{{ current_variant.id }}">
+        <input type="hidden" name="quantity" value="1">
+
+        {%- unless product.has_only_default_variant -%}
+          {%- for option in product.options_with_values -%}
+            <div class="product-option" data-option-index="{{ forloop.index0 }}">
+              <p class="product-option-label">
+                {{ option.name }}
+                <span>{{ option.selected_value }}</span>
+              </p>
+              <div class="variant-btns">
+                {%- for value in option.values -%}
+                  {%- assign variant_available = false -%}
+                  {%- for variant in product.variants -%}
+                    {%- if variant.option1 == value or variant.option2 == value or variant.option3 == value -%}
+                      {%- if variant.available -%}{%- assign variant_available = true -%}{%- endif -%}
+                    {%- endif -%}
+                  {%- endfor -%}
+                  <button
+                    type="button"
+                    class="variant-btn {% if option.selected_value == value %}active{% endif %} {% unless variant_available %}unavailable{% endunless %}"
+                    data-value="{{ value | escape }}"
+                    {% unless variant_available %}aria-disabled="true"{% endunless %}
+                  >
+                    {{ value }}
+                  </button>
+                {%- endfor -%}
+              </div>
+            </div>
+          {%- endfor -%}
+        {%- endunless -%}
+
+        <!-- Add to cart -->
+        <div class="product-atc-wrap">
+          <button
+            type="submit"
+            id="atc-btn"
+            class="product-atc"
+            data-atc
+            data-variant-id="{{ current_variant.id }}"
+            {%- unless current_variant.available -%}disabled{%- endunless -%}
+          >
+            {%- if current_variant.available -%}Add to Bag{%- else -%}Sold Out{%- endif -%}
+          </button>
+        </div>
+
+      {%- endform -%}
+
+      <!-- Meta -->
+      <div class="product-meta">
+        <div class="product-meta-item">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/>
+          </svg>
+          <span><span class="product-meta-label">Material</span><span class="product-meta-value"> — Premium Mulberry Silk</span></span>
+        </div>
+        <div class="product-meta-item">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"/>
+          </svg>
+          <span><span class="product-meta-label">Size</span><span class="product-meta-value"> — 86 × 86 cm</span></span>
+        </div>
+        <div class="product-meta-item">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"/>
+          </svg>
+          <span><span class="product-meta-label">Packaging</span><span class="product-meta-value"> — Elegantly presented, gift-ready</span></span>
+        </div>
+        <div class="product-meta-item">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4"/>
+          </svg>
+          <span><span class="product-meta-label">Shipping</span><span class="product-meta-value"> — Canada · 2–5 business days</span></span>
+        </div>
+      </div>
+
+      <!-- Tabs -->
+      <div class="product-tabs" style="margin-top:2rem;">
+        <div class="product-tab-header">
+          <button class="product-tab-btn active" data-tab="description">Description</button>
+          <button class="product-tab-btn" data-tab="care">Care</button>
+          <button class="product-tab-btn" data-tab="shipping">Shipping</button>
+          <button class="product-tab-btn" data-tab="returns">Returns</button>
+        </div>
+
+        <div class="product-tab-content active" data-tab-content="description">
+          {%- if product.description != blank -%}
+            {{ product.description }}
+          {%- else -%}
+            <p>Crafted from premium mulberry silk, this scarf brings a touch of quiet luxury to any occasion. With its softness, luminosity, and carefully considered design, it is equally beautiful worn and gifted.</p>
+            <p><strong>Perfect For:</strong></p>
+            <ul>
+              <li>Everyday elegance and refined styling</li>
+              <li>A thoughtful and beautifully presented gift</li>
+              <li>Special occasions and memorable moments</li>
+            </ul>
+          {%- endif -%}
+        </div>
+
+        <div class="product-tab-content" data-tab-content="care">
+          <p>To preserve the beauty of your silk scarf:</p>
+          <ul>
+            <li>Hand wash gently in cool water with mild detergent</li>
+            <li>Do not wring or twist — press gently in a towel</li>
+            <li>Lay flat or hang to dry, away from direct sunlight</li>
+            <li>Iron on the lowest setting, inside out, or use steam</li>
+            <li>Store loosely folded in a cool, dry place</li>
+          </ul>
+        </div>
+
+        <div class="product-tab-content" data-tab-content="shipping">
+          <p>Processing time is 2–5 business days after payment confirmation.</p>
+          <p>We currently ship within Canada. Shipping rates are calculated at checkout based on your delivery address and selected method.</p>
+          <p>You will receive a tracking email once your order has been dispatched.</p>
+        </div>
+
+        <div class="product-tab-content" data-tab-content="returns">
+          <p>We accept returns within 7 days of delivery for eligible items that are unused, in original condition, and returned with original packaging.</p>
+          <p>Please note that earrings, worn items, and certain gift sets may not be eligible for return. Email <a href="mailto:lumieresilk.ca@gmail.com">lumieresilk.ca@gmail.com</a> to initiate a return.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- Variants JSON for JS -->
+<script>
+  window.__variants = {{ product.variants | json }};
+</script>
+
+<!-- Product Recommendations -->
+{%- if recommendations.performed? and recommendations.products_count > 0 -%}
+  <div class="collection-section section-pad" style="margin-top:4rem;">
+    <div class="container">
+      <div class="collection-header">
+        <p class="text-label">You May Also Like</p>
+        <h2 class="collection-title heading-serif">Complete Your Look</h2>
+      </div>
+      <div class="collection-grid">
+        {%- for product in recommendations.products limit: 3 -%}
+          {%- render 'product-card', product: product -%}
+        {%- endfor -%}
+      </div>
+    </div>
+  </div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Product",
+  "settings": []
+}
+{% endschema %}

@@ -1,0 +1,85 @@
+<div class="container cart-page">
+  <h1 class="cart-page-title heading-serif">Your Bag</h1>
+
+  {%- if cart.item_count > 0 -%}
+    {%- form 'cart', cart, class: 'cart-page-layout' -%}
+
+      <!-- Cart Items -->
+      <div class="cart-page-items">
+        {%- for item in cart.items -%}
+          <div class="cart-page-item">
+            <a href="{{ item.url }}">
+              <img
+                class="cart-page-item-img"
+                src="{{ item.image | image_url: width: 200 }}"
+                alt="{{ item.product.title | escape }}"
+                width="100"
+                height="125"
+                loading="lazy"
+              >
+            </a>
+            <div style="flex:1;">
+              <a href="{{ item.url }}"><p class="cart-page-item-title">{{ item.product.title }}</p></a>
+              {%- if item.variant.title != 'Default Title' -%}
+                <p class="cart-page-item-variant">{{ item.variant.title }}</p>
+              {%- endif -%}
+              <p class="cart-page-item-variant">{{ item.vendor }}</p>
+
+              <div style="display:flex; align-items:center; gap:1.5rem; margin-top:0.75rem;">
+                <div class="cart-item-qty">
+                  <a href="{{ routes.cart_change_url }}?id={{ item.key }}&quantity={{ item.quantity | minus: 1 }}" class="qty-btn">−</a>
+                  <span class="qty-num">{{ item.quantity }}</span>
+                  <a href="{{ routes.cart_change_url }}?id={{ item.key }}&quantity={{ item.quantity | plus: 1 }}" class="qty-btn">+</a>
+                </div>
+                <a href="{{ routes.cart_change_url }}?id={{ item.key }}&quantity=0" style="font-size:0.75rem; color:var(--color-text-muted); text-transform:uppercase; letter-spacing:0.06em;">Remove</a>
+              </div>
+            </div>
+            <p style="font-size:0.9375rem; white-space:nowrap;">{{ item.final_line_price | money }}</p>
+          </div>
+        {%- endfor -%}
+      </div>
+
+      <!-- Order Summary -->
+      <div class="cart-summary">
+        <h2 class="cart-summary-title heading-serif">Order Summary</h2>
+
+        <div class="cart-summary-row">
+          <span>Subtotal</span>
+          <span>{{ cart.total_price | money }}</span>
+        </div>
+        <div class="cart-summary-row">
+          <span>Shipping</span>
+          <span>Calculated at checkout</span>
+        </div>
+        <div class="cart-summary-row total">
+          <span>Total</span>
+          <span>{{ cart.total_price | money }} CAD</span>
+        </div>
+        <p class="cart-summary-tax">Taxes calculated at checkout</p>
+
+        <button type="submit" name="checkout" class="btn btn-primary" style="width:100%; justify-content:center;">
+          Proceed to Checkout
+        </button>
+
+        <a href="{{ routes.all_products_collection_url }}" style="display:block; text-align:center; margin-top:0.875rem; font-size:0.75rem; text-transform:uppercase; letter-spacing:0.08em; color:var(--color-text-muted);">
+          Continue Shopping
+        </a>
+      </div>
+
+    {%- endform -%}
+  {%- else -%}
+    <div style="text-align:center; padding:5rem 0;">
+      <p class="text-muted" style="font-family:var(--font-heading); font-size:1.5rem; margin-bottom:1rem;">Your bag is empty</p>
+      <p style="color:var(--color-text-muted); margin-bottom:2rem;">Discover our collection of elegant silk scarves and gift sets.</p>
+      <a href="{{ routes.all_products_collection_url }}" class="btn btn-primary">Shop Now</a>
+    </div>
+  {%- endif -%}
+
+</div>
+
+{% schema %}
+{
+  "name": "Cart",
+  "settings": []
+}
+{% endschema %}

@@ -1,0 +1,85 @@
+{%- liquid
+  assign container_class = 'container'
+  if section.settings.full_width
+    assign container_class = 'container container--full'
+  endif
+
+  assign bg = section.settings.background
+-%}
+
+<section
+  class="custom-html-section{% if section.settings.padded %} section-pad{% endif %}"
+  {% if bg != blank %}style="background-color: {{ bg }};"{% endif %}
+  aria-label="{{ section.settings.aria_label | default: 'Custom section' | escape }}"
+>
+  <div class="{{ container_class }}">
+    {%- if section.settings.custom_html != blank -%}
+      {{ section.settings.custom_html }}
+    {%- else -%}
+      <p style="text-align:center; padding:3rem 1rem; color:#8a7d6f;">
+        Paste your <strong>designHTML</strong> mockup into this section's <em>Custom HTML</em> setting in the theme editor.
+      </p>
+    {%- endif -%}
+  </div>
+
+  {%- if section.settings.custom_css != blank -%}
+    <style>{{ section.settings.custom_css }}</style>
+  {%- endif -%}
+</section>
+
+{% schema %}
+{
+  "name": "Custom HTML",
+  "tag": "div",
+  "class": "lumiere-section-custom-html",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Paste raw HTML from your designHTML mockup folder. Use the optional Custom CSS field for scoped styles."
+    },
+    {
+      "type": "html",
+      "id": "custom_html",
+      "label": "Custom HTML"
+    },
+    {
+      "type": "textarea",
+      "id": "custom_css",
+      "label": "Custom CSS (optional)",
+      "info": "Will be wrapped in a <style> tag and applied to this section."
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "checkbox",
+      "id": "padded",
+      "label": "Add vertical padding",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "full_width",
+      "label": "Full width (no container)",
+      "default": false
+    },
+    {
+      "type": "color",
+      "id": "background",
+      "label": "Background color"
+    },
+    {
+      "type": "text",
+      "id": "aria_label",
+      "label": "ARIA label",
+      "default": "Custom section"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom HTML"
+    }
+  ]
+}
+{% endschema %}

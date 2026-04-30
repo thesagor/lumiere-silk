@@ -1,0 +1,81 @@
+{%- if section.settings.show_announcement -%}
+<div class="announcement-bar" role="complementary" aria-label="Announcement">
+  <div class="announcement-bar-track">
+    <div class="announcement-bar-inner" id="announcement-inner">
+      {%- assign has_multi = false -%}
+      {%- if section.settings.announcement_text_2 != blank or section.settings.announcement_text_3 != blank -%}
+        {%- assign has_multi = true -%}
+      {%- endif -%}
+
+      {%- comment -%} Slide 1 {%- endcomment -%}
+      <span class="announcement-slide">
+        <span class="announcement-dot" aria-hidden="true">◆</span>
+        {%- if section.settings.announcement_link != blank -%}
+          <a href="{{ section.settings.announcement_link }}" class="announcement-text">{{ section.settings.announcement_text | escape }}</a>
+        {%- else -%}
+          <span class="announcement-text">{{ section.settings.announcement_text | escape }}</span>
+        {%- endif -%}
+        <span class="announcement-dot" aria-hidden="true">◆</span>
+      </span>
+
+      {%- if section.settings.announcement_text_2 != blank -%}
+      <span class="announcement-slide" aria-hidden="true">
+        <span class="announcement-dot" aria-hidden="true">◆</span>
+        <span class="announcement-text">{{ section.settings.announcement_text_2 | escape }}</span>
+        <span class="announcement-dot" aria-hidden="true">◆</span>
+      </span>
+      {%- endif -%}
+
+      {%- if section.settings.announcement_text_3 != blank -%}
+      <span class="announcement-slide" aria-hidden="true">
+        <span class="announcement-dot" aria-hidden="true">◆</span>
+        <span class="announcement-text">{{ section.settings.announcement_text_3 | escape }}</span>
+        <span class="announcement-dot" aria-hidden="true">◆</span>
+      </span>
+      {%- endif -%}
+    </div>
+  </div>
+</div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Announcement Bar",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_announcement",
+      "label": "Show announcement",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "announcement_text",
+      "label": "Announcement 1",
+      "default": "Complimentary gift wrapping on all orders"
+    },
+    {
+      "type": "text",
+      "id": "announcement_text_2",
+      "label": "Announcement 2 (optional)",
+      "default": "Free shipping on orders over $75"
+    },
+    {
+      "type": "text",
+      "id": "announcement_text_3",
+      "label": "Announcement 3 (optional)",
+      "default": "New arrivals — Silk Scarf Gift Sets now available"
+    },
+    {
+      "type": "url",
+      "id": "announcement_link",
+      "label": "Link for announcement 1 (optional)"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Announcement Bar"
+    }
+  ]
+}
+{% endschema %}

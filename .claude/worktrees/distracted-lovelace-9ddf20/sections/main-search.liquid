@@ -1,0 +1,56 @@
+<div class="container search-page">
+  <h1 class="heading-serif" style="font-size:clamp(1.75rem,3vw,2.5rem); margin-bottom:2rem;">
+    {%- if search.performed -%}
+      Results for &ldquo;{{ search.terms | escape }}&rdquo;
+    {%- else -%}
+      Search
+    {%- endif -%}
+  </h1>
+
+  <form class="search-page-form" action="{{ routes.search_url }}" method="get" role="search">
+    <input type="hidden" name="type" value="product">
+    <input
+      class="search-page-input"
+      type="search"
+      name="q"
+      value="{{ search.terms | escape }}"
+      placeholder="Search silk scarves, gift sets…"
+      aria-label="Search"
+      autocomplete="off"
+    >
+    <button class="search-page-submit" type="submit" aria-label="Search">
+      {%- render 'icon-search' -%}
+    </button>
+  </form>
+
+  {%- if search.performed -%}
+    {%- if search.results_count > 0 -%}
+      <p style="font-size:0.875rem; color:var(--color-text-muted); margin-bottom:2rem;">
+        {{ search.results_count }} {{ search.results_count | pluralize: 'result', 'results' }} for &ldquo;{{ search.terms | escape }}&rdquo;
+      </p>
+      <div class="products-grid">
+        {%- for item in search.results -%}
+          {%- if item.object_type == 'product' -%}
+            {%- render 'product-card', product: item -%}
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    {%- else -%}
+      <div style="text-align:center; padding:3rem 0;">
+        <p style="font-family:var(--font-heading); font-size:1.25rem; margin-bottom:0.75rem;">No results found</p>
+        <p style="color:var(--color-text-muted); margin-bottom:2rem;">Try a different search term or browse our collections below.</p>
+        <div style="display:flex; gap:1rem; justify-content:center; flex-wrap:wrap;">
+          <a href="/collections/silk-scarves" class="btn btn-primary">Silk Scarves</a>
+          <a href="/collections/gift-sets" class="btn btn-outline">Gift Sets</a>
+        </div>
+      </div>
+    {%- endif -%}
+  {%- endif -%}
+</div>
+
+{% schema %}
+{
+  "name": "Search",
+  "settings": []
+}
+{% endschema %}

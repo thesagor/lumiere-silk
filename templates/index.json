@@ -1,0 +1,98 @@
+{
+  "sections": {
+    "hero": {
+      "type": "lumiere-hero",
+      "settings": {
+        "label": "Lumiere Silk",
+        "heading": "Elegant Silk,\nBeautifully Gifted",
+        "subheading": "Discover silk scarves and gift-ready pieces designed to bring softness, beauty, and quiet refinement to everyday life.",
+        "button_1_label": "Shop Scarves",
+        "button_1_url": "/collections/silk-scarves",
+        "button_2_label": "Explore Gift Sets",
+        "button_2_url": "/collections/gift-sets"
+      }
+    },
+    "trust-bar": {
+      "type": "lumiere-trust-bar",
+      "settings": {
+        "show_trust_bar": true,
+        "item_1": "Free Shipping in Canada",
+        "item_2": "Gift-Ready Packaging",
+        "item_3": "Curated Selection",
+        "item_4": "Thoughtful Gifting"
+      }
+    },
+    "brand-intro": {
+      "type": "lumiere-brand-intro",
+      "settings": {
+        "label": "Our Philosophy",
+        "heading": "Timeless Beauty, Thoughtfully Presented",
+        "body": "Lumiere Silk is a premium accessories and gifting brand centered around elegance, softness, and refined details. From silk scarves to beautifully presented gift sets, each piece is chosen to offer a graceful and elevated experience for both personal use and meaningful gifting."
+      }
+    },
+    "collection": {
+      "type": "lumiere-collection",
+      "settings": {
+        "label": "The Collection",
+        "heading": "Signature Silk Scarves",
+        "body": "Our silk scarves are designed to feel timeless, feminine, and effortlessly elegant. With a focus on beauty, texture, and versatility, each piece is selected to add softness and sophistication to everyday style.",
+        "products_to_show": 3,
+        "tagline": "Classic pieces made to be worn, loved, and gifted.",
+        "button_label": "View Collection",
+        "button_url": "/collections/silk-scarves",
+        "placeholder_titles": "Signature Silk Scarf|Elegant Silk Scarf|Silk Scarf Gift Box",
+        "placeholder_price": "Coming soon"
+      }
+    },
+    "gift-sets": {
+      "type": "lumiere-gift-sets",
+      "settings": {
+        "label": "Gifting",
+        "heading": "Gift-Ready Elegance",
+        "body": "More than an accessory, Lumiere Silk is designed to be a beautiful gifting experience. Explore scarf gift boxes and thoughtfully paired sets created for special moments, personal treats, and meaningful gestures.",
+        "tagline": "Beautifully chosen. Elegantly presented.",
+        "button_label": "Shop Gift Sets",
+        "button_url": "/collections/gift-sets"
+      }
+    },
+    "packaging": {
+      "type": "lumiere-packaging",
+      "settings": {
+        "label": "Presentation",
+        "heading": "The Art of Gifting",
+        "body": "Every detail matters - from the softness of the silk to the presentation of the final box. Our packaging is designed to feel refined, graceful, and ready to gift, creating a memorable unboxing experience that reflects the beauty of the brand.",
+        "tagline": "Refined packaging, thoughtful details, timeless impression."
+      }
+    },
+    "brand-story": {
+      "type": "lumiere-brand-story",
+      "settings": {
+        "label": "Our Story",
+        "heading": "The World of Lumiere Silk",
+        "body": "Lumiere Silk was created from a love of elegance, beauty, and thoughtful design. We believe the smallest details can make a lasting impression, and that a beautifully chosen piece can bring quiet confidence, warmth, and joy. Our vision is to create a brand that feels soft, polished, and timeless - a place where silk, presentation, and gifting come together with grace.",
+        "button_label": "About Us",
+        "button_url": "/pages/about"
+      }
+    },
+    "newsletter": {
+      "type": "lumiere-newsletter",
+      "settings": {
+        "heading": "Join the Lumiere Circle",
+        "body": "Be the first to discover new arrivals, exclusive offers, and styling inspiration - delivered softly to your inbox.",
+        "placeholder": "Your email address",
+        "button_label": "Subscribe",
+        "note": "We respect your privacy. Unsubscribe at any time."
+      }
+    }
+  },
+  "order": [
+    "hero",
+    "trust-bar",
+    "brand-intro",
+    "collection",
+    "gift-sets",
+    "packaging",
+    "brand-story",
+    "newsletter"
+  ]
+}

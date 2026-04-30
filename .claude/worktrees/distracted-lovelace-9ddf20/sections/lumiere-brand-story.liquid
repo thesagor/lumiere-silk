@@ -1,0 +1,60 @@
+<section class="brand-story-section section-pad" aria-label="Brand story">
+  <div class="container">
+    <div class="brand-story-inner fade-in">
+      {%- if section.settings.label != blank -%}
+        <p class="text-label">{{ section.settings.label | escape }}</p>
+      {%- endif -%}
+      <div class="brand-story-divider"></div>
+      <h2 class="brand-story-title heading-serif">{{ section.settings.heading }}</h2>
+      <p class="brand-story-body">{{ section.settings.body }}</p>
+      {%- if section.settings.button_label != blank and section.settings.button_url != blank -%}
+        <a href="{{ section.settings.button_url }}" class="btn btn-outline-light">
+          {{ section.settings.button_label | escape }}
+        </a>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Brand Story",
+  "tag": "div",
+  "settings": [
+    {
+      "type": "text",
+      "id": "label",
+      "label": "Label",
+      "default": "Our Story"
+    },
+    {
+      "type": "textarea",
+      "id": "heading",
+      "label": "Heading",
+      "default": "The World of Lumière Silk"
+    },
+    {
+      "type": "textarea",
+      "id": "body",
+      "label": "Body text",
+      "default": "Lumière Silk was created from a love of elegance, beauty, and thoughtful design. We believe the smallest details can make a lasting impression, and that a beautifully chosen piece can bring quiet confidence, warmth, and joy. Our vision is to create a brand that feels soft, polished, and timeless — a place where silk, presentation, and gifting come together with grace."
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label",
+      "default": "About Us"
+    },
+    {
+      "type": "url",
+      "id": "button_url",
+      "label": "Button URL"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Brand Story"
+    }
+  ]
+}
+{% endschema %}
