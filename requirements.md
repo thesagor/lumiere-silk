@@ -12,7 +12,8 @@
 
 **Lumière Silk** is a premium accessories and gifting brand rooted in elegance, refinement, and timeless beauty. The brand launched with silk scarves and is expanding into selected jewelry and gift accessories.
 
-### Brand Personality
+### Brand Personality.
+
 - Elegant, timeless, soft, and feminine
 - Premium — but approachable and not overcomplicated
 - Thoughtful and gift-oriented
@@ -23,9 +24,11 @@
 ## 2. Visual Direction
 
 ### Overall Feel
+
 Minimal · Elegant · Premium · Clean · Soft · Refined · Luxury-inspired · Calm · Sophisticated
 
 ### Design Focus
+
 - Product photography as the hero element
 - Fabric texture and material quality
 - Packaging and unboxing presentation
@@ -33,19 +36,20 @@ Minimal · Elegant · Premium · Clean · Soft · Refined · Luxury-inspired · 
 
 ### Color Palette
 
-| Token | Color | Use |
-|---|---|---|
-| Ivory `#faf8f5` | Primary background | Page backgrounds |
-| Cream `#f5f0e8` | Secondary background | Section backgrounds |
-| Beige / Blush `#f0e8e4` | Accent background | Highlight sections |
-| Muted Gold `#c9a96e` | Brand accent | CTAs, borders, icons |
-| Gold Light `#dfc49a` | Hover/secondary | Hover states |
-| Warm Black `#2a2218` | Primary text & buttons | Headlines, CTAs |
-| Muted Text `#8a7d6f` | Body text | Paragraphs, labels |
-| Sage Green `#c4d4c0` | Optional accent | Badges, success states |
-| Border `#e8e2d9` | Dividers | Card borders, separators |
+| Token                   | Color                  | Use                      |
+| ----------------------- | ---------------------- | ------------------------ |
+| Ivory `#faf8f5`         | Primary background     | Page backgrounds         |
+| Cream `#f5f0e8`         | Secondary background   | Section backgrounds      |
+| Beige / Blush `#f0e8e4` | Accent background      | Highlight sections       |
+| Muted Gold `#c9a96e`    | Brand accent           | CTAs, borders, icons     |
+| Gold Light `#dfc49a`    | Hover/secondary        | Hover states             |
+| Warm Black `#2a2218`    | Primary text & buttons | Headlines, CTAs          |
+| Muted Text `#8a7d6f`    | Body text              | Paragraphs, labels       |
+| Sage Green `#c4d4c0`    | Optional accent        | Badges, success states   |
+| Border `#e8e2d9`        | Dividers               | Card borders, separators |
 
 ### Typography
+
 - **Serif headings:** Cormorant Garamond (Google Fonts) — weight 400
 - **Sans body/UI:** Inter (Google Fonts) — weight 400/500/600
 - Heading style: large, airy, elegant
@@ -56,22 +60,26 @@ Minimal · Elegant · Premium · Clean · Soft · Refined · Luxury-inspired · 
 ## 3. Products
 
 ### Stage 1 (Current)
-| Product | Description |
-|---|---|
-| Signature Silk Scarf | Timeless, feminine, everyday elegance |
-| Elegant Silk Scarf | Understated luxury, graceful styling |
-| Silk Scarf Gift Box | Scarf + branded gift box, gift-ready |
-| Silk Scarf & Brooch Set | Scarf + decorative brooch, curated pairing |
-| Silk Scarf & Pearl Earrings Set | Scarf + delicate pearl earrings |
+
+| Product                         | Description                                |
+| ------------------------------- | ------------------------------------------ |
+| Signature Silk Scarf            | Timeless, feminine, everyday elegance      |
+| Elegant Silk Scarf              | Understated luxury, graceful styling       |
+| Silk Scarf Gift Box             | Scarf + branded gift box, gift-ready       |
+| Silk Scarf & Brooch Set         | Scarf + decorative brooch, curated pairing |
+| Silk Scarf & Pearl Earrings Set | Scarf + delicate pearl earrings            |
 
 ### Planned Future Products
+
 - Brooches (standalone)
 - Pearl earrings (standalone)
 - Small jewelry accessories
 - Giftable fashion accessories
 
 ### Product Page Content Structure
+
 Each product page should include:
+
 1. Product title
 2. Short one-line description
 3. Long description (brand story tone)
@@ -89,6 +97,7 @@ Each product page should include:
 ### Section Order & Copy
 
 #### 1. Hero Banner
+
 - **Main Title:** Elegant Silk, Beautifully Gifted
 - **Subtitle:** Discover elegant silk scarves and gift-ready pieces designed to bring beauty, softness, and refinement to everyday life.
 - **Button 1:** Shop Scarves → `/collections/silk-scarves`
@@ -96,11 +105,13 @@ Each product page should include:
 - Style: Full-width, large image, center-aligned text overlay
 
 #### 2. Brand Introduction
+
 - **Section Title:** Timeless Beauty, Thoughtfully Presented
 - **Body:** Lumière Silk is a premium accessories and gifting brand centered around elegance, softness, and refined details. From silk scarves to beautifully presented gift sets, each piece is chosen to offer a graceful and elevated experience for both personal use and meaningful gifting.
 - Style: Centered text, 2-column or centered narrow column
 
 #### 3. Signature Collection
+
 - **Section Title:** Signature Silk Scarves
 - **Body:** Our silk scarves are designed to feel timeless, feminine, and effortlessly elegant. With a focus on beauty, texture, and versatility, each piece is selected to add softness and sophistication to everyday style.
 - **Tag line:** Classic pieces made to be worn, loved, and gifted.
@@ -108,6 +119,7 @@ Each product page should include:
 - Style: Product carousel or 3-column grid
 
 #### 4. Gift Sets
+
 - **Section Title:** Gift-Ready Elegance
 - **Body:** More than an accessory, Lumière Silk is designed to be a beautiful gifting experience. Explore scarf gift boxes and thoughtfully paired sets created for special moments, personal treats, and meaningful gestures.
 - **Tag line:** Beautifully chosen. Elegantly presented.
@@ -115,18 +127,21 @@ Each product page should include:
 - Style: 2-column or featured product layout
 
 #### 5. Packaging / Gifting Experience
+
 - **Section Title:** The Art of Gifting
 - **Body:** Every detail matters — from the softness of the silk to the presentation of the final box. Our packaging is designed to feel refined, graceful, and ready to gift, creating a memorable unboxing experience that reflects the beauty of the brand.
 - **Tag line:** Refined packaging, thoughtful details, timeless impression.
 - Style: Large image + text side-by-side
 
 #### 6. Brand Story
+
 - **Section Title:** The World of Lumière Silk
 - **Body:** Lumière Silk was created from a love of elegance, beauty, and thoughtful design. We believe the smallest details can make a lasting impression, and that a beautifully chosen piece can bring quiet confidence, warmth, and joy. Our vision is to create a brand that feels soft, polished, and timeless — a place where silk, presentation, and gifting come together with grace.
 - **Button:** About Us → `/pages/about`
 - Style: Dark background (warm black), ivory text, centered
 
 #### 7. Newsletter / Contact (Optional)
+
 - Email signup for brand updates
 - Style: Minimal, centered, ivory background
 
@@ -136,22 +151,23 @@ Each product page should include:
 
 ### Required Pages
 
-| Page | URL Handle | Template | Status |
-|---|---|---|---|
-| Home | `/` | `index` | ✅ Exists |
-| Shop / All Products | `/collections/all` | `collection` | ✅ Shopify default |
-| Silk Scarves | `/collections/silk-scarves` | `collection` | Create collection in admin |
-| Gift Sets | `/collections/gift-sets` | `collection` | Create collection in admin |
-| About Us | `/pages/about` | `page.about` | ✅ Template exists |
-| Contact | `/pages/contact` | `page.contact` (JSON) | ✅ Template exists |
-| FAQ | `/pages/faq` | `page.faq` | ✅ Template exists |
-| Services | `/pages/services` | `page.services` | ✅ Template exists |
-| Wishlist | `/pages/wishlist` | `page.wishlist` | ⚠️ Create page in admin |
-| Shipping Policy | `/policies/shipping-policy` | Shopify policy page | Create in admin |
-| Return Policy | `/policies/refund-policy` | Shopify policy page | Create in admin |
-| Privacy Policy | `/policies/privacy-policy` | Shopify policy page | Create in admin |
+| Page                | URL Handle                  | Template              | Status                     |
+| ------------------- | --------------------------- | --------------------- | -------------------------- |
+| Home                | `/`                         | `index`               | ✅ Exists                  |
+| Shop / All Products | `/collections/all`          | `collection`          | ✅ Shopify default         |
+| Silk Scarves        | `/collections/silk-scarves` | `collection`          | Create collection in admin |
+| Gift Sets           | `/collections/gift-sets`    | `collection`          | Create collection in admin |
+| About Us            | `/pages/about`              | `page.about`          | ✅ Template exists         |
+| Contact             | `/pages/contact`            | `page.contact` (JSON) | ✅ Template exists         |
+| FAQ                 | `/pages/faq`                | `page.faq`            | ✅ Template exists         |
+| Services            | `/pages/services`           | `page.services`       | ✅ Template exists         |
+| Wishlist            | `/pages/wishlist`           | `page.wishlist`       | ⚠️ Create page in admin    |
+| Shipping Policy     | `/policies/shipping-policy` | Shopify policy page   | Create in admin            |
+| Return Policy       | `/policies/refund-policy`   | Shopify policy page   | Create in admin            |
+| Privacy Policy      | `/policies/privacy-policy`  | Shopify policy page   | Create in admin            |
 
 ### Future Pages
+
 - `/collections/accessories` — Accessories collection
 
 ---
@@ -159,12 +175,15 @@ Each product page should include:
 ## 6. Navigation Structure
 
 ### Main Menu
+
 ```
 Home | Catalog | Contact
 ```
-*(Current — to expand as products are added)*
+
+_(Current — to expand as products are added)_
 
 ### Recommended Final Menu
+
 ```
 Home
 Shop
@@ -177,6 +196,7 @@ FAQ
 ```
 
 ### Footer Menu
+
 ```
 Shop | About | Contact | FAQ | Shipping Policy | Return Policy | Privacy Policy
 ```
@@ -241,11 +261,13 @@ Shop | About | Contact | FAQ | Shipping Policy | Return Policy | Privacy Policy
 **Return Window:** 7 days from delivery for eligible items.
 
 **Eligibility Requirements:**
+
 - Unused and in original condition
 - Returned with original packaging
 - Proof of purchase required
 
 **Non-Returnable Items:**
+
 - Earrings
 - Worn or used items
 - Items damaged by misuse
@@ -267,6 +289,7 @@ Shop | About | Contact | FAQ | Shipping Policy | Return Policy | Privacy Policy
 ## 8. Shopify Admin Setup Checklist
 
 ### Store Settings
+
 - [ ] Store name: LumiereSilk
 - [ ] Contact email: lumieresilk.ca@gmail.com
 - [ ] Currency: CAD
@@ -274,21 +297,25 @@ Shop | About | Contact | FAQ | Shipping Policy | Return Policy | Privacy Policy
 - [ ] Tax: Enable Canadian taxes (GST/HST/PST as applicable)
 
 ### Payments
+
 - [ ] Enable Shopify Payments (preferred)
 - [ ] Enable PayPal
 - [ ] Enable Shop Pay
 
 ### Shipping
+
 - [ ] Canada — set shipping rates (free over threshold or flat rate)
 - [ ] United States — disable or set as "coming soon"
 
 ### Policies (via Settings → Policies)
+
 - [ ] Shipping policy — paste content from Section 7
 - [ ] Refund policy — paste content from Section 7
 - [ ] Privacy policy — generate + customize
 - [ ] Terms of service — generate + customize
 
 ### Pages to Create in Admin
+
 - [ ] About (handle: `about`, template: `page.about`)
 - [ ] FAQ (handle: `faq`, template: `page.faq`)
 - [ ] Contact (handle: `contact`, template: `page.contact`)
@@ -296,10 +323,12 @@ Shop | About | Contact | FAQ | Shipping Policy | Return Policy | Privacy Policy
 - [ ] Wishlist (handle: `wishlist`, template: `page.wishlist`)
 
 ### Collections to Create in Admin
+
 - [ ] Silk Scarves (handle: `silk-scarves`)
 - [ ] Gift Sets (handle: `gift-sets`)
 
 ### Products to Create
+
 - [ ] Signature Silk Scarf
 - [ ] Elegant Silk Scarf
 - [ ] Silk Scarf Gift Box
@@ -307,6 +336,7 @@ Shop | About | Contact | FAQ | Shipping Policy | Return Policy | Privacy Policy
 - [ ] Silk Scarf & Pearl Earrings Set
 
 ### Theme Setup
+
 - [ ] Upload all theme files from `sheena-lumiere-upload/`
 - [ ] Set `lumiere-design.css` and `lumiere-pages.css` as stylesheet assets
 - [ ] Verify Google Fonts (Cormorant Garamond + Inter) loaded in `theme.liquid`
@@ -334,9 +364,9 @@ Shop | About | Contact | FAQ | Shipping Policy | Return Policy | Privacy Policy
 
 ## 10. Target Market
 
-| Market | Status |
-|---|---|
-| Canada | Primary — active |
+| Market        | Status           |
+| ------------- | ---------------- |
+| Canada        | Primary — active |
 | United States | Future expansion |
 
 ---
@@ -351,6 +381,7 @@ Shop | About | Contact | FAQ | Shipping Policy | Return Policy | Privacy Policy
 ## 12. Tone of Voice
 
 Written content should be:
+
 - **Elegant** — refined word choices, no casual slang
 - **Warm** — emotionally appealing, not cold or corporate
 - **Refined** — polished sentences, correct grammar
@@ -359,6 +390,7 @@ Written content should be:
 - **Feminine** — without being overly casual
 
 **Style guide examples:**
+
 - ✅ "Beautifully crafted for those who appreciate the quiet luxury of silk."
 - ✅ "A thoughtful gift, elegantly presented."
 - ❌ "Check out our awesome scarves!"
@@ -366,4 +398,4 @@ Written content should be:
 
 ---
 
-*Last updated: 2026-04-29*
+_Last updated: 2026-04-29_
