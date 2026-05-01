@@ -2,6 +2,26 @@
   <div class="container">
     <div class="packaging-grid">
 
+      <div class="packaging-text fade-in">
+        {%- if section.settings.label != blank -%}
+          <p class="text-label">{{ section.settings.label | escape }}</p>
+        {%- endif -%}
+        <h2 class="packaging-title heading-serif">{{ section.settings.heading }}</h2>
+        <p class="packaging-body">{{ section.settings.body }}</p>
+        {%- if section.settings.tagline != blank -%}
+          <p class="packaging-tagline">{{ section.settings.tagline | escape }}</p>
+        {%- endif -%}
+        {%- if section.blocks.size > 0 -%}
+          <ul class="packaging-bullets">
+            {%- for block in section.blocks -%}
+              {%- if block.type == 'bullet' and block.settings.text != blank -%}
+                <li class="packaging-bullet-item" {{ block.shopify_attributes }}>{{ block.settings.text | escape }}</li>
+              {%- endif -%}
+            {%- endfor -%}
+          </ul>
+        {%- endif -%}
+      </div>
+
       <div class="packaging-image fade-in">
         {%- if section.settings.image != blank -%}
           {%- assign packaging_alt = section.settings.heading | escape -%}
@@ -22,17 +42,6 @@
         {%- endif -%}
       </div>
 
-      <div class="packaging-text fade-in">
-        {%- if section.settings.label != blank -%}
-          <p class="text-label">{{ section.settings.label | escape }}</p>
-        {%- endif -%}
-        <h2 class="packaging-title heading-serif">{{ section.settings.heading }}</h2>
-        <p class="packaging-body">{{ section.settings.body }}</p>
-        {%- if section.settings.tagline != blank -%}
-          <p class="packaging-tagline">{{ section.settings.tagline | escape }}</p>
-        {%- endif -%}
-      </div>
-
     </div>
   </div>
 </section>
@@ -46,7 +55,7 @@
       "type": "text",
       "id": "label",
       "label": "Label",
-      "default": "Presentation"
+      "default": "The Experience"
     },
     {
       "type": "textarea",
@@ -64,7 +73,7 @@
       "type": "text",
       "id": "tagline",
       "label": "Tagline",
-      "default": "Refined packaging, thoughtful details, timeless impression."
+      "default": "Refined packaging · Thoughtful details · Timeless impression"
     },
     {
       "type": "image_picker",
@@ -72,15 +81,43 @@
       "label": "Image"
     }
   ],
+  "blocks": [
+    {
+      "type": "bullet",
+      "name": "Bullet point",
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text",
+          "default": "Elegantly boxed, ribbon-tied"
+        }
+      ]
+    }
+  ],
   "presets": [
     {
       "name": "Lumiere Packaging",
       "settings": {
-        "label": "Presentation",
+        "label": "The Experience",
         "heading": "The Art of Gifting",
         "body": "Every detail matters - from the softness of the silk to the presentation of the final box. Our packaging is designed to feel refined, graceful, and ready to gift, creating a memorable unboxing experience that reflects the beauty of the brand.",
-        "tagline": "Refined packaging, thoughtful details, timeless impression."
-      }
+        "tagline": "Refined packaging · Thoughtful details · Timeless impression"
+      },
+      "blocks": [
+        {
+          "type": "bullet",
+          "settings": { "text": "Elegantly boxed, ribbon-tied" }
+        },
+        {
+          "type": "bullet",
+          "settings": { "text": "Ready to gift — no wrapping needed" }
+        },
+        {
+          "type": "bullet",
+          "settings": { "text": "Presented with a Lumière Silk card" }
+        }
+      ]
     }
   ]
 }

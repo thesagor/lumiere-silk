@@ -933,11 +933,67 @@ h4 { font-family: var(--font-body); font-weight: 500; }
   margin-bottom: 1rem;
 }
 .gift-sets-tagline {
-  font-family: var(--font-heading);
-  font-style: italic;
-  font-size: 1rem;
+  font-family: var(--font-body);
+  font-style: normal;
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-gold);
+  margin-bottom: 1.25rem;
+}
+.gift-sets-product-list {
+  border: 1px solid var(--color-border);
+  background: var(--color-cream);
+  padding: 0 1.5rem 1.5rem;
+}
+.gift-sets-product-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 0;
+  border-bottom: 1px solid var(--color-border);
+  text-decoration: none;
+  color: inherit;
+  transition: opacity var(--transition-fast);
+}
+.gift-sets-product-item:hover { opacity: 0.75; }
+.gift-sets-product-thumb {
+  width: 52px;
+  height: 52px;
+  flex-shrink: 0;
+  overflow: hidden;
+  background: var(--color-blush);
+}
+.gift-sets-product-thumb img,
+.gift-sets-product-thumb-placeholder {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.gift-sets-product-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  min-width: 0;
+}
+.gift-sets-product-title {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--color-warm-black);
+}
+.gift-sets-product-desc {
+  font-size: 0.78rem;
   color: var(--color-text-muted);
-  margin-bottom: 2rem;
+}
+.gift-sets-product-price {
+  font-size: 0.875rem;
+  color: var(--color-text-muted);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.gift-sets-product-cta {
+  padding-top: 1.25rem;
 }
 
 /* ============================================
@@ -976,10 +1032,38 @@ h4 { font-family: var(--font-body); font-weight: 500; }
   margin-bottom: 1rem;
 }
 .packaging-tagline {
-  font-family: var(--font-heading);
-  font-style: italic;
-  font-size: 1rem;
+  font-family: var(--font-body);
+  font-style: normal;
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-gold);
+  margin-bottom: 1.25rem;
+}
+.packaging-bullets {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+.packaging-bullet-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  font-size: 0.95rem;
   color: var(--color-text-muted);
+  line-height: 1.5;
+}
+.packaging-bullet-item::before {
+  content: '';
+  display: block;
+  width: 5px;
+  height: 5px;
+  background: var(--color-gold);
+  flex-shrink: 0;
+  margin-top: 0.45em;
 }
 
 /* ============================================
@@ -1960,6 +2044,7 @@ h4 { font-family: var(--font-body); font-weight: 500; }
   .about-values { grid-template-columns: 1fr 1fr; gap: 1.5rem; }
 
   .gift-sets-image { order: -1; }
+  .packaging-image { order: -1; }
 
   .product-layout {
     grid-template-columns: 1fr;

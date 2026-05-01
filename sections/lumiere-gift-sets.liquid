@@ -4,6 +4,7 @@
   if cta_url == blank and linked_collection != blank and linked_collection.products_count > 0
     assign cta_url = linked_collection.url
   endif
+  assign max_products = section.settings.products_limit | default: 3
 -%}
 
 <section class="gift-sets-section section-pad" aria-label="Gift sets">
@@ -39,7 +40,39 @@
         {%- if section.settings.tagline != blank -%}
           <p class="gift-sets-tagline">{{ section.settings.tagline | escape }}</p>
         {%- endif -%}
-        {%- if section.settings.button_label != blank and cta_url != blank -%}
+
+        {%- if linked_collection != blank and linked_collection.products_count > 0 -%}
+          <div class="gift-sets-product-list">
+            {%- for product in linked_collection.products limit: max_products -%}
+              <a href="{{ product.url }}" class="gift-sets-product-item">
+                <div class="gift-sets-product-thumb">
+                  {%- if product.featured_image != blank -%}
+                    {{ product.featured_image | image_url: width: 100 | image_tag: loading: 'lazy', alt: product.title }}
+                  {%- else -%}
+                    <div class="gift-sets-product-thumb-placeholder"></div>
+                  {%- endif -%}
+                </div>
+                <div class="gift-sets-product-info">
+                  <span class="gift-sets-product-title">{{ product.title }}</span>
+                  {%- if product.description != blank -%}
+                    <span class="gift-sets-product-desc">{{ product.description | strip_html | truncate: 60 }}</span>
+                  {%- endif -%}
+                </div>
+                <div class="gift-sets-product-price">
+                  {{ product.price | money }}
+                </div>
+              </a>
+            {%- endfor -%}
+
+            {%- if section.settings.button_label != blank and cta_url != blank -%}
+              <div class="gift-sets-product-cta">
+                <a href="{{ cta_url }}" class="btn btn-primary">
+                  {{ section.settings.button_label | escape }} &rarr;
+                </a>
+              </div>
+            {%- endif -%}
+          </div>
+        {%- elsif section.settings.button_label != blank and cta_url != blank -%}
           <a href="{{ cta_url }}" class="btn btn-primary">
             {{ section.settings.button_label | escape }}
           </a>
@@ -59,7 +92,7 @@
       "type": "text",
       "id": "label",
       "label": "Label",
-      "default": "Gifting"
+      "default": "Gift Sets"
     },
     {
       "type": "textarea",
@@ -87,7 +120,16 @@
     {
       "type": "collection",
       "id": "collection",
-      "label": "Linked collection (used if Button URL is blank)"
+      "label": "Product collection"
+    },
+    {
+      "type": "range",
+      "id": "products_limit",
+      "label": "Number of products to show",
+      "min": 1,
+      "max": 6,
+      "step": 1,
+      "default": 3
     },
     {
       "type": "text",
@@ -105,11 +147,12 @@
     {
       "name": "Lumiere Gift Sets",
       "settings": {
-        "label": "Gifting",
+        "label": "Gift Sets",
         "heading": "Gift-Ready Elegance",
         "body": "More than an accessory, Lumiere Silk is designed to be a beautiful gifting experience. Explore scarf gift boxes and thoughtfully paired sets created for special moments, personal treats, and meaningful gestures.",
         "tagline": "Beautifully chosen. Elegantly presented.",
-        "button_label": "Shop Gift Sets"
+        "button_label": "Shop Gift Sets",
+        "products_limit": 3
       }
     }
   ]
