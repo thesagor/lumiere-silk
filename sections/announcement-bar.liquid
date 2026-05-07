@@ -1,41 +1,24 @@
 {%- if section.settings.show_announcement -%}
-<div class="announcement-bar" role="complementary" aria-label="Announcement">
-  <div class="announcement-bar-track">
-    <div class="announcement-bar-inner" id="announcement-inner">
-      {%- assign has_multi = false -%}
-      {%- if section.settings.announcement_text_2 != blank or section.settings.announcement_text_3 != blank -%}
-        {%- assign has_multi = true -%}
-      {%- endif -%}
+  {%- assign messages = '' -%}
+  {%- if section.settings.announcement_text != blank -%}
+    {%- assign messages = messages | append: section.settings.announcement_text -%}
+  {%- endif -%}
+  {%- if section.settings.announcement_text_2 != blank -%}
+    {%- if messages != '' -%}{%- assign messages = messages | append: ' · ' -%}{%- endif -%}
+    {%- assign messages = messages | append: section.settings.announcement_text_2 -%}
+  {%- endif -%}
+  {%- if section.settings.announcement_text_3 != blank -%}
+    {%- if messages != '' -%}{%- assign messages = messages | append: ' · ' -%}{%- endif -%}
+    {%- assign messages = messages | append: section.settings.announcement_text_3 -%}
+  {%- endif -%}
 
-      {%- comment -%} Slide 1 {%- endcomment -%}
-      <span class="announcement-slide">
-        <span class="announcement-dot" aria-hidden="true">◆</span>
-        {%- if section.settings.announcement_link != blank -%}
-          <a href="{{ section.settings.announcement_link }}" class="announcement-text">{{ section.settings.announcement_text | escape }}</a>
-        {%- else -%}
-          <span class="announcement-text">{{ section.settings.announcement_text | escape }}</span>
-        {%- endif -%}
-        <span class="announcement-dot" aria-hidden="true">◆</span>
-      </span>
-
-      {%- if section.settings.announcement_text_2 != blank -%}
-      <span class="announcement-slide" aria-hidden="true">
-        <span class="announcement-dot" aria-hidden="true">◆</span>
-        <span class="announcement-text">{{ section.settings.announcement_text_2 | escape }}</span>
-        <span class="announcement-dot" aria-hidden="true">◆</span>
-      </span>
-      {%- endif -%}
-
-      {%- if section.settings.announcement_text_3 != blank -%}
-      <span class="announcement-slide" aria-hidden="true">
-        <span class="announcement-dot" aria-hidden="true">◆</span>
-        <span class="announcement-text">{{ section.settings.announcement_text_3 | escape }}</span>
-        <span class="announcement-dot" aria-hidden="true">◆</span>
-      </span>
-      {%- endif -%}
-    </div>
+  <div class="announcement-bar" role="complementary" aria-label="Announcement">
+    {%- if section.settings.announcement_link != blank -%}
+      <a href="{{ section.settings.announcement_link }}" class="announcement-bar__text">{{ messages | escape }}</a>
+    {%- else -%}
+      <span class="announcement-bar__text">{{ messages | escape }}</span>
+    {%- endif -%}
   </div>
-</div>
 {%- endif -%}
 
 {% schema %}
@@ -51,25 +34,24 @@
     {
       "type": "text",
       "id": "announcement_text",
-      "label": "Announcement 1",
-      "default": "Complimentary gift wrapping on all orders"
+      "label": "Message 1",
+      "default": "Complimentary shipping on Canadian orders over $75"
     },
     {
       "type": "text",
       "id": "announcement_text_2",
-      "label": "Announcement 2 (optional)",
-      "default": "Free shipping on orders over $75"
+      "label": "Message 2 (optional)",
+      "default": "Gift-ready packaging on every order"
     },
     {
       "type": "text",
       "id": "announcement_text_3",
-      "label": "Announcement 3 (optional)",
-      "default": "New arrivals — Silk Scarf Gift Sets now available"
+      "label": "Message 3 (optional)"
     },
     {
       "type": "url",
       "id": "announcement_link",
-      "label": "Link for announcement 1 (optional)"
+      "label": "Link (optional)"
     }
   ],
   "presets": [

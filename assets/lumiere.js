@@ -219,12 +219,14 @@
   // ---- Add to Cart ----
   document.addEventListener('click', async (e) => {
     const btn = e.target.closest('[data-atc]');
-    if (!btn) return;
+    if (!btn || btn.disabled) return;
 
-    const variantId = btn.dataset.variantId || btn.closest('form')?.querySelector('[name="id"]')?.value;
+    // Always read variant ID from the form's hidden input — it stays in sync with variant selection
+    const form = btn.closest('form');
+    const variantId = form?.querySelector('[name="id"]')?.value;
     if (!variantId) return;
 
-    const qty = parseInt(btn.closest('form')?.querySelector('[name="quantity"]')?.value || '1');
+    const qty = parseInt(form?.querySelector('[name="quantity"]')?.value || '1');
 
     btn.disabled = true;
     const originalText = btn.textContent;
@@ -237,7 +239,10 @@
         body: JSON.stringify({ id: parseInt(variantId), quantity: qty })
       });
 
-      if (!res.ok) throw new Error('Add to cart failed');
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({}));
+        throw new Error(err.description || 'Add to cart failed');
+      }
 
       btn.textContent = 'Added!';
       setTimeout(() => {
@@ -247,7 +252,8 @@
 
       openCart();
     } catch (err) {
-      btn.textContent = 'Sold Out';
+      console.warn('ATC error:', err.message);
+      btn.textContent = 'Try again';
       setTimeout(() => {
         btn.textContent = originalText;
         btn.disabled = false;
@@ -272,49 +278,68 @@
   // ---- Variant Selector ----
   const variantForm = document.getElementById('product-form');
   if (variantForm) {
-    const variantBtns = variantForm.querySelectorAll('.variant-btn');
     const hiddenVariantInput = variantForm.querySelector('[name="id"]');
     const priceEl = document.getElementById('product-price');
     const comparePriceEl = document.getElementById('product-compare-price');
     const atcBtn = document.getElementById('atc-btn');
+    const variantsData = window.__variants || [];
 
-    variantBtns.forEach(btn => {
+    // Apply a variant's state to the UI (price, button, hidden input)
+    function applyVariant(variant) {
+      if (!variant) return;
+      if (hiddenVariantInput) hiddenVariantInput.value = variant.id;
+      if (priceEl) priceEl.textContent = formatMoney(variant.price);
+      if (comparePriceEl) {
+        if (variant.compare_at_price > variant.price) {
+          comparePriceEl.textContent = formatMoney(variant.compare_at_price);
+          comparePriceEl.style.display = '';
+        } else {
+          comparePriceEl.style.display = 'none';
+        }
+      }
+      if (atcBtn) {
+        atcBtn.disabled = !variant.available;
+        atcBtn.textContent = variant.available ? 'Add to Bag' : 'Sold Out';
+      }
+    }
+
+    // Read which option buttons are currently active and return their values
+    function getSelectedOptions() {
+      const options = [];
+      variantForm.querySelectorAll('[data-option-index]').forEach(group => {
+        const active = group.querySelector('.variant-btn.active');
+        if (active) options.push(active.dataset.value);
+      });
+      return options;
+    }
+
+    // Find a variant that exactly matches the given option array
+    function findVariant(selectedOptions) {
+      return variantsData.find(v =>
+        v.options.length === selectedOptions.length &&
+        v.options.every((opt, i) => opt === selectedOptions[i])
+      ) || null;
+    }
+
+    // On page load: sync button/price with whatever variant Liquid pre-selected
+    // This catches any mismatch between server render and JS variant data
+    if (variantsData.length && hiddenVariantInput) {
+      const initialId = parseInt(hiddenVariantInput.value, 10);
+      const initialVariant = variantsData.find(v => v.id === initialId);
+      if (initialVariant) applyVariant(initialVariant);
+    }
+
+    // On variant button click: update active state then apply matching variant
+    variantForm.querySelectorAll('.variant-btn').forEach(btn => {
       btn.addEventListener('click', () => {
-        // Visual selection per option group
         const group = btn.closest('[data-option-index]');
         if (group) {
           group.querySelectorAll('.variant-btn').forEach(b => b.classList.remove('active'));
         }
         btn.classList.add('active');
 
-        // Find matching variant from metafield embedded in page
-        const variantsData = window.__variants;
-        if (!variantsData || !hiddenVariantInput) return;
-
-        const selectedOptions = [];
-        variantForm.querySelectorAll('[data-option-index]').forEach(optGroup => {
-          const selected = optGroup.querySelector('.variant-btn.active');
-          if (selected) selectedOptions.push(selected.dataset.value);
-        });
-
-        const matched = variantsData.find(v =>
-          v.options.every((opt, i) => opt === selectedOptions[i])
-        );
-
-        if (matched) {
-          hiddenVariantInput.value = matched.id;
-          if (priceEl) priceEl.textContent = formatMoney(matched.price);
-          if (comparePriceEl && matched.compare_at_price > matched.price) {
-            comparePriceEl.textContent = formatMoney(matched.compare_at_price);
-            comparePriceEl.style.display = '';
-          } else if (comparePriceEl) {
-            comparePriceEl.style.display = 'none';
-          }
-          if (atcBtn) {
-            atcBtn.disabled = !matched.available;
-            atcBtn.textContent = matched.available ? 'Add to Bag' : 'Sold Out';
-          }
-        }
+        const matched = findVariant(getSelectedOptions());
+        if (matched) applyVariant(matched);
       });
     });
   }

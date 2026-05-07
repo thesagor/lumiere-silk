@@ -1,10 +1,11 @@
 {
   "sections": {
     "hero": {
-      "type": "lumiere-hero",
+      "type": "lumiere-editorial-hero",
       "settings": {
-        "label": "Lumiere Silk",
-        "heading": "Silk Scarves<br><em>Designed for Gifting</em>",
+        "issue_label": "Issue 01 — The Gifting Edit",
+        "brand_label": "Lumière Silk",
+        "heading": "<p>Silk Scarves,<br /><em>Designed for Gifting.</em></p>",
         "subheading": "Elegant, ready-to-gift pieces designed to make every moment feel special.",
         "button_1_label": "Shop Gift Sets",
         "button_1_url": "/collections/gift-sets",
@@ -12,126 +13,163 @@
         "button_2_url": "/collections/silk-scarves"
       }
     },
-    "trust-bar": {
-      "type": "lumiere-trust-bar",
+    "mantra": {
+      "type": "lumiere-mantra",
       "settings": {
-        "show_trust_bar": true,
-        "item_1": "Free Shipping in Canada",
-        "item_2": "Gift-Ready Packaging",
-        "item_3": "Curated Selection",
-        "item_4": "Thoughtful Gifting"
+        "eyebrow": "The Lumière Promise",
+        "text": "<p>More than a scarf — a refined gifting experience.</p>"
       }
     },
-    "brand-intro": {
-      "type": "lumiere-brand-intro",
+    "texture": {
+      "type": "lumiere-texture",
       "settings": {
-        "label": "Why Customers Love Lumière Silk",
-        "heading": "More than a scarf —<br><em>a refined gifting experience.</em>",
-        "body": "Each Lumière Silk piece is created to feel intentional and refined — ready to give, beautifully presented, and made for the moments that matter.",
-        "button_label": "Discover Our Story",
-        "button_url": "/pages/about"
-      },
-      "blocks": {
-        "bullet-1": {
-          "type": "bullet",
-          "settings": { "text": "Ready-to-gift packaging — no extra wrapping needed" }
-        },
-        "bullet-2": {
-          "type": "bullet",
-          "settings": { "text": "Elegant presentation that feels premium" }
-        },
-        "bullet-3": {
-          "type": "bullet",
-          "settings": { "text": "A thoughtful gift for any occasion" }
-        },
-        "bullet-4": {
-          "type": "bullet",
-          "settings": { "text": "Free shipping across Canada" }
-        }
-      },
-      "block_order": ["bullet-1", "bullet-2", "bullet-3", "bullet-4"]
+        "eyebrow": "Material · Plate 01",
+        "heading": "The hand of pure silk.",
+        "body": "Soft, fluid, weightless — chosen for the way it falls, the way it holds light, and the way it feels close to the skin.",
+        "caption": "Detail / 100% Mulberry Silk"
+      }
     },
-    "collection": {
-      "type": "lumiere-collection",
+    "featured-pieces": {
+      "type": "lumiere-featured-pieces",
       "settings": {
-        "label": "The Collection",
-        "heading": "Signature Silk Scarves",
+        "eyebrow": "The Collection · 01",
+        "heading": "<p>Pieces<br /><em>made to be given.</em></p>",
         "body": "Timeless designs created to feel soft, elegant, and effortless — perfect for both everyday wear and meaningful gifting.",
-        "products_to_show": 3,
-        "tagline": "Thoughtful gifts, elegantly packaged.",
-        "button_label": "View Collection",
+        "button_label": "View All Pieces",
         "button_url": "/collections/silk-scarves",
-        "placeholder_titles": "Signature Silk Scarf|Elegant Silk Scarf|Silk Scarf Gift Box",
-        "placeholder_price": "Coming soon"
-      }
-    },
-    "gift-sets": {
-      "type": "lumiere-gift-sets",
-      "settings": {
-        "label": "Gift Sets",
-        "heading": "Designed to<br><em>Be Gifted</em>",
-        "body": "Beautifully packaged and ready to give. No extra effort, no extra wrapping — just a gift that feels intentional and refined from the moment it arrives.",
-        "tagline": "Beautifully chosen. Elegantly presented.",
-        "button_label": "Shop Gift Sets",
-        "button_url": "/collections/gift-sets"
-      }
-    },
-    "packaging": {
-      "type": "lumiere-packaging",
-      "settings": {
-        "label": "The Experience",
-        "heading": "The Art of Gifting",
-        "body": "Every detail matters — from the softness of the silk to the presentation of the final box. Our packaging is designed to feel refined, graceful, and ready to gift, creating a memorable unboxing experience that reflects the beauty of the brand.",
-        "tagline": "Refined packaging · Thoughtful details · Timeless impression."
+        "note_eyebrow": "An Editorial Note",
+        "note_text": "A scarf is the smallest gesture and the most generous one — it warms, it softens, it lingers in memory long after the moment is over.",
+        "note_link_label": "Read Our Story",
+        "note_link_url": "/pages/about"
       },
       "blocks": {
-        "bullet-1": {
-          "type": "bullet",
-          "settings": { "text": "Elegantly boxed, ribbon-tied" }
+        "p1": {
+          "type": "product",
+          "settings": {
+            "name": "Signature Silk Scarf",
+            "price": "$89",
+            "size": "90 × 90 cm",
+            "tag": "Bestseller",
+            "url": "/collections/silk-scarves"
+          }
         },
-        "bullet-2": {
-          "type": "bullet",
-          "settings": { "text": "Ready to gift — no wrapping needed" }
+        "p2": {
+          "type": "product",
+          "settings": {
+            "name": "Elegant Silk Scarf",
+            "price": "$89",
+            "size": "90 cm Square",
+            "tag": "New Arrival",
+            "url": "/collections/silk-scarves"
+          }
         },
-        "bullet-3": {
-          "type": "bullet",
-          "settings": { "text": "Presented with a Lumière Silk card" }
+        "p3": {
+          "type": "product",
+          "settings": {
+            "name": "Petite Silk Scarf",
+            "price": "$59",
+            "size": "53 × 53 cm",
+            "tag": "Versatile",
+            "url": "/collections/silk-scarves"
+          }
+        },
+        "p4": {
+          "type": "product",
+          "settings": {
+            "name": "Silk Scarf Gift Box",
+            "price": "$119",
+            "size": "Gift Set",
+            "tag": "Gift Ready",
+            "url": "/collections/gift-sets"
+          }
         }
       },
-      "block_order": ["bullet-1", "bullet-2", "bullet-3"]
+      "block_order": ["p1", "p2", "p3", "p4"]
     },
-    "brand-story": {
-      "type": "lumiere-brand-story",
+    "lifestyle": {
+      "type": "lumiere-lifestyle",
       "settings": {
-        "label": "Our Philosophy",
-        "heading": "Designed in Canada,<br><em>inspired by timeless elegance.</em>",
-        "body": "Each piece is carefully selected to offer a soft, refined, and thoughtful gifting experience.",
-        "button_label": "Shop Gift Sets",
-        "button_url": "/collections/gift-sets",
+        "eyebrow": "Plate 02 · Lifestyle",
+        "heading": "<p>Worn close,<br /><em>kept always.</em></p>",
+        "body": "A Lumière Silk piece is the kind of thing she'll reach for on the days that matter — and the ordinary ones, too. Worn at the neck, tied at the wrist, draped at the shoulder.",
+        "button_label": "Shop Lifestyle",
+        "button_url": "/collections/silk-scarves"
+      }
+    },
+    "value-layer": {
+      "type": "lumiere-value-layer",
+      "settings": {
+        "eyebrow": "Why Customers Love Lumière Silk",
+        "heading": "<p>Quietly considered, <em>thoughtfully made.</em></p>"
+      },
+      "blocks": {
+        "v1": { "type": "value", "settings": { "number": "01", "title": "Ready-to-Gift", "body": "Each piece arrives in our signature box — no extra wrapping required." } },
+        "v2": { "type": "value", "settings": { "number": "02", "title": "Premium Feel", "body": "Fluid silk, refined finish, weight in every detail." } },
+        "v3": { "type": "value", "settings": { "number": "03", "title": "For Every Occasion", "body": "Birthday, anniversary, thank-you, or simply because." } },
+        "v4": { "type": "value", "settings": { "number": "04", "title": "Free Canada Shipping", "body": "Complimentary on orders over $75, delivered with care." } }
+      },
+      "block_order": ["v1", "v2", "v3", "v4"]
+    },
+    "the-gift": {
+      "type": "lumiere-the-gift",
+      "settings": {
+        "caption": "— wrapped with intention",
+        "eyebrow": "The Gift · Plate 03",
+        "heading": "<p>Designed<br /><em>to be gifted.</em></p>",
+        "body": "Beautifully packaged and ready to give. No extra effort, no extra wrapping — just a gift that feels intentional and refined from the moment it arrives.",
+        "button_1_label": "Shop Gift Sets",
+        "button_1_url": "/collections/gift-sets",
         "button_2_label": "Explore Scarves",
         "button_2_url": "/collections/silk-scarves"
+      },
+      "blocks": {
+        "f1": { "type": "feature", "settings": { "text": "Signature Lumière box, satin-ribbon tied" } },
+        "f2": { "type": "feature", "settings": { "text": "Gift card with handwritten-style note" } },
+        "f3": { "type": "feature", "settings": { "text": "Soft tissue & branded seal" } },
+        "f4": { "type": "feature", "settings": { "text": "Arrives ready to place under any tree, on any table" } }
+      },
+      "block_order": ["f1", "f2", "f3", "f4"]
+    },
+    "triptych": {
+      "type": "lumiere-detail-triptych",
+      "blocks": {
+        "s1": { "type": "shot", "settings": { "label": "Hand-finished edges", "fallback_asset": "lumiere-product-detail-3.png" } },
+        "s2": { "type": "shot", "settings": { "label": "Pure mulberry silk", "fallback_asset": "lumiere-product-sig-scarf-3.png" } },
+        "s3": { "type": "shot", "settings": { "label": "Signature presentation", "fallback_asset": "lumiere-packaging-gift-box-2.png" } }
+      },
+      "block_order": ["s1", "s2", "s3"]
+    },
+    "philosophy": {
+      "type": "lumiere-philosophy",
+      "settings": {
+        "eyebrow": "Our Philosophy",
+        "heading": "<p>Designed in Canada,<br /><em>inspired by timeless elegance.</em></p>",
+        "body": "Each piece is carefully selected to offer a soft, refined, and thoughtful gifting experience.",
+        "button_label": "Discover Our World",
+        "button_url": "/pages/about"
       }
     },
     "newsletter": {
-      "type": "lumiere-newsletter",
+      "type": "lumiere-newsletter-circle",
       "settings": {
-        "label": "Stay Close",
+        "eyebrow": "Stay Close",
         "heading": "Join the Lumière Circle",
-        "body": "Receive updates on new arrivals, exclusive offers, and the quiet beauty of Lumière Silk.",
+        "body": "Receive new arrivals, gifting guides, and quiet inspiration in your inbox.",
         "placeholder": "Your email address",
-        "button_label": "Subscribe",
-        "note": "We respect your privacy. Unsubscribe at any time."
+        "button_label": "Subscribe"
       }
     }
   },
   "order": [
     "hero",
-    "trust-bar",
-    "brand-intro",
-    "collection",
-    "gift-sets",
-    "packaging",
-    "brand-story",
+    "mantra",
+    "texture",
+    "featured-pieces",
+    "lifestyle",
+    "value-layer",
+    "the-gift",
+    "triptych",
+    "philosophy",
     "newsletter"
   ]
 }

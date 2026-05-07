@@ -1,0 +1,90 @@
+{% style %}
+  .ls-hero{position:relative;height:100vh;min-height:720px;overflow:hidden;background:var(--ls-cream,#f3ebdd);}
+  .ls-hero__img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 18%;animation:lsSlowZoom 8s ease-out forwards;}
+  .ls-hero__overlay{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(42,34,24,0.32) 0%,rgba(42,34,24,0.05) 35%,rgba(42,34,24,0.05) 65%,rgba(42,34,24,0.45) 100%);}
+  .ls-hero__issue{position:absolute;top:140px;right:60px;color:rgba(250,246,239,0.85);text-align:right;writing-mode:vertical-rl;transform:rotate(180deg);animation:lsFadeIn 1.2s ease 0.3s both;}
+  .ls-hero__issue span{font-family:var(--ls-sans,'Inter',sans-serif);font-size:10px;letter-spacing:0.4em;text-transform:uppercase;}
+  .ls-hero__center{position:absolute;left:50%;top:48%;transform:translate(-50%,-50%);text-align:center;color:#faf6ef;max-width:920px;padding:0 32px;animation:lsFadeUp 1.4s ease 0.2s both;width:100%;}
+  .ls-hero__pretitle{display:flex;align-items:center;justify-content:center;gap:16px;margin-bottom:32px;opacity:0.85;}
+  .ls-hero__pretitle span:first-child,.ls-hero__pretitle span:last-child{width:48px;height:1px;background:rgba(250,246,239,0.5);}
+  .ls-hero__pretitle .ls-hero__brand{font-family:var(--ls-sans,'Inter',sans-serif);font-size:10px;letter-spacing:0.5em;text-transform:uppercase;width:auto;height:auto;background:transparent;}
+  .ls-hero__title{font-family:var(--ls-serif,'Cormorant Garamond',Georgia,serif);font-weight:300;font-size:clamp(56px,9vw,140px);line-height:0.95;letter-spacing:-0.015em;margin-bottom:32px;}
+  .ls-hero__title em{font-style:italic;color:rgba(250,246,239,0.96);}
+  .ls-hero__sub{font-family:var(--ls-serif,'Cormorant Garamond',Georgia,serif);font-style:italic;font-size:clamp(15px,1.4vw,19px);line-height:1.6;max-width:520px;margin:0 auto;color:rgba(250,246,239,0.78);font-weight:300;}
+  .ls-hero__ctas{position:absolute;left:0;right:0;bottom:48px;display:flex;justify-content:center;gap:18px;animation:lsFadeUp 1.6s ease 0.6s both;flex-wrap:wrap;padding:0 16px;}
+  .ls-btn-ghost-light{display:inline-flex;align-items:center;gap:10px;font-family:var(--ls-sans,'Inter',sans-serif);font-size:11px;letter-spacing:0.22em;text-transform:uppercase;padding:15px 32px;font-weight:400;transition:all 0.35s;cursor:pointer;border:1px solid rgba(250,246,239,0.5);color:#faf6ef;background:transparent;}
+  .ls-btn-ghost-light:hover{background:rgba(250,246,239,0.08);}
+  .ls-hero__scroll{position:absolute;right:32px;bottom:48px;display:flex;flex-direction:column;align-items:center;gap:10px;color:rgba(250,246,239,0.7);animation:lsFadeIn 2s ease 1s both;}
+  .ls-hero__scroll span:first-child{font-family:var(--ls-sans,'Inter',sans-serif);font-size:9px;letter-spacing:0.4em;text-transform:uppercase;writing-mode:vertical-rl;}
+  .ls-hero__scroll span:last-child{width:1px;height:32px;background:rgba(250,246,239,0.5);}
+  @keyframes lsSlowZoom{from{transform:scale(1.06);}to{transform:scale(1);}}
+  @keyframes lsFadeUp{from{opacity:0;transform:translateY(24px);}to{opacity:1;transform:translateY(0);}}
+  @keyframes lsFadeIn{from{opacity:0;}to{opacity:1;}}
+  @media (max-width:768px){
+    .ls-hero__issue{display:none;}
+    .ls-hero__scroll{display:none;}
+    .ls-hero{min-height:620px;}
+  }
+{% endstyle %}
+
+<section class="ls-hero" aria-label="Hero">
+  {%- if section.settings.image != blank -%}
+    {{ section.settings.image | image_url: width: 2400 | image_tag: loading: 'eager', fetchpriority: 'high', sizes: '100vw', alt: section.settings.heading | escape, class: 'ls-hero__img' }}
+  {%- else -%}
+    <img src="{{ 'lumiere-product-sig-scarf-1.png' | asset_url }}" alt="{{ section.settings.heading | escape }}" class="ls-hero__img" loading="eager" fetchpriority="high">
+  {%- endif -%}
+  <div class="ls-hero__overlay"></div>
+
+  {%- if section.settings.issue_label != blank -%}
+    <div class="ls-hero__issue"><span>{{ section.settings.issue_label }}</span></div>
+  {%- endif -%}
+
+  <div class="ls-hero__center">
+    <div class="ls-hero__pretitle">
+      <span></span>
+      <span class="ls-hero__brand">{{ section.settings.brand_label | default: 'Lumière Silk' }}</span>
+      <span></span>
+    </div>
+    {%- if section.settings.heading != blank -%}
+      <h1 class="ls-hero__title">{{ section.settings.heading }}</h1>
+    {%- endif -%}
+    {%- if section.settings.subheading != blank -%}
+      <p class="ls-hero__sub">{{ section.settings.subheading }}</p>
+    {%- endif -%}
+  </div>
+
+  <div class="ls-hero__ctas">
+    {%- if section.settings.button_1_label != blank and section.settings.button_1_url != blank -%}
+      <a class="ls-btn-ghost-light" href="{{ section.settings.button_1_url }}">{{ section.settings.button_1_label }}</a>
+    {%- endif -%}
+    {%- if section.settings.button_2_label != blank and section.settings.button_2_url != blank -%}
+      <a class="ls-btn-ghost-light" href="{{ section.settings.button_2_url }}">{{ section.settings.button_2_label }}</a>
+    {%- endif -%}
+  </div>
+
+  <div class="ls-hero__scroll" aria-hidden="true">
+    <span>Scroll</span>
+    <span></span>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Editorial Hero",
+  "tag": "div",
+  "settings": [
+    { "type": "image_picker", "id": "image", "label": "Hero image" },
+    { "type": "text", "id": "issue_label", "label": "Issue label (top-right)", "default": "Issue 01 — The Gifting Edit" },
+    { "type": "text", "id": "brand_label", "label": "Brand mark", "default": "Lumière Silk" },
+    { "type": "richtext", "id": "heading", "label": "Heading", "default": "<p>Silk Scarves,<br /><em>Designed for Gifting.</em></p>" },
+    { "type": "textarea", "id": "subheading", "label": "Subheading", "default": "Elegant, ready-to-gift pieces designed to make every moment feel special." },
+    { "type": "text", "id": "button_1_label", "label": "Button 1 label", "default": "Shop Gift Sets" },
+    { "type": "url", "id": "button_1_url", "label": "Button 1 URL" },
+    { "type": "text", "id": "button_2_label", "label": "Button 2 label", "default": "Shop Scarves" },
+    { "type": "url", "id": "button_2_url", "label": "Button 2 URL" }
+  ],
+  "presets": [
+    { "name": "Editorial Hero" }
+  ]
+}
+{% endschema %}

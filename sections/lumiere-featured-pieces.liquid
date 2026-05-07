@@ -1,0 +1,206 @@
+{% style %}
+  .ls-fp{background:var(--ls-ivory,#faf6ef);padding:120px 0 100px;}
+  .ls-fp__container{max-width:1440px;margin:0 auto;padding:0 40px;}
+  .ls-fp__head{display:grid;grid-template-columns:1fr 1fr;gap:60px;margin-bottom:72px;align-items:end;}
+  .ls-fp__eyebrow{display:inline-block;font-family:var(--ls-sans,'Inter',sans-serif);font-size:10px;letter-spacing:0.32em;text-transform:uppercase;color:var(--ls-gold,#b89968);font-weight:400;}
+  .ls-fp__title{font-family:var(--ls-serif,'Cormorant Garamond',Georgia,serif);font-weight:300;font-size:clamp(36px,5vw,68px);line-height:1.06;margin-top:22px;color:var(--ls-ink,#3d342a);}
+  .ls-fp__title em{font-style:italic;color:var(--ls-gold,#b89968);}
+  .ls-fp__intro p{font-family:var(--ls-sans,'Inter',sans-serif);font-size:14px;line-height:1.85;color:var(--ls-muted,#8b7d6b);font-weight:300;max-width:380px;margin-bottom:18px;}
+  .ls-btn-link{display:inline-flex;align-items:center;gap:14px;font-family:var(--ls-sans,'Inter',sans-serif);font-size:11px;letter-spacing:0.24em;text-transform:uppercase;color:var(--ls-ink,#3d342a);font-weight:400;padding-bottom:6px;border-bottom:1px solid transparent;transition:border-color 0.4s;}
+  .ls-btn-link:hover{border-bottom-color:var(--ls-ink,#3d342a);}
+  .ls-btn-link::after{content:'';display:inline-block;width:18px;height:1px;background:currentColor;transition:width 0.4s;}
+  .ls-btn-link:hover::after{width:28px;}
+  .ls-fp__row1{display:grid;grid-template-columns:1.15fr 1fr;gap:32px;margin-bottom:32px;}
+  .ls-fp__col-stack{display:grid;grid-template-rows:1fr 1fr;gap:32px;}
+  .ls-fp__row2{display:grid;grid-template-columns:1fr 1.2fr;gap:32px;}
+  .ls-card{display:block;position:relative;}
+  .ls-card__media{position:relative;overflow:hidden;background:var(--ls-cream,#f3ebdd);}
+  .ls-card__media--tall{aspect-ratio:4/5.6;}
+  .ls-card__media--std{aspect-ratio:4/5;}
+  .ls-card__img{width:100%;height:100%;object-fit:cover;transition:transform 1.2s cubic-bezier(0.2,0.8,0.2,1);}
+  .ls-card:hover .ls-card__img{transform:scale(1.04);}
+  .ls-card__tag{position:absolute;top:18px;left:18px;padding:7px 12px;background:rgba(250,246,239,0.92);backdrop-filter:blur(6px);font-family:var(--ls-sans,'Inter',sans-serif);font-size:9px;letter-spacing:0.3em;text-transform:uppercase;color:var(--ls-ink,#3d342a);font-weight:400;}
+  .ls-card__arrow{position:absolute;right:18px;bottom:18px;width:42px;height:42px;border-radius:50%;background:#faf6ef;display:flex;align-items:center;justify-content:center;opacity:0;transform:translateY(8px);transition:all 0.4s;color:var(--ls-ink,#3d342a);}
+  .ls-card:hover .ls-card__arrow{opacity:1;transform:translateY(0);}
+  .ls-card__meta{padding-top:20px;display:flex;justify-content:space-between;align-items:baseline;border-bottom:1px solid var(--ls-line,#e6dcc8);padding-bottom:18px;}
+  .ls-card__name{font-family:var(--ls-serif,'Cormorant Garamond',Georgia,serif);font-size:22px;font-weight:400;color:var(--ls-ink,#3d342a);margin-bottom:6px;}
+  .ls-card__size{font-family:var(--ls-sans,'Inter',sans-serif);font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:var(--ls-muted,#8b7d6b);}
+  .ls-card__price{font-family:var(--ls-serif,'Cormorant Garamond',Georgia,serif);font-style:italic;font-size:20px;color:var(--ls-ink,#3d342a);}
+
+  .ls-card-wide{display:grid;grid-template-columns:1.2fr 1fr;gap:24px;align-items:stretch;height:100%;}
+  .ls-card-wide__media{position:relative;overflow:hidden;background:var(--ls-cream,#f3ebdd);display:block;}
+  .ls-card-wide__img{width:100%;height:100%;object-fit:cover;transition:transform 1.2s cubic-bezier(0.2,0.8,0.2,1);}
+  .ls-card-wide:hover .ls-card-wide__img{transform:scale(1.04);}
+  .ls-card-wide__body{display:flex;flex-direction:column;justify-content:center;padding:12px 8px;}
+  .ls-card-wide__tag{font-family:var(--ls-sans,'Inter',sans-serif);font-size:9px;letter-spacing:0.32em;text-transform:uppercase;color:var(--ls-gold,#b89968);margin-bottom:14px;}
+  .ls-card-wide__name{font-family:var(--ls-serif,'Cormorant Garamond',Georgia,serif);font-size:clamp(22px,2vw,28px);font-weight:400;color:var(--ls-ink,#3d342a);margin-bottom:10px;line-height:1.15;}
+  .ls-card-wide__size{font-family:var(--ls-sans,'Inter',sans-serif);font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:var(--ls-muted,#8b7d6b);margin-bottom:18px;}
+  .ls-card-wide__price{font-family:var(--ls-serif,'Cormorant Garamond',Georgia,serif);font-style:italic;font-size:22px;color:var(--ls-ink,#3d342a);margin-bottom:18px;}
+
+  .ls-note{background:var(--ls-cream,#f3ebdd);padding:56px 48px;display:flex;flex-direction:column;justify-content:center;position:relative;}
+  .ls-note__quote{position:absolute;top:24px;right:24px;font-family:var(--ls-serif,'Cormorant Garamond',Georgia,serif);font-style:italic;font-size:54px;color:var(--ls-gold-soft,#d6bf94);line-height:1;}
+  .ls-note__eyebrow{font-family:var(--ls-sans,'Inter',sans-serif);font-size:10px;letter-spacing:0.32em;text-transform:uppercase;color:var(--ls-gold,#b89968);font-weight:400;}
+  .ls-note__text{font-family:var(--ls-serif,'Cormorant Garamond',Georgia,serif);font-style:italic;font-size:clamp(20px,2vw,26px);line-height:1.4;font-weight:300;color:var(--ls-ink,#3d342a);margin-top:18px;margin-bottom:28px;}
+
+  @media (max-width:900px){
+    .ls-fp__head{grid-template-columns:1fr;gap:24px;}
+    .ls-fp__row1,.ls-fp__row2{grid-template-columns:1fr;}
+    .ls-card-wide{grid-template-columns:1fr;}
+    .ls-fp{padding:80px 0 60px;}
+    .ls-fp__container{padding:0 24px;}
+  }
+{% endstyle %}
+
+<section class="ls-fp" id="shop">
+  <div class="ls-fp__container">
+    <div class="ls-fp__head">
+      <div>
+        {%- if section.settings.eyebrow != blank -%}<span class="ls-fp__eyebrow">{{ section.settings.eyebrow }}</span>{%- endif -%}
+        {%- if section.settings.heading != blank -%}<h2 class="ls-fp__title">{{ section.settings.heading }}</h2>{%- endif -%}
+      </div>
+      <div class="ls-fp__intro">
+        {%- if section.settings.body != blank -%}<p>{{ section.settings.body }}</p>{%- endif -%}
+        {%- if section.settings.button_label != blank -%}<a class="ls-btn-link" href="{{ section.settings.button_url | default: '#' }}">{{ section.settings.button_label }}</a>{%- endif -%}
+      </div>
+    </div>
+
+    {%- liquid
+      assign blocks = section.blocks
+    -%}
+
+    {%- if blocks.size >= 4 -%}
+      {%- assign p1 = blocks[0] -%}
+      {%- assign p2 = blocks[1] -%}
+      {%- assign p3 = blocks[2] -%}
+      {%- assign p4 = blocks[3] -%}
+
+      <div class="ls-fp__row1">
+        <a class="ls-card" href="{{ p1.settings.url | default: '#' }}">
+          <div class="ls-card__media ls-card__media--tall">
+            {%- if p1.settings.image != blank -%}
+              {{ p1.settings.image | image_url: width: 1400 | image_tag: alt: p1.settings.name | escape, class: 'ls-card__img', sizes: '(max-width:900px) 100vw, 50vw', loading: 'lazy' }}
+            {%- else -%}
+              <img src="{{ 'lumiere-product-sig-scarf-1.png' | asset_url }}" alt="{{ p1.settings.name | escape }}" class="ls-card__img" loading="lazy">
+            {%- endif -%}
+            {%- if p1.settings.tag != blank -%}<span class="ls-card__tag">{{ p1.settings.tag }}</span>{%- endif -%}
+            <span class="ls-card__arrow"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+          </div>
+          <div class="ls-card__meta">
+            <div>
+              <h4 class="ls-card__name">{{ p1.settings.name }}</h4>
+              <p class="ls-card__size">{{ p1.settings.size }}</p>
+            </div>
+            <p class="ls-card__price">{{ p1.settings.price }}</p>
+          </div>
+        </a>
+
+        <div class="ls-fp__col-stack">
+          <div class="ls-card-wide">
+            <a class="ls-card-wide__media" href="{{ p2.settings.url | default: '#' }}">
+              {%- if p2.settings.image != blank -%}
+                {{ p2.settings.image | image_url: width: 1200 | image_tag: alt: p2.settings.name | escape, class: 'ls-card-wide__img', loading: 'lazy', sizes: '(max-width:900px) 100vw, 30vw' }}
+              {%- else -%}
+                <img src="{{ 'lumiere-product-elegant-scarf-3.png' | asset_url }}" alt="{{ p2.settings.name | escape }}" class="ls-card-wide__img" loading="lazy">
+              {%- endif -%}
+            </a>
+            <div class="ls-card-wide__body">
+              {%- if p2.settings.tag != blank -%}<span class="ls-card-wide__tag">{{ p2.settings.tag }}</span>{%- endif -%}
+              <h4 class="ls-card-wide__name">{{ p2.settings.name }}</h4>
+              <p class="ls-card-wide__size">{{ p2.settings.size }}</p>
+              <p class="ls-card-wide__price">{{ p2.settings.price }}</p>
+              <a class="ls-btn-link" href="{{ p2.settings.url | default: '#' }}">Discover</a>
+            </div>
+          </div>
+
+          <div class="ls-card-wide">
+            <a class="ls-card-wide__media" href="{{ p4.settings.url | default: '#' }}">
+              {%- if p4.settings.image != blank -%}
+                {{ p4.settings.image | image_url: width: 1200 | image_tag: alt: p4.settings.name | escape, class: 'ls-card-wide__img', loading: 'lazy', sizes: '(max-width:900px) 100vw, 30vw' }}
+              {%- else -%}
+                <img src="{{ 'lumiere-product-small-scarf-1.png' | asset_url }}" alt="{{ p4.settings.name | escape }}" class="ls-card-wide__img" loading="lazy">
+              {%- endif -%}
+            </a>
+            <div class="ls-card-wide__body">
+              {%- if p4.settings.tag != blank -%}<span class="ls-card-wide__tag">{{ p4.settings.tag }}</span>{%- endif -%}
+              <h4 class="ls-card-wide__name">{{ p4.settings.name }}</h4>
+              <p class="ls-card-wide__size">{{ p4.settings.size }}</p>
+              <p class="ls-card-wide__price">{{ p4.settings.price }}</p>
+              <a class="ls-btn-link" href="{{ p4.settings.url | default: '#' }}">Discover</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="ls-fp__row2">
+        <div class="ls-card-wide">
+          <a class="ls-card-wide__media" href="{{ p3.settings.url | default: '#' }}">
+            {%- if p3.settings.image != blank -%}
+              {{ p3.settings.image | image_url: width: 1200 | image_tag: alt: p3.settings.name | escape, class: 'ls-card-wide__img', loading: 'lazy', sizes: '(max-width:900px) 100vw, 40vw' }}
+            {%- else -%}
+              <img src="{{ 'lumiere-product-small-scarf-styled-1.png' | asset_url }}" alt="{{ p3.settings.name | escape }}" class="ls-card-wide__img" loading="lazy">
+            {%- endif -%}
+          </a>
+          <div class="ls-card-wide__body">
+            {%- if p3.settings.tag != blank -%}<span class="ls-card-wide__tag">{{ p3.settings.tag }}</span>{%- endif -%}
+            <h4 class="ls-card-wide__name">{{ p3.settings.name }}</h4>
+            <p class="ls-card-wide__size">{{ p3.settings.size }}</p>
+            <p class="ls-card-wide__price">{{ p3.settings.price }}</p>
+            <a class="ls-btn-link" href="{{ p3.settings.url | default: '#' }}">Discover</a>
+          </div>
+        </div>
+
+        <div class="ls-note">
+          <div class="ls-note__quote">&ldquo;</div>
+          {%- if section.settings.note_eyebrow != blank -%}<span class="ls-note__eyebrow">{{ section.settings.note_eyebrow }}</span>{%- endif -%}
+          {%- if section.settings.note_text != blank -%}<p class="ls-note__text">{{ section.settings.note_text }}</p>{%- endif -%}
+          {%- if section.settings.note_link_label != blank -%}<a class="ls-btn-link" href="{{ section.settings.note_link_url | default: '#' }}">{{ section.settings.note_link_label }}</a>{%- endif -%}
+        </div>
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Featured Pieces",
+  "tag": "div",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "The Collection · 01" },
+    { "type": "richtext", "id": "heading", "label": "Heading", "default": "<p>Pieces<br /><em>made to be given.</em></p>" },
+    { "type": "textarea", "id": "body", "label": "Body", "default": "Timeless designs created to feel soft, elegant, and effortless — perfect for both everyday wear and meaningful gifting." },
+    { "type": "text", "id": "button_label", "label": "Top button label", "default": "View All Pieces" },
+    { "type": "url", "id": "button_url", "label": "Top button URL" },
+    { "type": "header", "content": "Editorial Note (right card)" },
+    { "type": "text", "id": "note_eyebrow", "label": "Note eyebrow", "default": "An Editorial Note" },
+    { "type": "textarea", "id": "note_text", "label": "Note text", "default": "A scarf is the smallest gesture and the most generous one — it warms, it softens, it lingers in memory long after the moment is over." },
+    { "type": "text", "id": "note_link_label", "label": "Note link label", "default": "Read Our Story" },
+    { "type": "url", "id": "note_link_url", "label": "Note link URL" }
+  ],
+  "blocks": [
+    {
+      "type": "product",
+      "name": "Product Card",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Product image" },
+        { "type": "text", "id": "name", "label": "Name", "default": "Signature Silk Scarf" },
+        { "type": "text", "id": "price", "label": "Price", "default": "$89" },
+        { "type": "text", "id": "size", "label": "Size / detail", "default": "90 × 90 cm" },
+        { "type": "text", "id": "tag", "label": "Tag (badge)", "default": "Bestseller" },
+        { "type": "url", "id": "url", "label": "Link" }
+      ]
+    }
+  ],
+  "max_blocks": 4,
+  "presets": [
+    {
+      "name": "Featured Pieces",
+      "blocks": [
+        { "type": "product", "settings": { "name": "Signature Silk Scarf", "price": "$89", "size": "90 × 90 cm", "tag": "Bestseller" } },
+        { "type": "product", "settings": { "name": "Elegant Silk Scarf", "price": "$89", "size": "90 cm Square", "tag": "New Arrival" } },
+        { "type": "product", "settings": { "name": "Petite Silk Scarf", "price": "$59", "size": "53 × 53 cm", "tag": "Versatile" } },
+        { "type": "product", "settings": { "name": "Silk Scarf Gift Box", "price": "$119", "size": "Gift Set", "tag": "Gift Ready" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

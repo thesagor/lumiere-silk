@@ -1,0 +1,119 @@
+{% style %}
+  .ls-gift{background:var(--ls-ivory,#faf6ef);padding:120px 0;}
+  .ls-gift__container{max-width:1440px;margin:0 auto;padding:0 40px;}
+  .ls-gift__row{display:grid;grid-template-columns:1fr 1.1fr;gap:80px;align-items:center;}
+  .ls-gift__media{position:relative;height:680px;}
+  .ls-gift__img1{position:absolute;top:0;left:0;width:72%;aspect-ratio:4/5;overflow:hidden;}
+  .ls-gift__img1 img{width:100%;height:100%;object-fit:cover;}
+  .ls-gift__img2{position:absolute;bottom:0;right:0;width:58%;aspect-ratio:1/1.1;overflow:hidden;box-shadow:-30px -30px 0 var(--ls-cream,#f3ebdd);}
+  .ls-gift__img2 img{width:100%;height:100%;object-fit:cover;}
+  .ls-gift__caption{position:absolute;top:45%;left:56%;transform:translateY(-50%);writing-mode:vertical-rl;font-family:var(--ls-serif,'Cormorant Garamond',Georgia,serif);font-style:italic;font-size:14px;letter-spacing:0.06em;color:var(--ls-gold,#b89968);}
+  .ls-gift__copy{padding-left:24px;}
+  .ls-gift__eyebrow{display:inline-block;font-family:var(--ls-sans,'Inter',sans-serif);font-size:10px;letter-spacing:0.32em;text-transform:uppercase;color:var(--ls-gold,#b89968);font-weight:400;}
+  .ls-gift__title{font-family:var(--ls-serif,'Cormorant Garamond',Georgia,serif);font-weight:300;font-size:clamp(36px,5vw,68px);line-height:1.06;margin-top:24px;color:var(--ls-ink,#3d342a);}
+  .ls-gift__title em{font-style:italic;}
+  .ls-gift__body{font-family:var(--ls-sans,'Inter',sans-serif);font-size:15px;line-height:1.85;color:var(--ls-muted,#8b7d6b);font-weight:300;margin-top:28px;margin-bottom:24px;max-width:480px;}
+  .ls-gift__list{list-style:none;border-top:1px solid var(--ls-line,#e6dcc8);margin:0 0 36px;padding:0;}
+  .ls-gift__list li{display:flex;gap:18px;align-items:center;padding:18px 0;border-bottom:1px solid var(--ls-line,#e6dcc8);}
+  .ls-gift__dash{font-family:var(--ls-serif,'Cormorant Garamond',Georgia,serif);font-style:italic;font-size:16px;color:var(--ls-gold,#b89968);width:18px;flex:none;}
+  .ls-gift__line{font-family:var(--ls-sans,'Inter',sans-serif);font-size:14px;line-height:1.85;color:var(--ls-ink,#3d342a);font-weight:300;}
+  .ls-gift__ctas{display:flex;gap:14px;flex-wrap:wrap;align-items:center;}
+  .ls-btn-ghost{display:inline-flex;align-items:center;gap:10px;font-family:var(--ls-sans,'Inter',sans-serif);font-size:11px;letter-spacing:0.22em;text-transform:uppercase;padding:15px 32px;font-weight:400;transition:all 0.35s;border:1px solid var(--ls-ink,#3d342a);color:var(--ls-ink,#3d342a);background:transparent;}
+  .ls-btn-ghost:hover{background:var(--ls-ink,#3d342a);color:#faf6ef;}
+  @media (max-width:900px){
+    .ls-gift__row{grid-template-columns:1fr;gap:48px;}
+    .ls-gift__media{height:520px;}
+    .ls-gift__copy{padding-left:0;}
+    .ls-gift{padding:80px 0;}
+    .ls-gift__container{padding:0 24px;}
+  }
+{% endstyle %}
+
+<section class="ls-gift">
+  <div class="ls-gift__container">
+    <div class="ls-gift__row">
+      <div class="ls-gift__media">
+        <div class="ls-gift__img1">
+          {%- if section.settings.image_1 != blank -%}
+            {{ section.settings.image_1 | image_url: width: 1400 | image_tag: alt: 'Gift box', loading: 'lazy', sizes: '(max-width:900px) 100vw, 35vw' }}
+          {%- else -%}
+            <img src="{{ 'lumiere-packaging-gift-box-3.png' | asset_url }}" alt="Gift box" loading="lazy">
+          {%- endif -%}
+        </div>
+        <div class="ls-gift__img2">
+          {%- if section.settings.image_2 != blank -%}
+            {{ section.settings.image_2 | image_url: width: 1200 | image_tag: alt: 'Branded box', loading: 'lazy', sizes: '(max-width:900px) 100vw, 25vw' }}
+          {%- else -%}
+            <img src="{{ 'lumiere-packaging-gift-box-2.png' | asset_url }}" alt="Branded box" loading="lazy">
+          {%- endif -%}
+        </div>
+        {%- if section.settings.caption != blank -%}
+          <span class="ls-gift__caption">{{ section.settings.caption }}</span>
+        {%- endif -%}
+      </div>
+      <div class="ls-gift__copy">
+        {%- if section.settings.eyebrow != blank -%}<span class="ls-gift__eyebrow">{{ section.settings.eyebrow }}</span>{%- endif -%}
+        {%- if section.settings.heading != blank -%}<h2 class="ls-gift__title">{{ section.settings.heading }}</h2>{%- endif -%}
+        {%- if section.settings.body != blank -%}<p class="ls-gift__body">{{ section.settings.body }}</p>{%- endif -%}
+        {%- if section.blocks.size > 0 -%}
+          <ul class="ls-gift__list">
+            {%- for block in section.blocks -%}
+              <li {{ block.shopify_attributes }}>
+                <span class="ls-gift__dash">—</span>
+                <span class="ls-gift__line">{{ block.settings.text }}</span>
+              </li>
+            {%- endfor -%}
+          </ul>
+        {%- endif -%}
+        <div class="ls-gift__ctas">
+          {%- if section.settings.button_1_label != blank and section.settings.button_1_url != blank -%}
+            <a class="ls-btn-ghost" href="{{ section.settings.button_1_url }}">{{ section.settings.button_1_label }}</a>
+          {%- endif -%}
+          {%- if section.settings.button_2_label != blank and section.settings.button_2_url != blank -%}
+            <a class="ls-btn-link" href="{{ section.settings.button_2_url }}">{{ section.settings.button_2_label }}</a>
+          {%- endif -%}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "The Gift",
+  "tag": "div",
+  "settings": [
+    { "type": "image_picker", "id": "image_1", "label": "Image 1 (top-left)" },
+    { "type": "image_picker", "id": "image_2", "label": "Image 2 (bottom-right)" },
+    { "type": "text", "id": "caption", "label": "Caption (vertical)", "default": "— wrapped with intention" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "The Gift · Plate 03" },
+    { "type": "richtext", "id": "heading", "label": "Heading", "default": "<p>Designed<br /><em>to be gifted.</em></p>" },
+    { "type": "textarea", "id": "body", "label": "Body", "default": "Beautifully packaged and ready to give. No extra effort, no extra wrapping — just a gift that feels intentional and refined from the moment it arrives." },
+    { "type": "text", "id": "button_1_label", "label": "Button 1 label", "default": "Shop Gift Sets" },
+    { "type": "url", "id": "button_1_url", "label": "Button 1 URL" },
+    { "type": "text", "id": "button_2_label", "label": "Button 2 label", "default": "Explore Scarves" },
+    { "type": "url", "id": "button_2_url", "label": "Button 2 URL" }
+  ],
+  "blocks": [
+    {
+      "type": "feature",
+      "name": "Feature line",
+      "settings": [
+        { "type": "text", "id": "text", "label": "Text", "default": "Signature Lumière box, satin-ribbon tied" }
+      ]
+    }
+  ],
+  "max_blocks": 6,
+  "presets": [
+    {
+      "name": "The Gift",
+      "blocks": [
+        { "type": "feature", "settings": { "text": "Signature Lumière box, satin-ribbon tied" } },
+        { "type": "feature", "settings": { "text": "Gift card with handwritten-style note" } },
+        { "type": "feature", "settings": { "text": "Soft tissue & branded seal" } },
+        { "type": "feature", "settings": { "text": "Arrives ready to place under any tree, on any table" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

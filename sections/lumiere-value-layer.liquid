@@ -1,0 +1,77 @@
+{% style %}
+  .ls-vl{background:var(--ls-blush,#efe1d3);padding:120px 0;}
+  .ls-vl__container{max-width:1440px;margin:0 auto;padding:0 40px;}
+  .ls-vl__head{text-align:center;max-width:680px;margin:0 auto 72px;}
+  .ls-vl__eyebrow{display:inline-block;font-family:var(--ls-sans,'Inter',sans-serif);font-size:10px;letter-spacing:0.32em;text-transform:uppercase;color:var(--ls-gold,#b89968);font-weight:400;}
+  .ls-vl__title{font-family:var(--ls-serif,'Cormorant Garamond',Georgia,serif);font-weight:300;font-size:clamp(36px,5vw,68px);line-height:1.06;margin-top:22px;color:var(--ls-ink,#3d342a);}
+  .ls-vl__title em{font-style:italic;color:var(--ls-gold,#b89968);}
+  .ls-vl__grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border-top:1px solid var(--ls-line,#e6dcc8);}
+  .ls-vl__item{padding:42px 28px 32px;border-bottom:1px solid var(--ls-line,#e6dcc8);position:relative;}
+  .ls-vl__item:not(:last-child){border-right:1px solid var(--ls-line,#e6dcc8);}
+  .ls-vl__num{font-family:var(--ls-serif,'Cormorant Garamond',Georgia,serif);font-style:italic;font-size:32px;font-weight:300;color:var(--ls-gold,#b89968);display:block;margin-bottom:18px;}
+  .ls-vl__h{font-family:var(--ls-serif,'Cormorant Garamond',Georgia,serif);font-size:24px;font-weight:400;color:var(--ls-ink,#3d342a);margin-bottom:12px;}
+  .ls-vl__p{font-family:var(--ls-sans,'Inter',sans-serif);font-size:13px;line-height:1.85;color:var(--ls-muted,#8b7d6b);font-weight:300;}
+  @media (max-width:900px){
+    .ls-vl__grid{grid-template-columns:repeat(2,1fr);}
+    .ls-vl__item:not(:last-child){border-right:none;}
+    .ls-vl__item:nth-child(odd){border-right:1px solid var(--ls-line,#e6dcc8);}
+    .ls-vl{padding:80px 0;}
+    .ls-vl__container{padding:0 24px;}
+  }
+  @media (max-width:560px){
+    .ls-vl__grid{grid-template-columns:1fr;}
+    .ls-vl__item{border-right:none !important;}
+  }
+{% endstyle %}
+
+<section class="ls-vl">
+  <div class="ls-vl__container">
+    <div class="ls-vl__head">
+      {%- if section.settings.eyebrow != blank -%}<span class="ls-vl__eyebrow">{{ section.settings.eyebrow }}</span>{%- endif -%}
+      {%- if section.settings.heading != blank -%}<h2 class="ls-vl__title">{{ section.settings.heading }}</h2>{%- endif -%}
+    </div>
+    <div class="ls-vl__grid">
+      {%- for block in section.blocks -%}
+        <div class="ls-vl__item" {{ block.shopify_attributes }}>
+          <span class="ls-vl__num">{{ block.settings.number }}</span>
+          <h4 class="ls-vl__h">{{ block.settings.title }}</h4>
+          <p class="ls-vl__p">{{ block.settings.body }}</p>
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Value Layer",
+  "tag": "div",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Why Customers Love Lumière Silk" },
+    { "type": "richtext", "id": "heading", "label": "Heading", "default": "<p>Quietly considered, <em>thoughtfully made.</em></p>" }
+  ],
+  "blocks": [
+    {
+      "type": "value",
+      "name": "Value Item",
+      "settings": [
+        { "type": "text", "id": "number", "label": "Number", "default": "01" },
+        { "type": "text", "id": "title", "label": "Title", "default": "Ready-to-Gift" },
+        { "type": "textarea", "id": "body", "label": "Body", "default": "Each piece arrives in our signature box — no extra wrapping required." }
+      ]
+    }
+  ],
+  "max_blocks": 4,
+  "presets": [
+    {
+      "name": "Value Layer",
+      "blocks": [
+        { "type": "value", "settings": { "number": "01", "title": "Ready-to-Gift", "body": "Each piece arrives in our signature box — no extra wrapping required." } },
+        { "type": "value", "settings": { "number": "02", "title": "Premium Feel", "body": "Fluid silk, refined finish, weight in every detail." } },
+        { "type": "value", "settings": { "number": "03", "title": "For Every Occasion", "body": "Birthday, anniversary, thank-you, or simply because." } },
+        { "type": "value", "settings": { "number": "04", "title": "Free Canada Shipping", "body": "Complimentary on orders over $75, delivered with care." } }
+      ]
+    }
+  ]
+}
+{% endschema %}

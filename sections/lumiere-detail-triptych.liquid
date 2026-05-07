@@ -1,0 +1,62 @@
+{% style %}
+  .ls-tript{background:var(--ls-cream,#f3ebdd);padding:0;}
+  .ls-tript__grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0;}
+  .ls-tript__cell{position:relative;aspect-ratio:1/1.1;overflow:hidden;}
+  .ls-tript__cell img{width:100%;height:100%;object-fit:cover;}
+  .ls-tript__overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(42,34,24,0.4) 0%,rgba(42,34,24,0) 50%);}
+  .ls-tript__cap{position:absolute;left:24px;bottom:22px;color:#faf6ef;}
+  .ls-tript__num{font-family:var(--ls-sans,'Inter',sans-serif);font-size:9px;letter-spacing:0.4em;text-transform:uppercase;opacity:0.7;}
+  .ls-tript__label{font-family:var(--ls-serif,'Cormorant Garamond',Georgia,serif);font-style:italic;font-size:20px;font-weight:300;margin-top:4px;}
+  @media (max-width:768px){
+    .ls-tript__grid{grid-template-columns:1fr;}
+  }
+{% endstyle %}
+
+<section class="ls-tript">
+  <div class="ls-tript__grid">
+    {%- for block in section.blocks -%}
+      <div class="ls-tript__cell" {{ block.shopify_attributes }}>
+        {%- if block.settings.image != blank -%}
+          {{ block.settings.image | image_url: width: 1200 | image_tag: alt: block.settings.label | escape, loading: 'lazy', sizes: '(max-width:768px) 100vw, 33vw' }}
+        {%- else -%}
+          <img src="{{ block.settings.fallback_asset | default: 'lumiere-product-detail-3.png' | asset_url }}" alt="{{ block.settings.label | escape }}" loading="lazy">
+        {%- endif -%}
+        <div class="ls-tript__overlay"></div>
+        <div class="ls-tript__cap">
+          <span class="ls-tript__num">0{{ forloop.index }}</span>
+          <p class="ls-tript__label">{{ block.settings.label }}</p>
+        </div>
+      </div>
+    {%- endfor -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Detail Triptych",
+  "tag": "div",
+  "settings": [],
+  "blocks": [
+    {
+      "type": "shot",
+      "name": "Detail shot",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Image" },
+        { "type": "text", "id": "label", "label": "Label", "default": "Hand-finished edges" },
+        { "type": "text", "id": "fallback_asset", "label": "Fallback asset filename (in /assets)", "default": "lumiere-product-detail-3.png", "info": "Used only when no image is selected." }
+      ]
+    }
+  ],
+  "max_blocks": 3,
+  "presets": [
+    {
+      "name": "Detail Triptych",
+      "blocks": [
+        { "type": "shot", "settings": { "label": "Hand-finished edges", "fallback_asset": "lumiere-product-detail-3.png" } },
+        { "type": "shot", "settings": { "label": "Pure mulberry silk", "fallback_asset": "lumiere-product-sig-scarf-3.png" } },
+        { "type": "shot", "settings": { "label": "Signature presentation", "fallback_asset": "lumiere-packaging-gift-box-2.png" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

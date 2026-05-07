@@ -1,0 +1,43 @@
+{% style %}
+  .ls-phil{background:var(--ls-champagne,#e8dcc6);padding:140px 0;position:relative;overflow:hidden;}
+  .ls-phil__container{max-width:1440px;margin:0 auto;padding:0 40px;text-align:center;position:relative;}
+  .ls-phil__inner{max-width:780px;margin:0 auto;}
+  .ls-phil__eyebrow{display:inline-block;font-family:var(--ls-sans,'Inter',sans-serif);font-size:10px;letter-spacing:0.32em;text-transform:uppercase;color:var(--ls-gold,#b89968);font-weight:400;}
+  .ls-phil__title{font-family:var(--ls-serif,'Cormorant Garamond',Georgia,serif);font-weight:300;font-size:clamp(36px,5vw,68px);line-height:1.06;margin-top:24px;margin-bottom:32px;color:var(--ls-ink,#3d342a);}
+  .ls-phil__title em{font-style:italic;}
+  .ls-phil__rule{width:32px;height:1px;background:var(--ls-gold,#b89968);margin:0 auto 32px;}
+  .ls-phil__body{font-family:var(--ls-serif,'Cormorant Garamond',Georgia,serif);font-style:italic;font-size:clamp(17px,1.6vw,22px);line-height:1.7;color:var(--ls-ink,#3d342a);max-width:600px;margin:0 auto 44px;font-weight:300;opacity:0.85;}
+  @media (max-width:768px){
+    .ls-phil{padding:96px 0;}
+    .ls-phil__container{padding:0 24px;}
+  }
+{% endstyle %}
+
+<section class="ls-phil">
+  <div class="ls-phil__container">
+    <div class="ls-phil__inner">
+      {%- if section.settings.eyebrow != blank -%}<span class="ls-phil__eyebrow">{{ section.settings.eyebrow }}</span>{%- endif -%}
+      {%- if section.settings.heading != blank -%}<h2 class="ls-phil__title">{{ section.settings.heading }}</h2>{%- endif -%}
+      <div class="ls-phil__rule"></div>
+      {%- if section.settings.body != blank -%}<p class="ls-phil__body">{{ section.settings.body }}</p>{%- endif -%}
+      {%- if section.settings.button_label != blank and section.settings.button_url != blank -%}
+        <a class="ls-btn-ghost" href="{{ section.settings.button_url }}">{{ section.settings.button_label }}</a>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Philosophy",
+  "tag": "div",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Our Philosophy" },
+    { "type": "richtext", "id": "heading", "label": "Heading", "default": "<p>Designed in Canada,<br /><em>inspired by timeless elegance.</em></p>" },
+    { "type": "textarea", "id": "body", "label": "Body", "default": "Each piece is carefully selected to offer a soft, refined, and thoughtful gifting experience." },
+    { "type": "text", "id": "button_label", "label": "Button label", "default": "Discover Our World" },
+    { "type": "url", "id": "button_url", "label": "Button URL" }
+  ],
+  "presets": [{ "name": "Philosophy" }]
+}
+{% endschema %}
