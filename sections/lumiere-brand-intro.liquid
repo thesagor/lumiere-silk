@@ -8,6 +8,15 @@
         {%- endif -%}
         <h2 class="brand-intro-title heading-serif">{{ section.settings.heading }}</h2>
         <p class="brand-intro-body">{{ section.settings.body }}</p>
+        {%- if section.blocks.size > 0 -%}
+          <ul class="brand-intro-bullets">
+            {%- for block in section.blocks -%}
+              {%- if block.type == 'bullet' and block.settings.text != blank -%}
+                <li class="brand-intro-bullet-item" {{ block.shopify_attributes }}>{{ block.settings.text | escape }}</li>
+              {%- endif -%}
+            {%- endfor -%}
+          </ul>
+        {%- endif -%}
         {%- if section.settings.button_label != blank and section.settings.button_url != blank -%}
           <a href="{{ section.settings.button_url }}" class="btn btn-outline" style="margin-top:2rem;">
             {{ section.settings.button_label | escape }}
@@ -15,24 +24,27 @@
         {%- endif -%}
       </div>
 
-      <div class="brand-intro-image fade-in">
-        {%- if section.settings.image != blank -%}
-          {%- assign brand_intro_alt = section.settings.heading | escape -%}
-          {{
-            section.settings.image
-            | image_url: width: 800
-            | image_tag:
-              loading: 'lazy',
-              sizes: '(max-width: 768px) 100vw, 50vw',
-              alt: brand_intro_alt
-          }}
-        {%- else -%}
-          <img
-            src="{{ 'lumiere-brand-intro.jpg' | asset_url }}"
-            alt="{{ section.settings.heading | escape }}"
-            loading="lazy"
-          >
-        {%- endif -%}
+      <div class="brand-intro-image-wrap fade-in">
+        <div class="brand-intro-image">
+          {%- if section.settings.image != blank -%}
+            {%- assign brand_intro_alt = section.settings.heading | escape -%}
+            {{
+              section.settings.image
+              | image_url: width: 800
+              | image_tag:
+                loading: 'lazy',
+                sizes: '(max-width: 768px) 100vw, 50vw',
+                alt: brand_intro_alt
+            }}
+          {%- else -%}
+            <img
+              src="{{ 'lumiere-brand-intro.jpg' | asset_url }}"
+              alt="{{ section.settings.heading | escape }}"
+              loading="lazy"
+            >
+          {%- endif -%}
+        </div>
+        <div class="brand-intro-image-border" aria-hidden="true"></div>
       </div>
 
     </div>
@@ -78,14 +90,35 @@
       "label": "Button URL"
     }
   ],
+  "blocks": [
+    {
+      "type": "bullet",
+      "name": "Bullet point",
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text",
+          "default": "Ready-to-gift packaging — no extra wrapping needed"
+        }
+      ]
+    }
+  ],
   "presets": [
     {
       "name": "Lumiere Brand Intro",
       "settings": {
-        "label": "Our Philosophy",
-        "heading": "Timeless Beauty, Thoughtfully Presented",
-        "body": "Lumiere Silk is a premium accessories and gifting brand centered around elegance, softness, and refined details. From silk scarves to beautifully presented gift sets, each piece is chosen to offer a graceful and elevated experience for both personal use and meaningful gifting."
-      }
+        "label": "Why Customers Love Lumière Silk",
+        "heading": "More than a scarf —<br><em>a refined gifting experience.</em>",
+        "body": "Each Lumière Silk piece is created to feel intentional and refined — ready to give, beautifully presented, and made for the moments that matter.",
+        "button_label": "Discover Our Story"
+      },
+      "blocks": [
+        { "type": "bullet", "settings": { "text": "Ready-to-gift packaging — no extra wrapping needed" } },
+        { "type": "bullet", "settings": { "text": "Elegant presentation that feels premium" } },
+        { "type": "bullet", "settings": { "text": "A thoughtful gift for any occasion" } },
+        { "type": "bullet", "settings": { "text": "Free shipping across Canada" } }
+      ]
     }
   ]
 }

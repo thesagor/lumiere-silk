@@ -1,6 +1,9 @@
 <section class="newsletter-section section-pad-sm" aria-label="Newsletter signup">
   <div class="container">
     <div class="newsletter-inner fade-in">
+      {%- if section.settings.label != blank -%}
+        <p class="text-label newsletter-label">{{ section.settings.label | escape }}</p>
+      {%- endif -%}
       <h2 class="newsletter-title heading-serif">{{ section.settings.heading }}</h2>
       <p class="newsletter-body">{{ section.settings.body }}</p>
 
@@ -37,6 +40,12 @@
   "settings": [
     {
       "type": "text",
+      "id": "label",
+      "label": "Eyebrow label (above heading)",
+      "default": "Stay Close"
+    },
+    {
+      "type": "text",
       "id": "heading",
       "label": "Heading",
       "default": "Join the Lumière Circle"
@@ -45,7 +54,7 @@
       "type": "textarea",
       "id": "body",
       "label": "Body text",
-      "default": "Be the first to discover new arrivals, exclusive offers, and styling inspiration — delivered softly to your inbox."
+      "default": "Receive updates on new arrivals, exclusive offers, and the quiet beauty of Lumière Silk."
     },
     {
       "type": "text",
@@ -70,8 +79,9 @@
     {
       "name": "Lumiere Newsletter",
       "settings": {
-        "heading": "Join the Lumiere Circle",
-        "body": "Be the first to discover new arrivals, exclusive offers, and styling inspiration - delivered softly to your inbox.",
+        "label": "Stay Close",
+        "heading": "Join the Lumière Circle",
+        "body": "Receive updates on new arrivals, exclusive offers, and the quiet beauty of Lumière Silk.",
         "placeholder": "Your email address",
         "button_label": "Subscribe",
         "note": "We respect your privacy. Unsubscribe at any time."

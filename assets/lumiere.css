@@ -770,10 +770,38 @@ h4 { font-family: var(--font-body); font-weight: 500; }
   line-height: 1.8;
   color: var(--color-text-muted);
   max-width: 480px;
+  margin-bottom: 1.25rem;
+}
+.brand-intro-bullets {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+.brand-intro-bullet-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.8125rem;
+  color: var(--color-text-muted);
+  line-height: 1.5;
+}
+.brand-intro-bullet-item::before {
+  content: '';
+  display: block;
+  width: 5px;
+  height: 5px;
+  background: var(--color-gold);
+  flex-shrink: 0;
+}
+.brand-intro-image-wrap {
+  position: relative;
 }
 .brand-intro-image {
   position: relative;
-  aspect-ratio: 4/5;
+  aspect-ratio: 3/4;
   overflow: hidden;
   background: var(--color-cream);
 }
@@ -784,6 +812,17 @@ h4 { font-family: var(--font-body); font-weight: 500; }
   transition: transform var(--transition-slow);
 }
 .brand-intro-image:hover img { transform: scale(1.04); }
+.brand-intro-image-border {
+  position: absolute;
+  top: 16px;
+  right: -16px;
+  bottom: -16px;
+  left: 16px;
+  border: 1px solid var(--color-gold-light);
+  z-index: -1;
+  opacity: 0.5;
+  pointer-events: none;
+}
 
 /* ============================================
    COLLECTION SECTION
@@ -999,7 +1038,7 @@ h4 { font-family: var(--font-body); font-weight: 500; }
 /* ============================================
    PACKAGING SECTION
    ============================================ */
-.packaging-section { background: var(--color-cream); }
+.packaging-section { background: var(--color-blush); }
 .packaging-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -1101,6 +1140,12 @@ h4 { font-family: var(--font-body); font-weight: 500; }
   color: rgba(250,248,245,0.75);
   margin-bottom: 2.5rem;
 }
+.brand-story-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
 .brand-story-divider {
   width: 40px;
   height: 1px;
@@ -1111,11 +1156,14 @@ h4 { font-family: var(--font-body); font-weight: 500; }
 /* ============================================
    NEWSLETTER SECTION
    ============================================ */
-.newsletter-section { background: var(--color-blush); }
+.newsletter-section { background: var(--color-cream); }
 .newsletter-inner {
   text-align: center;
   max-width: 500px;
   margin: 0 auto;
+}
+.newsletter-label {
+  margin-bottom: 1rem;
 }
 .newsletter-title {
   font-size: clamp(1.5rem, 2.5vw, 2rem);

@@ -158,30 +158,36 @@
       {%- endform -%}
 
       <!-- Meta -->
+      {%- liquid
+        assign meta_material  = product.metafields.custom.material  | default: 'Premium Mulberry Silk'
+        assign meta_size      = product.metafields.custom.size       | default: '86 × 86 cm'
+        assign meta_packaging = product.metafields.custom.packaging  | default: 'Elegantly presented, gift-ready'
+        assign meta_shipping  = product.metafields.custom.shipping_info | default: 'Canada · 2–5 business days'
+      -%}
       <div class="product-meta">
         <div class="product-meta-item">
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/>
           </svg>
-          <span><span class="product-meta-label">Material</span><span class="product-meta-value"> — Premium Mulberry Silk</span></span>
+          <span><span class="product-meta-label">Material</span><span class="product-meta-value"> — {{ meta_material }}</span></span>
         </div>
         <div class="product-meta-item">
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"/>
           </svg>
-          <span><span class="product-meta-label">Size</span><span class="product-meta-value"> — 86 × 86 cm</span></span>
+          <span><span class="product-meta-label">Size</span><span class="product-meta-value"> — {{ meta_size }}</span></span>
         </div>
         <div class="product-meta-item">
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"/>
           </svg>
-          <span><span class="product-meta-label">Packaging</span><span class="product-meta-value"> — Elegantly presented, gift-ready</span></span>
+          <span><span class="product-meta-label">Packaging</span><span class="product-meta-value"> — {{ meta_packaging }}</span></span>
         </div>
         <div class="product-meta-item">
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4"/>
           </svg>
-          <span><span class="product-meta-label">Shipping</span><span class="product-meta-value"> — Canada · 2–5 business days</span></span>
+          <span><span class="product-meta-label">Shipping</span><span class="product-meta-value"> — {{ meta_shipping }}</span></span>
         </div>
       </div>
 
@@ -209,25 +215,37 @@
         </div>
 
         <div class="product-tab-content" data-tab-content="care">
-          <p>To preserve the beauty of your silk scarf:</p>
-          <ul>
-            <li>Hand wash gently in cool water with mild detergent</li>
-            <li>Do not wring or twist — press gently in a towel</li>
-            <li>Lay flat or hang to dry, away from direct sunlight</li>
-            <li>Iron on the lowest setting, inside out, or use steam</li>
-            <li>Store loosely folded in a cool, dry place</li>
-          </ul>
+          {%- if product.metafields.custom.care_instructions != blank -%}
+            {{ product.metafields.custom.care_instructions | metafield_tag }}
+          {%- else -%}
+            <p>To preserve the beauty of your silk scarf:</p>
+            <ul>
+              <li>Hand wash gently in cool water with mild detergent</li>
+              <li>Do not wring or twist — press gently in a towel</li>
+              <li>Lay flat or hang to dry, away from direct sunlight</li>
+              <li>Iron on the lowest setting, inside out, or use steam</li>
+              <li>Store loosely folded in a cool, dry place</li>
+            </ul>
+          {%- endif -%}
         </div>
 
         <div class="product-tab-content" data-tab-content="shipping">
-          <p>Processing time is 2–5 business days after payment confirmation.</p>
-          <p>We currently ship within Canada. Shipping rates are calculated at checkout based on your delivery address and selected method.</p>
-          <p>You will receive a tracking email once your order has been dispatched.</p>
+          {%- if product.metafields.custom.shipping_tab != blank -%}
+            {{ product.metafields.custom.shipping_tab | metafield_tag }}
+          {%- else -%}
+            <p>Processing time is 2–5 business days after payment confirmation.</p>
+            <p>We currently ship within Canada. Shipping rates are calculated at checkout based on your delivery address and selected method.</p>
+            <p>You will receive a tracking email once your order has been dispatched.</p>
+          {%- endif -%}
         </div>
 
         <div class="product-tab-content" data-tab-content="returns">
-          <p>We accept returns within 7 days of delivery for eligible items that are unused, in original condition, and returned with original packaging.</p>
-          <p>Please note that earrings, worn items, and certain gift sets may not be eligible for return. Email <a href="mailto:lumieresilk.ca@gmail.com">lumieresilk.ca@gmail.com</a> to initiate a return.</p>
+          {%- if product.metafields.custom.returns_tab != blank -%}
+            {{ product.metafields.custom.returns_tab | metafield_tag }}
+          {%- else -%}
+            <p>We accept returns within 7 days of delivery for eligible items that are unused, in original condition, and returned with original packaging.</p>
+            <p>Please note that earrings, worn items, and certain gift sets may not be eligible for return. Email <a href="mailto:lumieresilk.ca@gmail.com">lumieresilk.ca@gmail.com</a> to initiate a return.</p>
+          {%- endif -%}
         </div>
       </div>
 

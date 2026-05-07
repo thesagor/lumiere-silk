@@ -4,12 +4,12 @@
       "type": "lumiere-hero",
       "settings": {
         "label": "Lumiere Silk",
-        "heading": "Elegant Silk,\nBeautifully Gifted",
-        "subheading": "Discover silk scarves and gift-ready pieces designed to bring softness, beauty, and quiet refinement to everyday life.",
-        "button_1_label": "Shop Scarves",
-        "button_1_url": "/collections/silk-scarves",
-        "button_2_label": "Explore Gift Sets",
-        "button_2_url": "/collections/gift-sets"
+        "heading": "Silk Scarves<br><em>Designed for Gifting</em>",
+        "subheading": "Elegant, ready-to-gift pieces designed to make every moment feel special.",
+        "button_1_label": "Shop Gift Sets",
+        "button_1_url": "/collections/gift-sets",
+        "button_2_label": "Shop Scarves",
+        "button_2_url": "/collections/silk-scarves"
       }
     },
     "trust-bar": {
@@ -25,19 +25,40 @@
     "brand-intro": {
       "type": "lumiere-brand-intro",
       "settings": {
-        "label": "Our Philosophy",
-        "heading": "Timeless Beauty, Thoughtfully Presented",
-        "body": "Lumiere Silk is a premium accessories and gifting brand centered around elegance, softness, and refined details. From silk scarves to beautifully presented gift sets, each piece is chosen to offer a graceful and elevated experience for both personal use and meaningful gifting."
-      }
+        "label": "Why Customers Love Lumière Silk",
+        "heading": "More than a scarf —<br><em>a refined gifting experience.</em>",
+        "body": "Each Lumière Silk piece is created to feel intentional and refined — ready to give, beautifully presented, and made for the moments that matter.",
+        "button_label": "Discover Our Story",
+        "button_url": "/pages/about"
+      },
+      "blocks": {
+        "bullet-1": {
+          "type": "bullet",
+          "settings": { "text": "Ready-to-gift packaging — no extra wrapping needed" }
+        },
+        "bullet-2": {
+          "type": "bullet",
+          "settings": { "text": "Elegant presentation that feels premium" }
+        },
+        "bullet-3": {
+          "type": "bullet",
+          "settings": { "text": "A thoughtful gift for any occasion" }
+        },
+        "bullet-4": {
+          "type": "bullet",
+          "settings": { "text": "Free shipping across Canada" }
+        }
+      },
+      "block_order": ["bullet-1", "bullet-2", "bullet-3", "bullet-4"]
     },
     "collection": {
       "type": "lumiere-collection",
       "settings": {
         "label": "The Collection",
         "heading": "Signature Silk Scarves",
-        "body": "Our silk scarves are designed to feel timeless, feminine, and effortlessly elegant. With a focus on beauty, texture, and versatility, each piece is selected to add softness and sophistication to everyday style.",
+        "body": "Timeless designs created to feel soft, elegant, and effortless — perfect for both everyday wear and meaningful gifting.",
         "products_to_show": 3,
-        "tagline": "Classic pieces made to be worn, loved, and gifted.",
+        "tagline": "Thoughtful gifts, elegantly packaged.",
         "button_label": "View Collection",
         "button_url": "/collections/silk-scarves",
         "placeholder_titles": "Signature Silk Scarf|Elegant Silk Scarf|Silk Scarf Gift Box",
@@ -47,9 +68,9 @@
     "gift-sets": {
       "type": "lumiere-gift-sets",
       "settings": {
-        "label": "Gifting",
-        "heading": "Gift-Ready Elegance",
-        "body": "More than an accessory, Lumiere Silk is designed to be a beautiful gifting experience. Explore scarf gift boxes and thoughtfully paired sets created for special moments, personal treats, and meaningful gestures.",
+        "label": "Gift Sets",
+        "heading": "Designed to<br><em>Be Gifted</em>",
+        "body": "Beautifully packaged and ready to give. No extra effort, no extra wrapping — just a gift that feels intentional and refined from the moment it arrives.",
         "tagline": "Beautifully chosen. Elegantly presented.",
         "button_label": "Shop Gift Sets",
         "button_url": "/collections/gift-sets"
@@ -58,27 +79,45 @@
     "packaging": {
       "type": "lumiere-packaging",
       "settings": {
-        "label": "Presentation",
+        "label": "The Experience",
         "heading": "The Art of Gifting",
-        "body": "Every detail matters - from the softness of the silk to the presentation of the final box. Our packaging is designed to feel refined, graceful, and ready to gift, creating a memorable unboxing experience that reflects the beauty of the brand.",
-        "tagline": "Refined packaging, thoughtful details, timeless impression."
-      }
+        "body": "Every detail matters — from the softness of the silk to the presentation of the final box. Our packaging is designed to feel refined, graceful, and ready to gift, creating a memorable unboxing experience that reflects the beauty of the brand.",
+        "tagline": "Refined packaging · Thoughtful details · Timeless impression."
+      },
+      "blocks": {
+        "bullet-1": {
+          "type": "bullet",
+          "settings": { "text": "Elegantly boxed, ribbon-tied" }
+        },
+        "bullet-2": {
+          "type": "bullet",
+          "settings": { "text": "Ready to gift — no wrapping needed" }
+        },
+        "bullet-3": {
+          "type": "bullet",
+          "settings": { "text": "Presented with a Lumière Silk card" }
+        }
+      },
+      "block_order": ["bullet-1", "bullet-2", "bullet-3"]
     },
     "brand-story": {
       "type": "lumiere-brand-story",
       "settings": {
-        "label": "Our Story",
-        "heading": "The World of Lumiere Silk",
-        "body": "Lumiere Silk was created from a love of elegance, beauty, and thoughtful design. We believe the smallest details can make a lasting impression, and that a beautifully chosen piece can bring quiet confidence, warmth, and joy. Our vision is to create a brand that feels soft, polished, and timeless - a place where silk, presentation, and gifting come together with grace.",
-        "button_label": "About Us",
-        "button_url": "/pages/about"
+        "label": "Our Philosophy",
+        "heading": "Designed in Canada,<br><em>inspired by timeless elegance.</em>",
+        "body": "Each piece is carefully selected to offer a soft, refined, and thoughtful gifting experience.",
+        "button_label": "Shop Gift Sets",
+        "button_url": "/collections/gift-sets",
+        "button_2_label": "Explore Scarves",
+        "button_2_url": "/collections/silk-scarves"
       }
     },
     "newsletter": {
       "type": "lumiere-newsletter",
       "settings": {
-        "heading": "Join the Lumiere Circle",
-        "body": "Be the first to discover new arrivals, exclusive offers, and styling inspiration - delivered softly to your inbox.",
+        "label": "Stay Close",
+        "heading": "Join the Lumière Circle",
+        "body": "Receive updates on new arrivals, exclusive offers, and the quiet beauty of Lumière Silk.",
         "placeholder": "Your email address",
         "button_label": "Subscribe",
         "note": "We respect your privacy. Unsubscribe at any time."

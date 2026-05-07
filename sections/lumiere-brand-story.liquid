@@ -7,11 +7,18 @@
       <div class="brand-story-divider"></div>
       <h2 class="brand-story-title heading-serif">{{ section.settings.heading }}</h2>
       <p class="brand-story-body">{{ section.settings.body }}</p>
-      {%- if section.settings.button_label != blank and section.settings.button_url != blank -%}
-        <a href="{{ section.settings.button_url }}" class="btn btn-outline-light">
-          {{ section.settings.button_label | escape }}
-        </a>
-      {%- endif -%}
+      <div class="brand-story-actions">
+        {%- if section.settings.button_label != blank and section.settings.button_url != blank -%}
+          <a href="{{ section.settings.button_url }}" class="btn btn-outline-light">
+            {{ section.settings.button_label | escape }}
+          </a>
+        {%- endif -%}
+        {%- if section.settings.button_2_label != blank and section.settings.button_2_url != blank -%}
+          <a href="{{ section.settings.button_2_url }}" class="btn btn-ghost-light">
+            {{ section.settings.button_2_label | escape }}
+          </a>
+        {%- endif -%}
+      </div>
     </div>
   </div>
 </section>
@@ -25,40 +32,52 @@
       "type": "text",
       "id": "label",
       "label": "Label",
-      "default": "Our Story"
+      "default": "Our Philosophy"
     },
     {
       "type": "textarea",
       "id": "heading",
       "label": "Heading",
-      "default": "The World of Lumière Silk"
+      "default": "Designed in Canada, inspired by timeless elegance."
     },
     {
       "type": "textarea",
       "id": "body",
       "label": "Body text",
-      "default": "Lumière Silk was created from a love of elegance, beauty, and thoughtful design. We believe the smallest details can make a lasting impression, and that a beautifully chosen piece can bring quiet confidence, warmth, and joy. Our vision is to create a brand that feels soft, polished, and timeless — a place where silk, presentation, and gifting come together with grace."
+      "default": "Each piece is carefully selected to offer a soft, refined, and thoughtful gifting experience."
     },
     {
       "type": "text",
       "id": "button_label",
-      "label": "Button label",
-      "default": "About Us"
+      "label": "Button 1 label",
+      "default": "Shop Gift Sets"
     },
     {
       "type": "url",
       "id": "button_url",
-      "label": "Button URL"
+      "label": "Button 1 URL"
+    },
+    {
+      "type": "text",
+      "id": "button_2_label",
+      "label": "Button 2 label (optional)",
+      "default": "Explore Scarves"
+    },
+    {
+      "type": "url",
+      "id": "button_2_url",
+      "label": "Button 2 URL (optional)"
     }
   ],
   "presets": [
     {
       "name": "Lumiere Brand Story",
       "settings": {
-        "label": "Our Story",
-        "heading": "The World of Lumiere Silk",
-        "body": "Lumiere Silk was created from a love of elegance, beauty, and thoughtful design. We believe the smallest details can make a lasting impression, and that a beautifully chosen piece can bring quiet confidence, warmth, and joy. Our vision is to create a brand that feels soft, polished, and timeless - a place where silk, presentation, and gifting come together with grace.",
-        "button_label": "About Us"
+        "label": "Our Philosophy",
+        "heading": "Designed in Canada,<br><em>inspired by timeless elegance.</em>",
+        "body": "Each piece is carefully selected to offer a soft, refined, and thoughtful gifting experience.",
+        "button_label": "Shop Gift Sets",
+        "button_2_label": "Explore Scarves"
       }
     }
   ]
