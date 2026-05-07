@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(ls -la \"c:\\\\Users\\\\Sagor Ahmed\\\\Desktop\\\\sabrina\\\\shopify\\\\\")",
+      "Read(//c/Users/Sagor Ahmed/Desktop/sabrina/**)"
+    ]
+  }
+}
