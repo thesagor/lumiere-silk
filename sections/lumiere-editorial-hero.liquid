@@ -1,39 +1,121 @@
 {% style %}
-  .ls-hero{position:relative;height:100vh;min-height:720px;overflow:hidden;background:var(--ls-cream,#f3ebdd);}
+  /* ── Hero base ── */
+  .ls-hero{
+    position:relative;
+    height:100vh;
+    height:100svh;
+    min-height:600px;
+    overflow:hidden;
+    background:var(--ls-cream,#f3ebdd);
+    display:flex;
+    flex-direction:column;
+  }
   .ls-hero__img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 18%;animation:lsSlowZoom 8s ease-out forwards;}
-  .ls-hero__overlay{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(42,34,24,0.32) 0%,rgba(42,34,24,0.05) 35%,rgba(42,34,24,0.05) 65%,rgba(42,34,24,0.45) 100%);}
+  .ls-hero__overlay{
+    position:absolute;inset:0;
+    background:linear-gradient(
+      to bottom,
+      rgba(42,34,24,var(--ov-top,0.35))  0%,
+      rgba(42,34,24,var(--ov-mid,0.08))  40%,
+      rgba(42,34,24,var(--ov-mid,0.08))  60%,
+      rgba(42,34,24,var(--ov-bot,0.55))  100%
+    );
+  }
+
+  /* Issue label — top right */
   .ls-hero__issue{position:absolute;top:140px;right:60px;color:rgba(250,246,239,0.85);text-align:right;writing-mode:vertical-rl;transform:rotate(180deg);animation:lsFadeIn 1.2s ease 0.3s both;}
   .ls-hero__issue span{font-family:var(--ls-sans,'Inter',sans-serif);font-size:10px;letter-spacing:0.4em;text-transform:uppercase;}
-  .ls-hero__center{position:absolute;left:50%;top:48%;transform:translate(-50%,-50%);text-align:center;color:#faf6ef;max-width:920px;padding:0 32px;animation:lsFadeUp 1.4s ease 0.2s both;width:100%;}
-  .ls-hero__pretitle{display:flex;align-items:center;justify-content:center;gap:16px;margin-bottom:32px;opacity:0.85;}
-  .ls-hero__pretitle span:first-child,.ls-hero__pretitle span:last-child{width:48px;height:1px;background:rgba(250,246,239,0.5);}
-  .ls-hero__pretitle .ls-hero__brand{font-family:var(--ls-sans,'Inter',sans-serif);font-size:10px;letter-spacing:0.5em;text-transform:uppercase;width:auto;height:auto;background:transparent;}
-  .ls-hero__title{font-family:var(--ls-serif,'Cormorant Garamond',Georgia,serif);font-weight:300;font-size:clamp(56px,9vw,140px);line-height:0.95;letter-spacing:-0.015em;margin-bottom:32px;}
+
+  /* Centre content block */
+  .ls-hero__center{
+    position:relative;
+    z-index:1;
+    flex:1;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    color:#faf6ef;
+    padding:100px 40px 120px;
+    animation:lsFadeUp 1.4s ease 0.2s both;
+  }
+  .ls-hero__pretitle{display:flex;align-items:center;justify-content:center;gap:16px;margin-bottom:28px;opacity:0.85;}
+  .ls-hero__pretitle span:first-child,.ls-hero__pretitle span:last-child{width:40px;height:1px;background:rgba(250,246,239,0.5);}
+  .ls-hero__brand{font-family:var(--ls-sans,'Inter',sans-serif);font-size:10px;letter-spacing:0.5em;text-transform:uppercase;}
+  .ls-hero__title{font-family:var(--ls-serif,'Cormorant Garamond',Georgia,serif);font-weight:300;font-size:clamp(44px,9vw,140px);line-height:0.95;letter-spacing:-0.015em;margin-bottom:28px;}
   .ls-hero__title em{font-style:italic;color:rgba(250,246,239,0.96);}
-  .ls-hero__sub{font-family:var(--ls-serif,'Cormorant Garamond',Georgia,serif);font-style:italic;font-size:clamp(15px,1.4vw,19px);line-height:1.6;max-width:520px;margin:0 auto;color:rgba(250,246,239,0.78);font-weight:300;}
-  .ls-hero__ctas{position:absolute;left:0;right:0;bottom:48px;display:flex;justify-content:center;gap:18px;animation:lsFadeUp 1.6s ease 0.6s both;flex-wrap:wrap;padding:0 16px;}
-  .ls-btn-ghost-light{display:inline-flex;align-items:center;gap:10px;font-family:var(--ls-sans,'Inter',sans-serif);font-size:11px;letter-spacing:0.22em;text-transform:uppercase;padding:15px 32px;font-weight:400;transition:all 0.35s;cursor:pointer;border:1px solid rgba(250,246,239,0.5);color:#faf6ef;background:transparent;}
-  .ls-btn-ghost-light:hover{background:rgba(250,246,239,0.08);}
-  .ls-hero__scroll{position:absolute;right:32px;bottom:48px;display:flex;flex-direction:column;align-items:center;gap:10px;color:rgba(250,246,239,0.7);animation:lsFadeIn 2s ease 1s both;}
+  .ls-hero__sub{font-family:var(--ls-serif,'Cormorant Garamond',Georgia,serif);font-style:italic;font-size:clamp(15px,1.6vw,19px);line-height:1.6;max-width:480px;color:rgba(250,246,239,0.78);font-weight:300;}
+
+  /* CTAs row */
+  .ls-hero__ctas{
+    position:relative;
+    z-index:1;
+    display:flex;
+    justify-content:center;
+    gap:14px;
+    padding:0 20px 52px;
+    flex-wrap:wrap;
+    animation:lsFadeUp 1.6s ease 0.6s both;
+  }
+  .ls-btn-ghost-light{display:inline-flex;align-items:center;justify-content:center;gap:10px;font-family:var(--ls-sans,'Inter',sans-serif);font-size:11px;letter-spacing:0.22em;text-transform:uppercase;padding:14px 28px;font-weight:400;transition:all 0.35s;cursor:pointer;border:1px solid rgba(250,246,239,0.5);color:#faf6ef;background:transparent;}
+  .ls-btn-ghost-light:hover{background:rgba(250,246,239,0.1);}
+
+  /* Scroll cue */
+  .ls-hero__scroll{position:absolute;right:32px;bottom:52px;display:flex;flex-direction:column;align-items:center;gap:10px;color:rgba(250,246,239,0.7);animation:lsFadeIn 2s ease 1s both;z-index:1;}
   .ls-hero__scroll span:first-child{font-family:var(--ls-sans,'Inter',sans-serif);font-size:9px;letter-spacing:0.4em;text-transform:uppercase;writing-mode:vertical-rl;}
   .ls-hero__scroll span:last-child{width:1px;height:32px;background:rgba(250,246,239,0.5);}
+
   @keyframes lsSlowZoom{from{transform:scale(1.06);}to{transform:scale(1);}}
-  @keyframes lsFadeUp{from{opacity:0;transform:translateY(24px);}to{opacity:1;transform:translateY(0);}}
+  @keyframes lsFadeUp{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
   @keyframes lsFadeIn{from{opacity:0;}to{opacity:1;}}
+
+  /* ── Tablet ── */
+  @media (max-width:1024px){
+    .ls-hero__title{font-size:clamp(44px,7vw,96px);}
+  }
+
+  /* ── Mobile ── */
   @media (max-width:768px){
+    .ls-hero{
+      height:85vh;
+      height:85svh;
+      min-height:520px;
+      max-height:680px;
+    }
     .ls-hero__issue{display:none;}
     .ls-hero__scroll{display:none;}
-    .ls-hero{min-height:620px;}
+    .ls-hero__img{object-position:center 20%;}
+    .ls-hero__center{padding:80px 28px 80px;}
+    .ls-hero__pretitle{margin-bottom:18px;}
+    .ls-hero__title{font-size:clamp(36px,10vw,56px);line-height:1.02;margin-bottom:18px;}
+    .ls-hero__sub{font-size:15px;max-width:100%;line-height:1.55;}
+    .ls-hero__ctas{gap:10px;padding:0 28px 36px;flex-direction:column;align-items:center;}
+    .ls-btn-ghost-light{width:100%;max-width:300px;justify-content:center;padding:14px 20px;font-size:10px;letter-spacing:0.18em;}
+  }
+
+  /* ── Small phones (iPhone SE, etc.) ── */
+  @media (max-width:390px){
+    .ls-hero{height:80vh;height:80svh;min-height:480px;}
+    .ls-hero__center{padding:72px 20px 72px;}
+    .ls-hero__title{font-size:34px;}
+    .ls-hero__sub{font-size:14px;}
   }
 {% endstyle %}
 
+{%- liquid
+  assign ov_top = section.settings.overlay_top | divided_by: 100.0
+  assign ov_mid = section.settings.overlay_mid | divided_by: 100.0
+  assign ov_bot = section.settings.overlay_bot | divided_by: 100.0
+-%}
+
 <section class="ls-hero" aria-label="Hero">
   {%- if section.settings.image != blank -%}
-    {{ section.settings.image | image_url: width: 2400 | image_tag: loading: 'eager', fetchpriority: 'high', sizes: '100vw', alt: section.settings.heading | escape, class: 'ls-hero__img' }}
+    <img src="{{ section.settings.image | image_url: width: 2400 }}" alt="" class="ls-hero__img" loading="eager">
   {%- else -%}
-    <img src="{{ 'lumiere-product-sig-scarf-1.png' | asset_url }}" alt="{{ section.settings.heading | escape }}" class="ls-hero__img" loading="eager" fetchpriority="high">
+    <img src="{{ 'lumiere-product-sig-scarf-1.png' | asset_url }}" alt="" class="ls-hero__img" loading="eager">
   {%- endif -%}
-  <div class="ls-hero__overlay"></div>
+  <div class="ls-hero__overlay" style="--ov-top:{{ ov_top }};--ov-mid:{{ ov_mid }};--ov-bot:{{ ov_bot }};"></div>
 
   {%- if section.settings.issue_label != blank -%}
     <div class="ls-hero__issue"><span>{{ section.settings.issue_label }}</span></div>
@@ -53,14 +135,16 @@
     {%- endif -%}
   </div>
 
-  <div class="ls-hero__ctas">
-    {%- if section.settings.button_1_label != blank and section.settings.button_1_url != blank -%}
-      <a class="ls-btn-ghost-light" href="{{ section.settings.button_1_url }}">{{ section.settings.button_1_label }}</a>
-    {%- endif -%}
-    {%- if section.settings.button_2_label != blank and section.settings.button_2_url != blank -%}
-      <a class="ls-btn-ghost-light" href="{{ section.settings.button_2_url }}">{{ section.settings.button_2_label }}</a>
-    {%- endif -%}
-  </div>
+  {%- if section.settings.button_1_label != blank or section.settings.button_2_label != blank -%}
+    <div class="ls-hero__ctas">
+      {%- if section.settings.button_1_label != blank and section.settings.button_1_url != blank -%}
+        <a class="ls-btn-ghost-light" href="{{ section.settings.button_1_url }}">{{ section.settings.button_1_label }}</a>
+      {%- endif -%}
+      {%- if section.settings.button_2_label != blank and section.settings.button_2_url != blank -%}
+        <a class="ls-btn-ghost-light" href="{{ section.settings.button_2_url }}">{{ section.settings.button_2_label }}</a>
+      {%- endif -%}
+    </div>
+  {%- endif -%}
 
   <div class="ls-hero__scroll" aria-hidden="true">
     <span>Scroll</span>
@@ -81,7 +165,12 @@
     { "type": "text", "id": "button_1_label", "label": "Button 1 label", "default": "Shop Gift Sets" },
     { "type": "url", "id": "button_1_url", "label": "Button 1 URL" },
     { "type": "text", "id": "button_2_label", "label": "Button 2 label", "default": "Shop Scarves" },
-    { "type": "url", "id": "button_2_url", "label": "Button 2 URL" }
+    { "type": "url", "id": "button_2_url", "label": "Button 2 URL" },
+    { "type": "header", "content": "Image Overlay" },
+    { "type": "paragraph", "content": "Controls the dark gradient over the hero image. Higher = darker. Top affects the nav area, Bottom affects the CTA area." },
+    { "type": "range", "id": "overlay_top", "label": "Top opacity", "min": 0, "max": 90, "step": 5, "default": 35, "unit": "%" },
+    { "type": "range", "id": "overlay_mid", "label": "Middle opacity", "min": 0, "max": 60, "step": 5, "default": 10, "unit": "%" },
+    { "type": "range", "id": "overlay_bot", "label": "Bottom opacity", "min": 0, "max": 90, "step": 5, "default": 55, "unit": "%" }
   ],
   "presets": [
     { "name": "Editorial Hero" }

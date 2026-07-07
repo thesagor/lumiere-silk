@@ -35,14 +35,14 @@
       <div class="ls-gift__media">
         <div class="ls-gift__img1">
           {%- if section.settings.image_1 != blank -%}
-            {{ section.settings.image_1 | image_url: width: 1400 | image_tag: alt: 'Gift box', loading: 'lazy', sizes: '(max-width:900px) 100vw, 35vw' }}
+            <img src="{{ section.settings.image_1 | image_url: width: 1400 }}" alt="Gift box" loading="lazy">
           {%- else -%}
             <img src="{{ 'lumiere-packaging-gift-box-3.png' | asset_url }}" alt="Gift box" loading="lazy">
           {%- endif -%}
         </div>
         <div class="ls-gift__img2">
           {%- if section.settings.image_2 != blank -%}
-            {{ section.settings.image_2 | image_url: width: 1200 | image_tag: alt: 'Branded box', loading: 'lazy', sizes: '(max-width:900px) 100vw, 25vw' }}
+            <img src="{{ section.settings.image_2 | image_url: width: 1200 }}" alt="Branded box" loading="lazy">
           {%- else -%}
             <img src="{{ 'lumiere-packaging-gift-box-2.png' | asset_url }}" alt="Branded box" loading="lazy">
           {%- endif -%}
@@ -88,7 +88,7 @@
     { "type": "text", "id": "caption", "label": "Caption (vertical)", "default": "— wrapped with intention" },
     { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "The Gift · Plate 03" },
     { "type": "richtext", "id": "heading", "label": "Heading", "default": "<p>Designed<br /><em>to be gifted.</em></p>" },
-    { "type": "textarea", "id": "body", "label": "Body", "default": "Beautifully packaged and ready to give. No extra effort, no extra wrapping — just a gift that feels intentional and refined from the moment it arrives." },
+    { "type": "textarea", "id": "body", "label": "Body", "default": "Each piece is carefully selected to offer a soft, refined, and thoughtful gifting experience." },
     { "type": "text", "id": "button_1_label", "label": "Button 1 label", "default": "Shop Gift Sets" },
     { "type": "url", "id": "button_1_url", "label": "Button 1 URL" },
     { "type": "text", "id": "button_2_label", "label": "Button 2 label", "default": "Explore Scarves" },

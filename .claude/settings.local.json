@@ -2,7 +2,13 @@
   "permissions": {
     "allow": [
       "Bash(ls -la \"c:\\\\Users\\\\Sagor Ahmed\\\\Desktop\\\\sabrina\\\\shopify\\\\\")",
-      "Read(//c/Users/Sagor Ahmed/Desktop/sabrina/**)"
+      "Read(//c/Users/Sagor Ahmed/Desktop/sabrina/**)",
+      "Bash(node -e \"try { const j = JSON.parse\\(require\\('fs'\\).readFileSync\\('c:/Users/Sagor Ahmed/Desktop/sabrina/shopify/templates/index.json','utf8'\\)\\); console.log\\('OK section types:', Object.values\\(j.sections\\).map\\(s=>s.type\\).join\\(', '\\)\\); } catch\\(e\\) { console.error\\('JSON ERROR:', e.message\\); }\")",
+      "Bash(python3 -c ' *)",
+      "Bash(node -e ' *)",
+      "Bash(zip -r lumiere-silk-updated.zip assets config layout locales sections snippets templates)",
+      "PowerShell(Set-Location \"c:\\\\Users\\\\Sagor Ahmed\\\\Desktop\\\\sabrina\\\\shopify\"; Remove-Item \"lumiere-silk-updated.zip\" -Force -ErrorAction SilentlyContinue; Compress-Archive -Path assets,config,layout,locales,sections,snippets,templates -DestinationPath lumiere-silk-updated.zip -Force; $z = Get-Item lumiere-silk-updated.zip; Write-Output \"Done — $\\([math]::Round\\($z.Length/1MB,1\\)\\) MB\")",
+      "PowerShell(Set-Location \"c:\\\\Users\\\\Sagor Ahmed\\\\Desktop\\\\sabrina\\\\shopify\"; Compress-Archive -Path assets,config,layout,locales,sections,snippets,templates -DestinationPath lumiere-silk-updated.zip -Force; $z = Get-Item lumiere-silk-updated.zip; Write-Output \"Done — $\\([math]::Round\\($z.Length/1MB,1\\)\\) MB\")"
     ]
   }
 }

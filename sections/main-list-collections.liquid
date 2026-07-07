@@ -1,0 +1,244 @@
+{% style %}
+  /* ── Collections hero header ── */
+  .ls-coll-hero {
+    padding: 88px 0 64px;
+    text-align: center;
+    background: var(--ls-ivory);
+    border-bottom: 1px solid var(--ls-line);
+  }
+  .ls-coll-hero__eyebrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    margin-bottom: 22px;
+    color: var(--ls-muted);
+  }
+  .ls-coll-hero__eyebrow span:first-child,
+  .ls-coll-hero__eyebrow span:last-child {
+    width: 40px; height: 1px; background: var(--ls-line);
+  }
+  .ls-coll-hero__label {
+    font-family: var(--ls-sans);
+    font-size: 10px;
+    letter-spacing: 0.45em;
+    text-transform: uppercase;
+  }
+  .ls-coll-hero__title {
+    font-family: var(--ls-serif);
+    font-weight: 300;
+    font-size: clamp(38px, 5vw, 72px);
+    line-height: 1.05;
+    letter-spacing: -0.01em;
+    color: var(--ls-ink);
+    margin-bottom: 18px;
+  }
+  .ls-coll-hero__sub {
+    font-family: var(--ls-serif);
+    font-style: italic;
+    font-size: clamp(15px, 1.5vw, 18px);
+    color: var(--ls-muted);
+    max-width: 440px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+
+  /* ── Card grid ── */
+  .ls-coll-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    background: var(--ls-line);
+  }
+
+  /* ── Individual card ── */
+  .ls-coll-card {
+    position: relative;
+    overflow: hidden;
+    aspect-ratio: 3 / 4;
+    display: block;
+    background: var(--ls-champagne);
+    text-decoration: none;
+  }
+  .ls-coll-card__img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.75s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+  .ls-coll-card:hover .ls-coll-card__img {
+    transform: scale(1.05);
+  }
+  .ls-coll-card__overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to bottom,
+      transparent 30%,
+      rgba(42, 34, 24, 0.1) 55%,
+      rgba(42, 34, 24, 0.75) 100%
+    );
+    transition: background 0.4s;
+  }
+  .ls-coll-card:hover .ls-coll-card__overlay {
+    background: linear-gradient(
+      to bottom,
+      transparent 20%,
+      rgba(42, 34, 24, 0.18) 50%,
+      rgba(42, 34, 24, 0.82) 100%
+    );
+  }
+  .ls-coll-card__body {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 32px 30px;
+    color: #faf6ef;
+    transform: translateY(0);
+    transition: transform 0.4s ease;
+  }
+  .ls-coll-card__title {
+    font-family: var(--ls-serif);
+    font-weight: 300;
+    font-size: clamp(22px, 2vw, 28px);
+    line-height: 1.1;
+    margin-bottom: 18px;
+  }
+  .ls-coll-card__cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--ls-sans);
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: rgba(250, 246, 239, 0.75);
+    transition: color 0.3s;
+    opacity: 0;
+    transform: translateY(6px);
+    transition: opacity 0.35s ease, transform 0.35s ease, color 0.3s;
+  }
+  .ls-coll-card__cta::after {
+    content: '';
+    display: block;
+    width: 18px;
+    height: 1px;
+    background: currentColor;
+    transition: width 0.35s;
+  }
+  .ls-coll-card:hover .ls-coll-card__cta {
+    opacity: 1;
+    transform: translateY(0);
+    color: #faf6ef;
+  }
+  .ls-coll-card:hover .ls-coll-card__cta::after {
+    width: 30px;
+  }
+
+  /* ── Pagination ── */
+  .ls-coll-pagination {
+    text-align: center;
+    padding: 3rem 0;
+    background: var(--ls-ivory);
+    border-top: 1px solid var(--ls-line);
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 1024px) {
+    .ls-coll-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 600px) {
+    .ls-coll-hero { padding: 64px 20px 44px; }
+    .ls-coll-grid { grid-template-columns: 1fr; }
+    .ls-coll-card { aspect-ratio: 4 / 5; }
+    .ls-coll-card__body { padding: 24px 22px; }
+    .ls-coll-card__title { font-size: 26px; }
+    .ls-coll-card__cta { opacity: 1; transform: none; }
+  }
+{% endstyle %}
+
+<!-- Hero header -->
+<div class="ls-coll-hero">
+  <div class="ls-coll-hero__eyebrow">
+    <span></span>
+    <span class="ls-coll-hero__label">{{ section.settings.eyebrow }}</span>
+    <span></span>
+  </div>
+  <h1 class="ls-coll-hero__title">{{ section.settings.heading }}</h1>
+  {%- if section.settings.subheading != blank -%}
+    <p class="ls-coll-hero__sub">{{ section.settings.subheading }}</p>
+  {%- endif -%}
+</div>
+
+<!-- Collections grid -->
+{%- assign excluded_handles = section.settings.excluded_handles | downcase | split: ',' -%}
+
+{%- paginate collections by 24 -%}
+  <div class="ls-coll-grid">
+    {%- for collection in collections -%}
+
+      {%- comment -%} Skip excluded collections {%- endcomment -%}
+      {%- assign is_excluded = false -%}
+      {%- for ex in excluded_handles -%}
+        {%- if ex | strip == collection.handle -%}
+          {%- assign is_excluded = true -%}
+        {%- endif -%}
+      {%- endfor -%}
+      {%- if is_excluded -%}{%- continue -%}{%- endif -%}
+
+      {%- assign card_img = collection.image -%}
+      {%- unless card_img -%}
+        {%- assign card_img = collection.products.first.featured_image -%}
+      {%- endunless -%}
+      <a
+        class="ls-coll-card"
+        href="{{ collection.url }}"
+        aria-label="{{ collection.title | escape }}"
+      >
+        {%- if card_img -%}
+          <img
+            class="ls-coll-card__img"
+            src="{{ card_img | image_url: width: 900 }}"
+            alt="{{ card_img.alt | default: collection.title | escape }}"
+            loading="lazy"
+            width="{{ card_img.width }}"
+            height="{{ card_img.height }}"
+          >
+        {%- endif -%}
+        <div class="ls-coll-card__overlay"></div>
+        <div class="ls-coll-card__body">
+          <h2 class="ls-coll-card__title">{{ collection.title }}</h2>
+          <span class="ls-coll-card__cta">Discover</span>
+        </div>
+      </a>
+    {%- endfor -%}
+  </div>
+
+  {%- if paginate.pages > 1 -%}
+    <div class="ls-coll-pagination">
+      {{ paginate | default_pagination }}
+    </div>
+  {%- endif -%}
+{%- endpaginate -%}
+
+{% schema %}
+{
+  "name": "Collections List",
+  "settings": [
+    { "type": "text",     "id": "eyebrow",    "label": "Eyebrow label", "default": "Lumière Silk" },
+    { "type": "text",     "id": "heading",    "label": "Page heading",  "default": "Our Collections" },
+    { "type": "textarea", "id": "subheading", "label": "Subheading",    "default": "Curated silk pieces for every occasion." },
+    { "type": "header",   "content": "Visibility" },
+    {
+      "type": "textarea",
+      "id": "excluded_handles",
+      "label": "Exclude collections",
+      "info": "Enter collection handles separated by commas. Find a handle in Shopify Admin → Collections → click a collection → the URL slug after /collections/. Example: all, gift-sets, sample-sale"
+    }
+  ],
+  "presets": [{ "name": "Collections List" }]
+}
+{% endschema %}

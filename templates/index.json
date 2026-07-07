@@ -10,7 +10,10 @@
         "button_1_label": "Shop Gift Sets",
         "button_1_url": "/collections/gift-sets",
         "button_2_label": "Shop Scarves",
-        "button_2_url": "/collections/silk-scarves"
+        "button_2_url": "/collections/silk-scarves",
+        "overlay_top": 35,
+        "overlay_mid": 10,
+        "overlay_bot": 55
       }
     },
     "mantra": {
@@ -44,47 +47,57 @@
       },
       "blocks": {
         "p1": {
-          "type": "product",
+          "type": "product_card",
           "settings": {
             "name": "Signature Silk Scarf",
             "price": "$89",
             "size": "90 × 90 cm",
             "tag": "Bestseller",
-            "url": "/collections/silk-scarves"
+            "url": "/collections/silk-scarves",
+            "fallback_asset": "lumiere-product-sig-scarf-1.png"
           }
         },
         "p2": {
-          "type": "product",
+          "type": "product_card",
           "settings": {
             "name": "Elegant Silk Scarf",
             "price": "$89",
             "size": "90 cm Square",
             "tag": "New Arrival",
-            "url": "/collections/silk-scarves"
+            "url": "/collections/silk-scarves",
+            "fallback_asset": "lumiere-product-elegant-scarf-3.png"
           }
         },
         "p3": {
-          "type": "product",
+          "type": "product_card",
           "settings": {
             "name": "Petite Silk Scarf",
             "price": "$59",
             "size": "53 × 53 cm",
             "tag": "Versatile",
-            "url": "/collections/silk-scarves"
-          }
-        },
-        "p4": {
-          "type": "product",
-          "settings": {
-            "name": "Silk Scarf Gift Box",
-            "price": "$119",
-            "size": "Gift Set",
-            "tag": "Gift Ready",
-            "url": "/collections/gift-sets"
+            "url": "/collections/silk-scarves",
+            "fallback_asset": "lumiere-product-small-scarf-styled-1.png"
           }
         }
       },
-      "block_order": ["p1", "p2", "p3", "p4"]
+      "block_order": ["p1", "p2", "p3"]
+    },
+    "gift-spotlight": {
+      "type": "lumiere-gift-spotlight",
+      "settings": {
+        "eyebrow": "The Signature Gift",
+        "subtitle": "Silk Scarf + Brooch + Luxury Gift Box",
+        "price": "$169",
+        "button_label": "Shop Gift Sets",
+        "button_url": "/collections/gift-sets"
+      },
+      "blocks": {
+        "gf1": { "type": "feature", "settings": { "text": "100% Mulberry Silk scarf, hand-rolled edges" } },
+        "gf2": { "type": "feature", "settings": { "text": "Signature Lumière brooch, gift-ready" } },
+        "gf3": { "type": "feature", "settings": { "text": "Signature gift box, satin-ribbon tied" } },
+        "gf4": { "type": "feature", "settings": { "text": "Arrives ready to give — no extra wrapping needed" } }
+      },
+      "block_order": ["gf1", "gf2", "gf3", "gf4"]
     },
     "lifestyle": {
       "type": "lumiere-lifestyle",
@@ -165,6 +178,7 @@
     "mantra",
     "texture",
     "featured-pieces",
+    "gift-spotlight",
     "lifestyle",
     "value-layer",
     "the-gift",

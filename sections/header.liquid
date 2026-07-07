@@ -97,12 +97,6 @@
       <a href="{{ link_url }}" class="mobile-nav-link">{{ link.title }}</a>
     {%- endfor -%}
   </div>
-  <div class="mobile-nav-footer">
-    <a href="{{ routes.search_url }}" class="mobile-nav-sub">Search</a>
-    {%- if shop.customer_accounts_enabled -%}
-      <a href="{%- if customer -%}{{ routes.account_url }}{%- else -%}{{ routes.account_login_url }}{%- endif -%}" class="mobile-nav-sub">Account</a>
-    {%- endif -%}
-  </div>
 </nav>
 
 <!-- Search Overlay -->

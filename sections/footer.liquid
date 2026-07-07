@@ -1,3 +1,24 @@
+{% style %}
+  .footer-brand-contact {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .footer-brand-contact-link,
+  .footer-brand-contact-location {
+    font-family: var(--ls-sans, 'Inter', sans-serif);
+    font-size: 12px;
+    color: rgba(250, 246, 239, 0.6);
+    font-weight: 300;
+    letter-spacing: 0.04em;
+    line-height: 1.5;
+    text-decoration: none;
+    display: block;
+  }
+  .footer-brand-contact-link:hover { color: rgba(250, 246, 239, 0.9); }
+{% endstyle %}
+
 <footer class="site-footer" role="contentinfo">
 
   <!-- Decorative top accent -->
@@ -40,6 +61,18 @@
             </a>
           {%- endif -%}
         </div>
+
+        <!-- Contact info -->
+        {%- if section.settings.contact_email != blank or section.settings.contact_location != blank -%}
+          <div class="footer-brand-contact">
+            {%- if section.settings.contact_email != blank -%}
+              <a href="mailto:{{ section.settings.contact_email }}" class="footer-brand-contact-link">{{ section.settings.contact_email }}</a>
+            {%- endif -%}
+            {%- if section.settings.contact_location != blank -%}
+              <span class="footer-brand-contact-location">{{ section.settings.contact_location }}</span>
+            {%- endif -%}
+          </div>
+        {%- endif -%}
       </div>
 
       <!-- Shop links -->
@@ -90,16 +123,9 @@
           {%- endif -%}
         {%- endform -%}
 
-        <!-- Trust badges -->
-        <div class="footer-trust">
-          <div class="footer-trust-item">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            <span>Secure checkout</span>
-          </div>
-          <div class="footer-trust-item">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="1" y="4" width="22" height="16" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M1 10h22" stroke="currentColor" stroke-width="1.5"/></svg>
-            <span>Easy returns</span>
-          </div>
+        <!-- Payment icons -->
+        <div class="footer-payment-icons">
+          <img src="{{ 'payment-icon.png' | asset_url }}" alt="Accepted payment methods" loading="lazy" style="max-width:220px;width:100%;display:block;margin-top:20px;">
         </div>
       </div>
 
@@ -182,6 +208,22 @@
       "id": "newsletter_text",
       "label": "Newsletter description",
       "default": "Subscribe for new arrivals, style inspiration, and exclusive offers."
+    },
+    {
+      "type": "header",
+      "content": "Contact Information"
+    },
+    {
+      "type": "text",
+      "id": "contact_email",
+      "label": "Contact email",
+      "default": "hello@lumieresilk.ca"
+    },
+    {
+      "type": "text",
+      "id": "contact_location",
+      "label": "Location",
+      "default": "British Columbia, Canada"
     }
   ]
 }

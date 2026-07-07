@@ -5,7 +5,6 @@
   .ls-tript__cell img{width:100%;height:100%;object-fit:cover;}
   .ls-tript__overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(42,34,24,0.4) 0%,rgba(42,34,24,0) 50%);}
   .ls-tript__cap{position:absolute;left:24px;bottom:22px;color:#faf6ef;}
-  .ls-tript__num{font-family:var(--ls-sans,'Inter',sans-serif);font-size:9px;letter-spacing:0.4em;text-transform:uppercase;opacity:0.7;}
   .ls-tript__label{font-family:var(--ls-serif,'Cormorant Garamond',Georgia,serif);font-style:italic;font-size:20px;font-weight:300;margin-top:4px;}
   @media (max-width:768px){
     .ls-tript__grid{grid-template-columns:1fr;}
@@ -17,13 +16,12 @@
     {%- for block in section.blocks -%}
       <div class="ls-tript__cell" {{ block.shopify_attributes }}>
         {%- if block.settings.image != blank -%}
-          {{ block.settings.image | image_url: width: 1200 | image_tag: alt: block.settings.label | escape, loading: 'lazy', sizes: '(max-width:768px) 100vw, 33vw' }}
+          <img src="{{ block.settings.image | image_url: width: 1200 }}" alt="{{ block.settings.label | escape }}" loading="lazy">
         {%- else -%}
           <img src="{{ block.settings.fallback_asset | default: 'lumiere-product-detail-3.png' | asset_url }}" alt="{{ block.settings.label | escape }}" loading="lazy">
         {%- endif -%}
         <div class="ls-tript__overlay"></div>
         <div class="ls-tript__cap">
-          <span class="ls-tript__num">0{{ forloop.index }}</span>
           <p class="ls-tript__label">{{ block.settings.label }}</p>
         </div>
       </div>

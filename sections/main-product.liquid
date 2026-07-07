@@ -1,3 +1,9 @@
+{% style %}
+  .product-gallery-thumbs { transition: opacity 0.2s ease; }
+  .product-gallery-thumbs.ls-gallery--filtering { opacity: 0; pointer-events: none; }
+  .product-gallery-thumb[data-hidden="true"] { display: none; }
+{% endstyle %}
+
 {%- assign current_variant = product.selected_or_first_available_variant -%}
 {%- assign product_form_id = 'product-form-' | append: product.id -%}
 
@@ -7,7 +13,7 @@
   <div class="product-layout">
 
     <!-- Gallery -->
-    <div class="product-gallery">
+    <div class="product-gallery" id="product-gallery">
       <div class="product-gallery-main">
         {%- if product.featured_image -%}
           <img
@@ -24,16 +30,31 @@
       </div>
 
       {%- if product.images.size > 1 -%}
-        <div class="product-gallery-thumbs">
-          {%- for image in product.images limit: 5 -%}
+        <div class="product-gallery-thumbs" id="product-gallery-thumbs">
+          {%- for image in product.images -%}
+            {%- assign raw_alt = image.alt | default: '' -%}
+            {%- if raw_alt contains '|' -%}
+              {%- assign _parts     = raw_alt | split: '|' -%}
+              {%- assign img_label  = _parts[0] | strip -%}
+              {%- assign _group_raw = _parts[1] | strip | downcase -%}
+              {%- case _group_raw -%}
+                {%- when 'scarf-only', 'scarf only' -%}{%- assign img_group = 'scarf-only' -%}
+                {%- when 'gift-set',   'gift set'   -%}{%- assign img_group = 'gift-set'   -%}
+                {%- else                             -%}{%- assign img_group = 'all'        -%}
+              {%- endcase -%}
+            {%- else -%}
+              {%- assign img_label = raw_alt -%}
+              {%- assign img_group = 'all'   -%}
+            {%- endif -%}
             <button
               class="product-gallery-thumb {% if forloop.first %}active{% endif %}"
               data-src="{{ image | image_url: width: 900 }}"
-              aria-label="View image {{ forloop.index }}"
+              data-image-group="{{ img_group }}"
+              aria-label="{{ img_label | default: product.title | escape }}"
             >
               <img
                 src="{{ image | image_url: width: 150 }}"
-                alt="{{ image.alt | default: product.title | escape }}"
+                alt="{{ img_label | default: product.title | escape }}"
                 width="72"
                 height="88"
                 loading="lazy"
@@ -62,8 +83,13 @@
         {%- endif -%}
       </div>
 
-      {%- if product.description != blank -%}
-        <p class="product-short-desc">
+      {%- capture _short_desc_html -%}{{ current_variant.metafields.custom.description | metafield_tag }}{%- endcapture -%}
+      {%- if _short_desc_html != blank -%}
+        <p class="product-short-desc" id="product-short-desc">
+          {{ _short_desc_html | strip_html | truncatewords: 30 }}
+        </p>
+      {%- elsif product.description != blank -%}
+        <p class="product-short-desc" id="product-short-desc">
           {{ product.description | strip_html | truncatewords: 30 }}
         </p>
       {%- endif -%}
@@ -160,8 +186,8 @@
       <!-- Meta -->
       {%- liquid
         assign meta_material  = product.metafields.custom.material.value  | default: 'Premium Mulberry Silk'
-        assign meta_size      = product.metafields.custom.size.value       | default: '86 × 86 cm'
-        assign meta_packaging = product.metafields.custom.packaging.value  | default: 'Elegantly presented, gift-ready'
+        assign meta_size      = product.metafields.custom.size.value       | default: '108 × 108 cm'
+        assign meta_packaging = product.metafields.custom.packaging.value  | default: 'Elegantly presented'
         assign meta_shipping  = product.metafields.custom.shipping_info.value | default: 'Canada · 2–5 business days'
       -%}
       <div class="product-meta">
@@ -200,8 +226,12 @@
           <button class="product-tab-btn" data-tab="returns">Returns</button>
         </div>
 
-        <div class="product-tab-content active" data-tab-content="description">
-          {%- if product.description != blank -%}
+        <div class="product-tab-content active" data-tab-content="description" id="product-description-content">
+          {%- assign initial_variant = product.selected_or_first_available_variant -%}
+          {%- capture initial_desc -%}{{ initial_variant.metafields.custom.description | metafield_tag }}{%- endcapture -%}
+          {%- if initial_desc != blank -%}
+            {{ initial_desc }}
+          {%- elsif product.description != blank -%}
             {{ product.description }}
           {%- else -%}
             <p>Crafted from premium mulberry silk, this scarf brings a touch of quiet luxury to any occasion. With its softness, luminosity, and carefully considered design, it is equally beautiful worn and gifted.</p>
@@ -244,7 +274,7 @@
             {{ product.metafields.custom.returns_tab | metafield_tag }}
           {%- else -%}
             <p>We accept returns within 7 days of delivery for eligible items that are unused, in original condition, and returned with original packaging.</p>
-            <p>Please note that earrings, worn items, and certain gift sets may not be eligible for return. Email <a href="mailto:lumieresilk.ca@gmail.com">lumieresilk.ca@gmail.com</a> to initiate a return.</p>
+            <p>Please note that earrings, worn items, and certain gift sets may not be eligible for return. Email <a href="mailto:hello@lumieresilk.ca">hello@lumieresilk.ca</a> to initiate a return.</p>
           {%- endif -%}
         </div>
       </div>
@@ -256,6 +286,41 @@
 <!-- Variants JSON for JS -->
 <script>
   window.__variants = {{ product.variants | json }};
+
+  /*
+   * Maps each variant ID to the gallery groups it should reveal.
+   * Image alt text convention: "Product name | scarf-only"
+   *                             "Product name | gift-set"
+   *                             "Product name"  (defaults to "all")
+   */
+  window.__variantShortDescs = {
+    {%- for variant in product.variants -%}
+      {%- capture _vshort_html -%}{{ variant.metafields.custom.description | metafield_tag }}{%- endcapture -%}
+      {%- assign _vshort = _vshort_html | strip_html | truncatewords: 30 -%}
+      {{ variant.id }}: {{ _vshort | json }}{% unless forloop.last %},{% endunless %}
+    {%- endfor -%}
+  };
+
+  window.__variantDescriptions = {
+    {%- for variant in product.variants -%}
+      {%- capture vdesc_html -%}{{ variant.metafields.custom.description | metafield_tag }}{%- endcapture -%}
+      {{ variant.id }}: {{ vdesc_html | strip | json }}{% unless forloop.last %},{% endunless %}
+    {%- endfor -%}
+  };
+
+  window.__variantGallery = {
+    {%- for variant in product.variants -%}
+      {%- assign _vt = variant.title | downcase -%}
+      {%- if _vt contains 'gift set' or _vt contains 'gift-set' or _vt contains 'gift box' -%}
+        {%- assign _vg = '["all","gift-set"]' -%}
+      {%- elsif _vt contains 'scarf only' or _vt contains 'scarf-only' -%}
+        {%- assign _vg = '["all","scarf-only"]' -%}
+      {%- else -%}
+        {%- assign _vg = '["all"]' -%}
+      {%- endif -%}
+      "{{ variant.id }}": {{ _vg }}{% unless forloop.last %},{% endunless %}
+    {%- endfor -%}
+  };
 </script>
 
 <!-- Product Recommendations -->

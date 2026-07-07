@@ -1,106 +1,465 @@
-<!-- About page hero -->
-<div class="about-hero">
-  <div class="about-hero-bg">
-    {%- if section.settings.hero_image != blank -%}
-      {{ section.settings.hero_image | image_url: width: 1600 | image_tag: loading: 'eager', alt: 'About Lumière Silk' }}
-    {%- else -%}
-      <div style="background:var(--color-cream);width:100%;height:100%;"></div>
-    {%- endif -%}
-  </div>
-  <div class="about-hero-overlay"></div>
-  <div class="about-hero-content container">
-    <p class="text-label">Our Story</p>
-    <h1 class="about-hero-title heading-serif">{{ section.settings.hero_heading | default: 'A Legacy of Quiet Luxury' }}</h1>
-  </div>
-</div>
+{% style %}
+  /* ── About page ── */
 
-<!-- Philosophy -->
-<section class="about-section" style="background:var(--color-ivory);">
-  <div class="container">
-    <div class="about-section-inner fade-in">
-      <p class="text-label">Our Philosophy</p>
-      <h2 class="about-section-title heading-serif">Beauty in Simplicity</h2>
-      <p class="about-section-body">
-        Lumière Silk was created from a deep love of elegance, softness, and thoughtful design. We believe that the most meaningful things in life are the ones chosen with care — pieces that feel beautiful from the moment they are held to the moment they are given.
+  /* Hero */
+  .ls-about-hero {
+    position: relative;
+    height: 88vh;
+    min-height: 560px;
+    overflow: hidden;
+    display: flex;
+    align-items: flex-end;
+    background: var(--ls-ink, #3d342a);
+  }
+  .ls-about-hero__img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 30%;
+    opacity: 0.72;
+  }
+  .ls-about-hero__overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, rgba(42,34,24,0.1) 0%, rgba(42,34,24,0.6) 100%);
+  }
+  .ls-about-hero__content {
+    position: relative;
+    z-index: 1;
+    padding: 0 60px 72px;
+    color: #faf6ef;
+    max-width: 820px;
+  }
+  .ls-about-eyebrow {
+    font-family: var(--ls-sans, 'Inter', sans-serif);
+    font-size: 10px;
+    letter-spacing: 0.46em;
+    text-transform: uppercase;
+    font-weight: 400;
+    color: rgba(250,246,239,0.65);
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .ls-about-eyebrow::before {
+    content: '';
+    display: block;
+    width: 32px;
+    height: 1px;
+    background: rgba(250,246,239,0.4);
+  }
+  .ls-about-hero__title {
+    font-family: var(--ls-serif, 'Cormorant Garamond', Georgia, serif);
+    font-weight: 300;
+    font-size: clamp(40px, 6vw, 88px);
+    line-height: 1.0;
+    letter-spacing: -0.01em;
+    color: #faf6ef;
+  }
+  .ls-about-hero__title em { font-style: italic; }
+
+  /* Story section */
+  .ls-about-story {
+    background: var(--ls-ivory, #faf6ef);
+    padding: 104px 0 96px;
+  }
+  .ls-about-story__inner {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 0 40px;
+    text-align: center;
+  }
+  .ls-about-label {
+    font-family: var(--ls-sans, 'Inter', sans-serif);
+    font-size: 10px;
+    letter-spacing: 0.42em;
+    text-transform: uppercase;
+    color: var(--ls-gold, #b89968);
+    font-weight: 400;
+    display: block;
+    margin-bottom: 22px;
+  }
+  .ls-about-h2 {
+    font-family: var(--ls-serif, 'Cormorant Garamond', Georgia, serif);
+    font-weight: 300;
+    font-size: clamp(32px, 4.5vw, 58px);
+    line-height: 1.06;
+    color: var(--ls-ink, #3d342a);
+    margin-bottom: 30px;
+    letter-spacing: -0.01em;
+  }
+  .ls-about-h2 em { font-style: italic; }
+  .ls-about-body {
+    font-family: var(--ls-sans, 'Inter', sans-serif);
+    font-size: 15px;
+    line-height: 1.9;
+    color: var(--ls-muted, #8b7d6b);
+    font-weight: 300;
+  }
+  .ls-about-body + .ls-about-body { margin-top: 18px; }
+
+  /* Canada section */
+  .ls-about-canada {
+    background: var(--ls-cream, #f3ebdd);
+    padding: 96px 0;
+  }
+  .ls-about-canada__grid {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 60px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+  .ls-about-canada__quote {
+    font-family: var(--ls-serif, 'Cormorant Garamond', Georgia, serif);
+    font-style: italic;
+    font-weight: 300;
+    font-size: clamp(26px, 3.2vw, 44px);
+    line-height: 1.25;
+    color: var(--ls-ink, #3d342a);
+    border-left: 1px solid var(--ls-gold, #b89968);
+    padding-left: 32px;
+  }
+  .ls-about-canada__text { }
+
+  /* Craft section */
+  .ls-about-craft {
+    background: var(--ls-ivory, #faf6ef);
+    padding: 96px 0;
+  }
+  .ls-about-craft__grid {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 60px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+  .ls-about-craft__img-wrap {
+    position: relative;
+    aspect-ratio: 3/4;
+    overflow: hidden;
+    background: var(--ls-cream, #f3ebdd);
+  }
+  .ls-about-craft__img-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .ls-about-craft__placeholder {
+    width: 100%;
+    height: 100%;
+    background: var(--ls-cream, #f3ebdd);
+  }
+
+  /* Pull quote */
+  .ls-about-pullquote {
+    background: var(--ls-ink, #3d342a);
+    padding: 96px 60px;
+    text-align: center;
+  }
+  .ls-about-pullquote__text {
+    font-family: var(--ls-serif, 'Cormorant Garamond', Georgia, serif);
+    font-style: italic;
+    font-weight: 300;
+    font-size: clamp(26px, 3.6vw, 52px);
+    line-height: 1.3;
+    color: rgba(250,246,239,0.92);
+    max-width: 760px;
+    margin: 0 auto 22px;
+  }
+  .ls-about-pullquote__attr {
+    font-family: var(--ls-sans, 'Inter', sans-serif);
+    font-size: 10px;
+    letter-spacing: 0.38em;
+    text-transform: uppercase;
+    color: var(--ls-gold, #b89968);
+  }
+
+  /* Values */
+  .ls-about-values {
+    background: var(--ls-ivory, #faf6ef);
+    padding: 96px 0;
+  }
+  .ls-about-values__head {
+    text-align: center;
+    margin-bottom: 64px;
+  }
+  .ls-about-values__grid {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 60px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+  }
+  .ls-about-value {
+    padding: 48px 40px;
+    border-right: 1px solid var(--ls-line, #e6dcc8);
+  }
+  .ls-about-value:last-child { border-right: none; }
+  .ls-about-value__icon {
+    width: 36px;
+    height: 36px;
+    margin-bottom: 24px;
+    color: var(--ls-gold, #b89968);
+  }
+  .ls-about-value__title {
+    font-family: var(--ls-serif, 'Cormorant Garamond', Georgia, serif);
+    font-size: 22px;
+    font-weight: 400;
+    color: var(--ls-ink, #3d342a);
+    margin-bottom: 14px;
+    line-height: 1.2;
+  }
+  .ls-about-value__body {
+    font-family: var(--ls-sans, 'Inter', sans-serif);
+    font-size: 14px;
+    line-height: 1.85;
+    color: var(--ls-muted, #8b7d6b);
+    font-weight: 300;
+  }
+
+  /* CTA */
+  .ls-about-cta {
+    background: var(--ls-cream, #f3ebdd);
+    padding: 104px 40px;
+    text-align: center;
+  }
+  .ls-about-cta__title {
+    font-family: var(--ls-serif, 'Cormorant Garamond', Georgia, serif);
+    font-weight: 300;
+    font-size: clamp(30px, 4vw, 54px);
+    line-height: 1.1;
+    color: var(--ls-ink, #3d342a);
+    margin-bottom: 18px;
+  }
+  .ls-about-cta__title em { font-style: italic; }
+  .ls-about-cta__body {
+    font-family: var(--ls-serif, 'Cormorant Garamond', Georgia, serif);
+    font-style: italic;
+    font-size: clamp(15px, 1.5vw, 18px);
+    color: var(--ls-muted, #8b7d6b);
+    max-width: 480px;
+    margin: 0 auto 36px;
+    line-height: 1.65;
+    font-weight: 300;
+  }
+  .ls-about-cta__btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    font-family: var(--ls-sans, 'Inter', sans-serif);
+    font-size: 11px;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--ls-ink, #3d342a);
+    text-decoration: none;
+    border: 1px solid var(--ls-ink, #3d342a);
+    padding: 16px 36px;
+    transition: background 0.35s, color 0.35s;
+    font-weight: 400;
+  }
+  .ls-about-cta__btn:hover {
+    background: var(--ls-ink, #3d342a);
+    color: #faf6ef;
+  }
+
+  /* Responsive */
+  @media (max-width: 1024px) {
+    .ls-about-hero__content { padding: 0 40px 60px; }
+    .ls-about-canada__grid,
+    .ls-about-craft__grid { padding: 0 40px; gap: 56px; }
+    .ls-about-values__grid { padding: 0 40px; }
+    .ls-about-pullquote { padding: 80px 40px; }
+  }
+  @media (max-width: 768px) {
+    .ls-about-hero { height: 80vh; min-height: 480px; }
+    .ls-about-hero__content { padding: 0 24px 52px; }
+    .ls-about-story { padding: 72px 0 64px; }
+    .ls-about-story__inner { padding: 0 24px; }
+    .ls-about-canada { padding: 72px 0; }
+    .ls-about-canada__grid {
+      grid-template-columns: 1fr;
+      padding: 0 24px;
+      gap: 36px;
+    }
+    .ls-about-canada__quote { font-size: clamp(22px, 6vw, 32px); }
+    .ls-about-craft { padding: 72px 0; }
+    .ls-about-craft__grid {
+      grid-template-columns: 1fr;
+      padding: 0 24px;
+      gap: 40px;
+    }
+    .ls-about-craft__img-wrap { aspect-ratio: 4/3; }
+    .ls-about-pullquote { padding: 64px 24px; }
+    .ls-about-values { padding: 72px 0; }
+    .ls-about-values__grid {
+      grid-template-columns: 1fr;
+      padding: 0 24px;
+      gap: 0;
+    }
+    .ls-about-value {
+      border-right: none;
+      border-bottom: 1px solid var(--ls-line, #e6dcc8);
+      padding: 36px 0;
+    }
+    .ls-about-value:last-child { border-bottom: none; }
+    .ls-about-cta { padding: 72px 24px; }
+  }
+{% endstyle %}
+
+<!-- Hero -->
+<section class="ls-about-hero">
+  {%- if section.settings.hero_image != blank -%}
+    <img
+      class="ls-about-hero__img"
+      src="{{ section.settings.hero_image | image_url: width: 2000 }}"
+      alt=""
+      loading="eager"
+      aria-hidden="true"
+    >
+  {%- else -%}
+    <div class="ls-about-hero__img" style="background:var(--ls-ink,#3d342a);opacity:1;"></div>
+  {%- endif -%}
+  <div class="ls-about-hero__overlay"></div>
+  <div class="ls-about-hero__content">
+    <p class="ls-about-eyebrow">Our Story</p>
+    <h1 class="ls-about-hero__title">
+      {{ section.settings.hero_heading | default: 'Silk for the Moments<br><em>That Stay With You.</em>' }}
+    </h1>
+  </div>
+</section>
+
+<!-- Story -->
+<section class="ls-about-story">
+  <div class="ls-about-story__inner">
+    <span class="ls-about-label">Lumière Silk</span>
+    <h2 class="ls-about-h2">Born from a Belief<br><em>in Beautiful Things</em></h2>
+    <p class="ls-about-body">
+      Lumière Silk was founded in Canada with a single idea in mind: that the most meaningful gifts are never rushed. They are chosen slowly, held carefully, and given with intention.
+    </p>
+    <p class="ls-about-body">
+      We create silk scarves and curated accessories for women who appreciate the quiet confidence of refined things — pieces that move through seasons, through moments, through years. Not statement pieces. Something quieter than that.
+    </p>
+  </div>
+</section>
+
+<!-- Designed in Canada -->
+<section class="ls-about-canada">
+  <div class="ls-about-canada__grid">
+    <blockquote class="ls-about-canada__quote">
+      "Designed with care in Canada.<br>Made to be worn and remembered."
+    </blockquote>
+    <div class="ls-about-canada__text">
+      <span class="ls-about-label">Designed in Canada</span>
+      <h2 class="ls-about-h2" style="text-align:left;font-size:clamp(28px,3vw,42px);">A Canadian Sensibility</h2>
+      <p class="ls-about-body">
+        Every collection begins here — shaped by clean lines, understated taste, and a deep respect for the craft of silk. We look for pieces that speak softly but linger: in a wardrobe, in a memory, in the space between two people at the moment of giving.
+      </p>
+      <p class="ls-about-body" style="margin-top:16px;">
+        Our collections are designed in Canada and crafted with precision in China, where centuries of silk tradition meet the standards we hold for every piece that carries the Lumière name.
       </p>
     </div>
   </div>
 </section>
 
 <!-- Craftsmanship -->
-<section class="about-section" style="background:var(--color-cream);">
-  <div class="container">
-    <div class="brand-intro-grid">
-      <div class="brand-intro-text fade-in">
-        <p class="text-label">Craftsmanship</p>
-        <h2 class="brand-intro-title heading-serif">Made with Intention</h2>
-        <p class="brand-intro-body">
-          Every piece in our collection is selected for its quality, beauty, and feel. Our silk scarves are crafted from premium mulberry silk, chosen for its natural luminosity and lasting softness. From material selection to final presentation, each step reflects our commitment to a refined and elevated experience.
-        </p>
-        <p class="brand-intro-body" style="margin-top:1rem;">
-          Our packaging is designed to be as thoughtful as the product itself — creating a gifting experience that begins before the silk is even touched.
-        </p>
-      </div>
-      <div class="brand-intro-image fade-in">
-        {%- if section.settings.craft_image != blank -%}
-          {{ section.settings.craft_image | image_url: width: 800 | image_tag: loading: 'lazy', alt: 'Silk craftsmanship' }}
-        {%- else -%}
-          <div style="background:var(--color-blush);width:100%;height:100%;"></div>
-        {%- endif -%}
-      </div>
+<section class="ls-about-craft">
+  <div class="ls-about-craft__grid">
+    <div class="ls-about-craft__img-wrap">
+      {%- if section.settings.craft_image != blank -%}
+        <img
+          src="{{ section.settings.craft_image | image_url: width: 900 }}"
+          alt="Lumière Silk craftsmanship"
+          loading="lazy"
+        >
+      {%- else -%}
+        <div class="ls-about-craft__placeholder"></div>
+      {%- endif -%}
+    </div>
+    <div>
+      <span class="ls-about-label">The Material</span>
+      <h2 class="ls-about-h2" style="text-align:left;font-size:clamp(28px,3vw,48px);">Mulberry Silk,<br><em>Chosen with Care</em></h2>
+      <p class="ls-about-body">
+        We work exclusively with 100% Mulberry Silk — the finest grade, prized for its natural luminosity, weightless drape, and the way it holds warmth without effort. Every piece is chosen not just for how it looks, but for how it feels close to the skin.
+      </p>
+      <p class="ls-about-body" style="margin-top:16px;">
+        Our packaging is designed with the same attention as the silk itself. A Lumière Silk gift box, tied with a satin ribbon, creates the first impression — arriving before the scarf has even been touched. The experience of giving begins long before the unwrapping.
+      </p>
     </div>
   </div>
 </section>
 
+<!-- Pull quote -->
+<div class="ls-about-pullquote">
+  <p class="ls-about-pullquote__text">
+    "A scarf is a small thing.<br>What it carries is not."
+  </p>
+  <span class="ls-about-pullquote__attr">Lumière Silk</span>
+</div>
+
 <!-- Values -->
-<section class="about-section" style="background:var(--color-ivory);">
-  <div class="container">
-    <div class="about-section-inner fade-in" style="margin-bottom:3rem;">
-      <p class="text-label">What We Believe</p>
-      <h2 class="about-section-title heading-serif">Our Values</h2>
+<section class="ls-about-values">
+  <div class="ls-about-values__head">
+    <span class="ls-about-label">What We Believe</span>
+    <h2 class="ls-about-h2">Three Things We Never Compromise</h2>
+  </div>
+  <div class="ls-about-values__grid">
+
+    <div class="ls-about-value">
+      <div class="ls-about-value__icon">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/>
+        </svg>
+      </div>
+      <h3 class="ls-about-value__title">Timeless Design</h3>
+      <p class="ls-about-value__body">
+        We choose for longevity, not trend. Every piece is designed to feel right the first time it is worn — and again, years later. Nothing is chosen lightly. Nothing is discarded quickly.
+      </p>
     </div>
-    <div class="about-values fade-in">
-      <div class="about-value-card">
-        <div class="about-value-icon">
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/>
-          </svg>
-        </div>
-        <h3 class="about-value-title heading-serif">Timeless Design</h3>
-        <p class="about-value-body">Pieces chosen to transcend seasons — classic, graceful, and effortlessly elegant.</p>
+
+    <div class="ls-about-value">
+      <div class="ls-about-value__icon">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+        </svg>
       </div>
-      <div class="about-value-card">
-        <div class="about-value-icon">
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
-          </svg>
-        </div>
-        <h3 class="about-value-title heading-serif">Thoughtful Gifting</h3>
-        <p class="about-value-body">Beautiful presentation that makes every piece feel like a considered, meaningful gift.</p>
-      </div>
-      <div class="about-value-card">
-        <div class="about-value-icon">
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/>
-          </svg>
-        </div>
-        <h3 class="about-value-title heading-serif">Premium Quality</h3>
-        <p class="about-value-body">Only materials and designs that meet our standard of refinement and lasting beauty.</p>
-      </div>
+      <h3 class="ls-about-value__title">Intentional Gifting</h3>
+      <p class="ls-about-value__body">
+        Every Lumière Silk piece arrives ready to give. The box, the ribbon, the weight of it in someone's hands — it all matters. Gifting is not an afterthought here. It is the beginning of the story.
+      </p>
     </div>
+
+    <div class="ls-about-value">
+      <div class="ls-about-value__icon">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/>
+        </svg>
+      </div>
+      <h3 class="ls-about-value__title">Quiet Luxury</h3>
+      <p class="ls-about-value__body">
+        Not loud. Not obvious. Refined in the way that only those who know, know. We believe true luxury is felt before it is seen — in the weight of the silk, in the stillness of the moment.
+      </p>
+    </div>
+
   </div>
 </section>
 
 <!-- CTA -->
-<section class="brand-story-section section-pad">
-  <div class="container">
-    <div class="brand-story-inner">
-      <p class="text-label">Discover</p>
-      <div class="brand-story-divider"></div>
-      <h2 class="brand-story-title heading-serif">Beautifully Crafted for Those Who Appreciate the Quiet Luxury of Silk</h2>
-      <a href="{{ routes.all_products_collection_url }}" class="btn btn-outline-light">Shop the Collection</a>
-    </div>
-  </div>
+<section class="ls-about-cta">
+  <span class="ls-about-label">An Invitation</span>
+  <h2 class="ls-about-cta__title">For the Moments<br><em>Worth Marking</em></h2>
+  <p class="ls-about-cta__body">
+    Whether chosen for yourself or someone you love, Lumière Silk is made to be noticed not at once, but slowly.
+  </p>
+  <a class="ls-about-cta__btn" href="{{ routes.all_products_collection_url }}">Explore the Collection</a>
 </section>
 
 {% schema %}
@@ -116,7 +475,7 @@
       "type": "text",
       "id": "hero_heading",
       "label": "Hero heading",
-      "default": "A Legacy of Quiet Luxury"
+      "default": "Silk for the Moments That Stay With You."
     },
     {
       "type": "image_picker",

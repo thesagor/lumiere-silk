@@ -1,0 +1,13 @@
+{
+  "sections": {
+    "main-list-collections": {
+      "type": "main-list-collections",
+      "settings": {
+        "eyebrow": "Lumière Silk",
+        "heading": "Our Collections",
+        "subheading": "Curated silk pieces for every occasion."
+      }
+    }
+  },
+  "order": ["main-list-collections"]
+}

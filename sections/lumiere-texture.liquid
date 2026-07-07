@@ -17,7 +17,7 @@
 
 <section class="ls-texture">
   {%- if section.settings.image != blank -%}
-    {{ section.settings.image | image_url: width: 2400 | image_tag: alt: section.settings.heading | escape, class: 'ls-texture__img', sizes: '100vw', loading: 'lazy' }}
+    <img src="{{ section.settings.image | image_url: width: 2400 }}" alt="{{ section.settings.heading | escape }}" class="ls-texture__img" loading="lazy">
   {%- else -%}
     <img src="{{ 'lumiere-product-detail-4.png' | asset_url }}" alt="{{ section.settings.heading | escape }}" class="ls-texture__img" loading="lazy">
   {%- endif -%}

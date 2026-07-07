@@ -275,6 +275,54 @@
     });
   });
 
+  // ---- Gallery Filter (variant-based image groups) ----
+  // Image alt text convention: "Label | scarf-only" / "Label | gift-set" / "Label" (= all)
+  // instant=true skips the fade animation (used on initial page load)
+  let _galleryFirstApply = true;
+
+  function filterGallery(allowedGroups, instant) {
+    const thumbsWrap = document.getElementById('product-gallery-thumbs');
+    if (!thumbsWrap) return;
+
+    const allThumbs = thumbsWrap.querySelectorAll('.product-gallery-thumb');
+    if (!allThumbs.length) return;
+
+    // Bail early if no images are actually grouped — nothing to filter
+    const hasGrouped = Array.from(allThumbs).some(
+      t => (t.dataset.imageGroup || 'all') !== 'all'
+    );
+    if (!hasGrouped) return;
+
+    function doFilter() {
+      let firstVisible = null;
+
+      allThumbs.forEach(thumb => {
+        const group = thumb.dataset.imageGroup || 'all';
+        const show  = allowedGroups.includes(group);
+        thumb.dataset.hidden = show ? 'false' : 'true';
+        if (show && !firstVisible) firstVisible = thumb;
+      });
+
+      // If the currently active thumb became hidden, promote the first visible one
+      const active  = thumbsWrap.querySelector('.product-gallery-thumb.active');
+      const mainImg = document.getElementById('product-main-img');
+      if (active && active.dataset.hidden === 'true' && firstVisible) {
+        allThumbs.forEach(t => t.classList.remove('active'));
+        firstVisible.classList.add('active');
+        if (mainImg) mainImg.src = firstVisible.dataset.src;
+      }
+
+      thumbsWrap.classList.remove('ls-gallery--filtering');
+    }
+
+    if (instant) {
+      doFilter();
+    } else {
+      thumbsWrap.classList.add('ls-gallery--filtering');
+      setTimeout(doFilter, 200);
+    }
+  }
+
   // ---- Variant Selector ----
   const variantForm = document.getElementById('product-form');
   if (variantForm) {
@@ -284,7 +332,7 @@
     const atcBtn = document.getElementById('atc-btn');
     const variantsData = window.__variants || [];
 
-    // Apply a variant's state to the UI (price, button, hidden input)
+    // Apply a variant's state to the UI (price, button, hidden input, gallery)
     function applyVariant(variant) {
       if (!variant) return;
       if (hiddenVariantInput) hiddenVariantInput.value = variant.id;
@@ -301,6 +349,29 @@
         atcBtn.disabled = !variant.available;
         atcBtn.textContent = variant.available ? 'Add to Bag' : 'Sold Out';
       }
+
+      // Swap variant-specific short description if available
+      const shortDescMap  = window.__variantShortDescs || {};
+      const shortDescEl   = document.getElementById('product-short-desc');
+      const shortDescText = shortDescMap[String(variant.id)];
+      if (shortDescEl && typeof shortDescText === 'string' && shortDescText.trim()) {
+        shortDescEl.textContent = shortDescText;
+      }
+
+      // Swap variant-specific description tab if available
+      const descMap  = window.__variantDescriptions || {};
+      const descEl   = document.getElementById('product-description-content');
+      const descHtml = descMap[String(variant.id)];
+      if (descEl && typeof descHtml === 'string' && descHtml.trim()) {
+        descEl.innerHTML = descHtml;
+      }
+
+      // Filter gallery images to only show those relevant to this variant
+      const galleryMap    = window.__variantGallery || {};
+      const allowedGroups = galleryMap[String(variant.id)] || ['all'];
+      const instant       = _galleryFirstApply;
+      _galleryFirstApply  = false;
+      filterGallery(allowedGroups, instant);
     }
 
     // Read which option buttons are currently active and return their values
