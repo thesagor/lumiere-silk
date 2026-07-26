@@ -1,0 +1,30 @@
+{%- comment -%}
+  Renders one collection card for the Collections List section.
+  Accepts: collection
+{%- endcomment -%}
+
+{%- assign card_img = collection.image -%}
+{%- unless card_img -%}
+  {%- assign card_img = collection.products.first.featured_image -%}
+{%- endunless -%}
+<a
+  class="ls-coll-card"
+  href="{{ collection.url }}"
+  aria-label="{{ collection.title | escape }}"
+>
+  {%- if card_img -%}
+    <img
+      class="ls-coll-card__img"
+      src="{{ card_img | image_url: width: 900 }}"
+      alt="{{ card_img.alt | default: collection.title | escape }}"
+      loading="lazy"
+      width="{{ card_img.width }}"
+      height="{{ card_img.height }}"
+    >
+  {%- endif -%}
+  <div class="ls-coll-card__overlay"></div>
+  <div class="ls-coll-card__body">
+    <h2 class="ls-coll-card__title">{{ collection.title }}</h2>
+    <span class="ls-coll-card__cta">Discover</span>
+  </div>
+</a>

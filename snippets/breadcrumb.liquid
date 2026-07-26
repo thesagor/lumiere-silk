@@ -7,7 +7,7 @@
       <a href="{{ collection.url }}">{{ collection.title }}</a>
       <span class="breadcrumb-sep" aria-hidden="true">/</span>
     {%- else -%}
-      <a href="{{ routes.all_products_collection_url }}">Shop</a>
+      <a href="{{ settings.shop_all_url | default: routes.all_products_collection_url }}">Shop</a>
       <span class="breadcrumb-sep" aria-hidden="true">/</span>
     {%- endif -%}
     <span aria-current="page">{{ product.title }}</span>

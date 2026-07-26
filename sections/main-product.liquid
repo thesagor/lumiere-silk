@@ -311,9 +311,9 @@
   window.__variantGallery = {
     {%- for variant in product.variants -%}
       {%- assign _vt = variant.title | downcase -%}
-      {%- if _vt contains 'gift set' or _vt contains 'gift-set' or _vt contains 'gift box' -%}
+      {%- if _vt contains 'gift set' or _vt contains 'gift-set' or _vt contains 'gift box' or _vt contains 'giftset' -%}
         {%- assign _vg = '["all","gift-set"]' -%}
-      {%- elsif _vt contains 'scarf only' or _vt contains 'scarf-only' -%}
+      {%- elsif _vt contains 'scarf' -%}
         {%- assign _vg = '["all","scarf-only"]' -%}
       {%- else -%}
         {%- assign _vg = '["all"]' -%}

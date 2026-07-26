@@ -459,7 +459,7 @@
   <p class="ls-about-cta__body">
     Whether chosen for yourself or someone you love, Lumière Silk is made to be noticed not at once, but slowly.
   </p>
-  <a class="ls-about-cta__btn" href="{{ routes.all_products_collection_url }}">Explore the Collection</a>
+  <a class="ls-about-cta__btn" href="{{ settings.shop_all_url | default: routes.all_products_collection_url }}">Explore the Collection</a>
 </section>
 
 {% schema %}

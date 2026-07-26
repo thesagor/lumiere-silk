@@ -5,7 +5,8 @@
       "settings": {
         "eyebrow": "Lumière Silk",
         "heading": "Our Collections",
-        "subheading": "Curated silk pieces for every occasion."
+        "subheading": "Curated silk pieces for every occasion.",
+        "ordered_handles": "camellia-collection, gift-set, equestrian-collection, paisley-collection, art-collection"
       }
     }
   },

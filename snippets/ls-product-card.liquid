@@ -1,0 +1,49 @@
+{%- comment -%}
+  Product card for the collection grid.
+  Params:
+    product  — product object (required)
+    subtitle — optional line under the product name
+    eager    — true to load the image eagerly (above-the-fold cards)
+{%- endcomment -%}
+
+<a class="ls-pc" href="{{ product.url }}">
+  <div class="ls-pc__media">
+    {%- if product.featured_image -%}
+      <img
+        class="ls-pc__img"
+        src="{{ product.featured_image | image_url: width: 900 }}"
+        alt="{{ product.featured_image.alt | default: product.title | escape }}"
+        loading="{% if eager %}eager{% else %}lazy{% endif %}"
+        width="{{ product.featured_image.width }}"
+        height="{{ product.featured_image.height }}"
+      >
+    {%- else -%}
+      {{ 'product-1' | placeholder_svg_tag: 'ls-pc__placeholder' }}
+    {%- endif -%}
+
+    {%- if product.available == false -%}
+      <span class="ls-pc__badge">Sold Out</span>
+    {%- elsif product.compare_at_price > product.price -%}
+      <span class="ls-pc__badge">Sale</span>
+    {%- elsif product.tags contains 'new' or product.tags contains 'New' -%}
+      <span class="ls-pc__badge">New Arrival</span>
+    {%- elsif product.tags contains 'bestseller' or product.tags contains 'Bestseller' -%}
+      <span class="ls-pc__badge">Bestseller</span>
+    {%- endif -%}
+  </div>
+
+  <div class="ls-pc__info">
+    <div class="ls-pc__name-group">
+      <span class="ls-pc__name">{{ product.title }}</span>
+      {%- if subtitle != blank -%}
+        <span class="ls-pc__subtitle">{{ subtitle }}</span>
+      {%- endif -%}
+    </div>
+    <span class="ls-pc__price">
+      {%- if product.compare_at_price > product.price -%}
+        <s>{{ product.compare_at_price | money }}</s>
+      {%- endif -%}
+      {{ product.price | money }}
+    </span>
+  </div>
+</a>
