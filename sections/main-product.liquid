@@ -68,7 +68,10 @@
     <!-- Product info -->
     <div class="product-info">
       <p class="product-vendor">{{ product.vendor }}</p>
-      <h1 class="product-title heading-serif">{{ product.title }}</h1>
+      {%- capture _variant_title -%}{{ current_variant.metafields.custom.title }}{%- endcapture -%}
+      <h1 class="product-title heading-serif" id="product-title">
+        {{- _variant_title | strip | default: product.title -}}
+      </h1>
 
       <div class="product-price-wrap">
         <span class="product-price" id="product-price">
@@ -293,6 +296,15 @@
    *                             "Product name | gift-set"
    *                             "Product name"  (defaults to "all")
    */
+  window.__productTitle = {{ product.title | json }};
+
+  window.__variantTitles = {
+    {%- for variant in product.variants -%}
+      {%- capture _vtitle -%}{{ variant.metafields.custom.title }}{%- endcapture -%}
+      {{ variant.id }}: {{ _vtitle | strip | json }}{% unless forloop.last %},{% endunless %}
+    {%- endfor -%}
+  };
+
   window.__variantShortDescs = {
     {%- for variant in product.variants -%}
       {%- capture _vshort_html -%}{{ variant.metafields.custom.description | metafield_tag }}{%- endcapture -%}

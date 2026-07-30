@@ -350,6 +350,17 @@
         atcBtn.textContent = variant.available ? 'Add to Bag' : 'Sold Out';
       }
 
+      // Swap variant-specific title if set, otherwise fall back to the product title
+      const titleEl = document.getElementById('product-title');
+      if (titleEl) {
+        const titleMap = window.__variantTitles || {};
+        const variantTitle = titleMap[String(variant.id)];
+        titleEl.textContent =
+          (typeof variantTitle === 'string' && variantTitle.trim())
+            ? variantTitle.trim()
+            : (window.__productTitle || titleEl.textContent);
+      }
+
       // Swap variant-specific short description if available
       const shortDescMap  = window.__variantShortDescs || {};
       const shortDescEl   = document.getElementById('product-short-desc');

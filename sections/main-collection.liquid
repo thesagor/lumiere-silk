@@ -268,6 +268,42 @@
     border-bottom: 1px solid var(--ls-ink, #3d342a);
   }
 
+  /* ── Load More button ── */
+  .ls-col__load-more {
+    text-align: center;
+    padding: 40px 0 64px;
+    background: var(--ls-ivory, #faf6ef);
+  }
+  .ls-col__load-more-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-width: 200px;
+    padding: 14px 40px;
+    font-family: var(--ls-sans, 'Inter', sans-serif);
+    font-size: 10px;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: var(--ls-ivory, #faf6ef);
+    background: var(--ls-ink, #3d342a);
+    border: none;
+    cursor: pointer;
+    transition: opacity 0.3s ease;
+    font-weight: 500;
+    -webkit-font-smoothing: antialiased;
+  }
+  .ls-col__load-more-btn:hover {
+    opacity: 0.85;
+  }
+  .ls-col__load-more-btn:disabled {
+    opacity: 0.4;
+    cursor: default;
+  }
+  .ls-col__load-more-btn.loading {
+    pointer-events: none;
+  }
+
   /* ── Tablet ── */
   @media (max-width: 1024px) {
     .ls-col__header { padding: 96px 32px 72px; }
@@ -379,11 +415,11 @@
   {%- endif -%}
 {%- endif -%}
 
-{%- paginate collection.products by 24 -%}
+{%- paginate collection.products by 12 -%}
 
   {%- if collection.products_count > 0 -%}
     <div class="ls-col__body">
-      <div class="ls-col__grid">
+      <div class="ls-col__grid" id="ls-product-grid">
 
         {%- comment -%} Pinned products first, in the order they are listed {%- endcomment -%}
         {%- if use_pinned_order and paginate.current_page == 1 -%}
@@ -434,8 +470,10 @@
     </div>
 
     {%- if paginate.pages > 1 -%}
-      <div class="ls-col__pagination">
-        {{ paginate | default_pagination }}
+      <div class="ls-col__load-more" data-total-pages="{{ paginate.pages }}" data-current-page="1">
+        <button class="ls-col__load-more-btn" id="ls-load-more" type="button">
+          Load More
+        </button>
       </div>
     {%- endif -%}
 
@@ -447,6 +485,77 @@
   {%- endif -%}
 
 {%- endpaginate -%}
+
+<script>
+  (function() {
+    var loadMore = document.getElementById('ls-load-more');
+    if (!loadMore) return;
+
+    var wrapper = loadMore.closest('.ls-col__load-more');
+    var grid = document.getElementById('ls-product-grid');
+    var currentPage = parseInt(wrapper.getAttribute('data-current-page'), 10);
+    var totalPages = parseInt(wrapper.getAttribute('data-total-pages'), 10);
+
+    function buildPageUrl(page) {
+      var url = new URL(window.location.href);
+      url.searchParams.set('page', page);
+      return url.toString();
+    }
+
+    loadMore.addEventListener('click', function() {
+      var nextPage = currentPage + 1;
+      if (nextPage > totalPages) {
+        wrapper.remove();
+        return;
+      }
+
+      loadMore.classList.add('loading');
+      loadMore.disabled = true;
+      loadMore.textContent = 'Loading…';
+
+      fetch(buildPageUrl(nextPage), { credentials: 'same-origin' })
+        .then(function(response) {
+          if (!response.ok) throw new Error('Failed to load');
+          return response.text();
+        })
+        .then(function(html) {
+          var parser = new DOMParser();
+          var doc = parser.parseFromString(html, 'text/html');
+          var newGrid = doc.getElementById('ls-product-grid');
+
+          if (newGrid && newGrid.innerHTML.trim()) {
+            // Insert new cards — use a fragment to batch DOM writes
+            var temp = document.createElement('div');
+            temp.innerHTML = newGrid.innerHTML;
+            var fragment = document.createDocumentFragment();
+            while (temp.firstChild) {
+              fragment.appendChild(temp.firstChild);
+            }
+            grid.appendChild(fragment);
+          }
+
+          currentPage = nextPage;
+          wrapper.setAttribute('data-current-page', currentPage);
+
+          if (currentPage >= totalPages) {
+            wrapper.remove();
+          } else {
+            loadMore.classList.remove('loading');
+            loadMore.disabled = false;
+            loadMore.textContent = 'Load More';
+          }
+
+          // Update URL in address bar without reload
+          history.replaceState(null, '', buildPageUrl(currentPage));
+        })
+        .catch(function() {
+          loadMore.classList.remove('loading');
+          loadMore.disabled = false;
+          loadMore.textContent = 'Load More';
+        });
+    });
+  })();
+</script>
 
 {% schema %}
 {
