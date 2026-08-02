@@ -36,7 +36,7 @@
   .ls-col__title {
     font-family: var(--ls-serif, 'Cormorant Garamond', Georgia, serif);
     font-weight: 300;
-    font-size: clamp(44px, 6.5vw, 96px);
+    font-size: clamp(38px, 5.5vw, 82px);
     line-height: 1.0;
     letter-spacing: -0.015em;
     color: var(--ls-ink, #3d342a);
@@ -59,7 +59,7 @@
     align-items: center;
     justify-content: flex-end;
     padding: 0 48px;
-    height: 48px;
+    height: 40px;
     border-bottom: 1px solid var(--ls-line, #e6dcc8);
     background: var(--ls-ivory, #faf6ef);
   }
@@ -67,12 +67,15 @@
     position: relative;
     display: inline-flex;
     align-items: center;
-    gap: 10px;
+    gap: 8px;
+    opacity: 0.55;
+    transition: opacity 0.25s ease;
   }
+  .ls-col__sort-wrap:hover { opacity: 1; }
   .ls-col__sort-prefix {
     font-family: var(--ls-sans, 'Inter', sans-serif);
-    font-size: 10px;
-    letter-spacing: 0.32em;
+    font-size: 9px;
+    letter-spacing: 0.28em;
     text-transform: uppercase;
     color: var(--ls-muted, #8b7d6b);
     font-weight: 400;
@@ -84,12 +87,12 @@
     border: none;
     background: transparent;
     font-family: var(--ls-sans, 'Inter', sans-serif);
-    font-size: 10px;
-    letter-spacing: 0.22em;
+    font-size: 9px;
+    letter-spacing: 0.18em;
     text-transform: uppercase;
-    color: var(--ls-ink, #3d342a);
+    color: var(--ls-muted, #8b7d6b);
     cursor: pointer;
-    padding-right: 18px;
+    padding-right: 14px;
     font-weight: 400;
     outline: none;
   }

@@ -2,9 +2,27 @@
   Product card for the collection grid.
   Params:
     product  — product object (required)
-    subtitle — optional line under the product name
+    subtitle — global section-level fallback line (used when nothing else is set)
     eager    — true to load the image eagerly (above-the-fold cards)
+
+  Subtitle priority (all shown as the same ls-pc__subtitle line):
+    1. product.metafields.custom.subtitle  — "Subtitle" field in Shopify Admin product metafields
+    2. Gift Set auto-fallback             — if product type == "Gift Set" and subtitle is blank
+    3. section subtitle                   — "100% Mulberry Silk · Hand-Rolled Edges" global line
 {%- endcomment -%}
+
+{%- comment -%} 1. Custom metafield subtitle (Admin → Product → Metafields → Subtitle) {%- endcomment -%}
+{%- assign card_subtitle = product.metafields.custom.subtitle -%}
+
+{%- comment -%} 2. Gift Set auto-fallback if subtitle is empty {%- endcomment -%}
+{%- if card_subtitle == blank and product.type == 'Gift Set' -%}
+  {%- assign card_subtitle = 'Includes Signature Brooch & Luxury Gift Box' -%}
+{%- endif -%}
+
+{%- comment -%} 3. Section-level global subtitle if still empty {%- endcomment -%}
+{%- if card_subtitle == blank -%}
+  {%- assign card_subtitle = subtitle -%}
+{%- endif -%}
 
 <a class="ls-pc" href="{{ product.url }}">
   <div class="ls-pc__media">
@@ -35,8 +53,8 @@
   <div class="ls-pc__info">
     <div class="ls-pc__name-group">
       <span class="ls-pc__name">{{ product.title }}</span>
-      {%- if subtitle != blank -%}
-        <span class="ls-pc__subtitle">{{ subtitle }}</span>
+      {%- if card_subtitle != blank -%}
+        <span class="ls-pc__subtitle">{{ card_subtitle }}</span>
       {%- endif -%}
     </div>
     <span class="ls-pc__price">
