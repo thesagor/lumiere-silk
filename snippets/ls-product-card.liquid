@@ -6,13 +6,13 @@
     eager    — true to load the image eagerly (above-the-fold cards)
 
   Subtitle priority (all shown as the same ls-pc__subtitle line):
-    1. product.metafields.custom.subtitle  — "Subtitle" field in Shopify Admin product metafields
+    1. product.metafields.lumiere.card_subtitle — "Subtitle" field in Shopify Admin product metafields
     2. Gift Set auto-fallback             — if product type == "Gift Set" and subtitle is blank
     3. section subtitle                   — "100% Mulberry Silk · Hand-Rolled Edges" global line
 {%- endcomment -%}
 
 {%- comment -%} 1. Custom metafield subtitle (Admin → Product → Metafields → Subtitle) {%- endcomment -%}
-{%- assign card_subtitle = product.metafields.custom.subtitle -%}
+{%- assign card_subtitle = product.metafields.lumiere.card_subtitle.value -%}
 
 {%- comment -%} 2. Gift Set auto-fallback if subtitle is empty {%- endcomment -%}
 {%- if card_subtitle == blank and product.type == 'Gift Set' -%}

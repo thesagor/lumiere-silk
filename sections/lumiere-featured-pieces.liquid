@@ -47,22 +47,55 @@
 
     <div class="ls-fp__grid">
       {%- for block in section.blocks -%}
-        <a class="ls-card" href="{{ block.settings.url | default: '#' }}" {{ block.shopify_attributes }}>
+        {%- liquid
+          assign card_product = block.settings.product
+
+          assign card_name = block.settings.name
+          if card_name == blank and card_product != blank
+            assign card_name = card_product.title
+          endif
+
+          assign card_url = block.settings.url
+          if card_url == blank and card_product != blank
+            assign card_url = card_product.url
+          endif
+
+          assign card_subtitle = block.settings.subtitle
+          if card_subtitle == blank and card_product != blank
+            assign card_subtitle = card_product.metafields.custom.material.value
+          endif
+
+          assign card_size = block.settings.size
+          if card_size == blank and card_product != blank
+            assign card_size = card_product.metafields.custom.size.value
+          endif
+
+          assign card_price = block.settings.price
+          if card_price == blank and card_product != blank
+            assign card_price = card_product.price | money
+          endif
+
+          assign card_image = block.settings.image
+          if card_image == blank and card_product != blank
+            assign card_image = card_product.featured_image
+          endif
+        -%}
+        <a class="ls-card" href="{{ card_url | default: '#' }}" {{ block.shopify_attributes }}>
           <div class="ls-card__media">
-            {%- if block.settings.image != blank -%}
-              <img src="{{ block.settings.image | image_url: width: 1200 }}" alt="{{ block.settings.name | escape }}" class="ls-card__img" loading="lazy">
+            {%- if card_image != blank -%}
+              <img src="{{ card_image | image_url: width: 1200 }}" alt="{{ card_image.alt | default: card_name | escape }}" class="ls-card__img" loading="lazy" width="1200" height="1500">
             {%- else -%}
-              <img src="{{ block.settings.fallback_asset | default: 'lumiere-product-sig-scarf-1.png' | asset_url }}" alt="{{ block.settings.name | escape }}" class="ls-card__img" loading="lazy">
+              <img src="{{ block.settings.fallback_asset | default: 'lumiere-product-sig-scarf-1.png' | asset_url }}" alt="{{ card_name | escape }}" class="ls-card__img" loading="lazy">
             {%- endif -%}
             {%- if block.settings.tag != blank -%}<span class="ls-card__tag">{{ block.settings.tag }}</span>{%- endif -%}
           </div>
           <div class="ls-card__meta">
             <div>
-              <h4 class="ls-card__name">{{ block.settings.name }}</h4>
-              {%- if block.settings.subtitle != blank -%}<p class="ls-card__subtitle">{{ block.settings.subtitle }}</p>{%- endif -%}
-              <p class="ls-card__size">{{ block.settings.size }}</p>
+              <h4 class="ls-card__name">{{ card_name }}</h4>
+              {%- if card_subtitle != blank -%}<p class="ls-card__subtitle">{{ card_subtitle }}</p>{%- endif -%}
+              {%- if card_size != blank -%}<p class="ls-card__size">{{ card_size }}</p>{%- endif -%}
             </div>
-            <p class="ls-card__price">{{ block.settings.price }}</p>
+            {%- if card_price != blank -%}<p class="ls-card__price">{{ card_price }}</p>{%- endif -%}
           </div>
         </a>
       {%- endfor -%}
@@ -100,14 +133,17 @@
       "type": "product_card",
       "name": "Product Card",
       "settings": [
-        { "type": "image_picker", "id": "image", "label": "Product image" },
-        { "type": "text", "id": "fallback_asset", "label": "Fallback asset filename", "default": "lumiere-product-sig-scarf-1.png" },
-        { "type": "text", "id": "name", "label": "Name", "default": "Signature Silk Scarf" },
-        { "type": "text", "id": "subtitle", "label": "Material subtitle", "default": "100% Mulberry Silk · Hand-Rolled Edges" },
-        { "type": "text", "id": "price", "label": "Price", "default": "$89" },
-        { "type": "text", "id": "size", "label": "Size / detail", "default": "90 × 90 cm" },
+        { "type": "product", "id": "product", "label": "Product", "info": "Image, name, price, size and material fill in automatically. Price follows the customer's currency." },
         { "type": "text", "id": "tag", "label": "Tag (badge)", "default": "Bestseller" },
-        { "type": "url", "id": "url", "label": "Link" }
+        { "type": "header", "content": "Overrides" },
+        { "type": "paragraph", "content": "Leave blank to use the product's own values." },
+        { "type": "image_picker", "id": "image", "label": "Image override" },
+        { "type": "text", "id": "name", "label": "Name override" },
+        { "type": "text", "id": "subtitle", "label": "Material subtitle override" },
+        { "type": "text", "id": "price", "label": "Price override", "info": "Typed text does not convert between currencies." },
+        { "type": "text", "id": "size", "label": "Size / detail override" },
+        { "type": "url", "id": "url", "label": "Link override" },
+        { "type": "text", "id": "fallback_asset", "label": "Fallback asset filename", "default": "lumiere-product-sig-scarf-1.png" }
       ]
     }
   ],
@@ -116,9 +152,9 @@
     {
       "name": "Featured Pieces",
       "blocks": [
-        { "type": "product_card", "settings": { "name": "Signature Silk Scarf", "price": "$89", "size": "90 × 90 cm", "tag": "Bestseller", "fallback_asset": "lumiere-product-sig-scarf-1.png" } },
-        { "type": "product_card", "settings": { "name": "Elegant Silk Scarf", "price": "$89", "size": "90 cm Square", "tag": "New Arrival", "fallback_asset": "lumiere-product-elegant-scarf-3.png" } },
-        { "type": "product_card", "settings": { "name": "Petite Silk Scarf", "price": "$59", "size": "53 × 53 cm", "tag": "Versatile", "fallback_asset": "lumiere-product-small-scarf-styled-1.png" } }
+        { "type": "product_card", "settings": { "tag": "Bestseller", "fallback_asset": "lumiere-product-sig-scarf-1.png" } },
+        { "type": "product_card", "settings": { "tag": "New Arrival", "fallback_asset": "lumiere-product-elegant-scarf-3.png" } },
+        { "type": "product_card", "settings": { "tag": "Versatile", "fallback_asset": "lumiere-product-small-scarf-styled-1.png" } }
       ]
     }
   ]
