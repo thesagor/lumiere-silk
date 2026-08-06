@@ -1408,6 +1408,34 @@ a.announcement-bar__text:hover { color: var(--ls-gold); }
 }
 .footer-policy-links a:hover { color: rgba(250,248,245,0.7); }
 
+/* Region flags (footer bottom right) */
+.footer-bottom-right {
+  display: flex;
+  align-items: center;
+  gap: 1.75rem;
+  flex-wrap: wrap;
+}
+.footer-regions {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+}
+.footer-regions-label {
+  font-size: 0.6875rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(250,248,245,0.3);
+}
+.footer-flag {
+  width: 26px;
+  height: 13px;
+  display: block;
+  border: 1px solid rgba(250,248,245,0.15);
+  opacity: 0.75;
+  transition: opacity var(--transition-fast);
+}
+.footer-flag:hover { opacity: 1; }
+
 /* ============================================
    CART DRAWER
    ============================================ */
@@ -2188,6 +2216,7 @@ a.announcement-bar__text:hover { color: var(--ls-gold); }
   .footer-brand { grid-column: 1 / -1; }
   .footer-bottom { flex-direction: column; text-align: center; }
   .footer-policy-links { justify-content: center; }
+  .footer-bottom-right { flex-direction: column; gap: 1rem; }
 
   .newsletter-form { flex-direction: column; }
   .newsletter-input,

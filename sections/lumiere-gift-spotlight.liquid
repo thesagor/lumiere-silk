@@ -108,14 +108,33 @@
   }
 {% endstyle %}
 
+{%- liquid
+  assign gift_product = section.settings.product
+
+  assign gift_price = section.settings.price
+  if gift_price == blank and gift_product != blank
+    assign gift_price = gift_product.price | money
+  endif
+
+  assign gift_image = section.settings.image
+  if gift_image == blank and gift_product != blank
+    assign gift_image = gift_product.featured_image
+  endif
+
+  assign gift_url = section.settings.button_url
+  if gift_url == blank and gift_product != blank
+    assign gift_url = gift_product.url
+  endif
+-%}
+
 <section class="ls-gspot">
   <div class="ls-gspot__grid">
 
     <!-- Image -->
     <div class="ls-gspot__img">
-      {%- if section.settings.image != blank -%}
+      {%- if gift_image != blank -%}
         <img
-          src="{{ section.settings.image | image_url: width: 1000 }}"
+          src="{{ gift_image | image_url: width: 1000 }}"
           alt="{{ section.settings.title | escape }}"
           loading="lazy"
         >
@@ -129,7 +148,7 @@
       <span class="ls-gspot__eyebrow">{{ section.settings.eyebrow }}</span>
       <h2 class="ls-gspot__title">{{ section.settings.title }}</h2>
       <p class="ls-gspot__subtitle">{{ section.settings.subtitle }}</p>
-      <p class="ls-gspot__price">{{ section.settings.price }}</p>
+      <p class="ls-gspot__price">{{ gift_price }}</p>
 
       {%- if section.blocks.size > 0 -%}
         <ul class="ls-gspot__features">
@@ -142,8 +161,8 @@
         </ul>
       {%- endif -%}
 
-      {%- if section.settings.button_label != blank and section.settings.button_url != blank -%}
-        <a class="ls-gspot__btn" href="{{ section.settings.button_url }}">
+      {%- if section.settings.button_label != blank and gift_url != blank -%}
+        <a class="ls-gspot__btn" href="{{ gift_url }}">
           {{ section.settings.button_label }}
         </a>
       {%- endif -%}
@@ -157,13 +176,16 @@
   "name": "Gift Set Spotlight",
   "tag": "div",
   "settings": [
-    { "type": "image_picker", "id": "image",    "label": "Product image" },
+    { "type": "product",      "id": "product",  "label": "Product", "info": "Price, image and link fill in automatically. Price follows the customer's currency (CAD / USD)." },
     { "type": "text",         "id": "eyebrow",  "label": "Eyebrow",            "default": "The Signature Gift" },
     { "type": "richtext",     "id": "title",    "label": "Title",               "default": "<p>Signature<br><em>Gift Set</em></p>" },
     { "type": "text",         "id": "subtitle", "label": "Composition line",    "default": "Silk Scarf + Brooch + Luxury Gift Box" },
-    { "type": "text",         "id": "price",    "label": "Price",               "default": "$169" },
     { "type": "text",         "id": "button_label", "label": "Button label",    "default": "Shop Gift Sets" },
-    { "type": "url",          "id": "button_url",   "label": "Button URL" }
+    { "type": "header",       "content": "Overrides" },
+    { "type": "paragraph",    "content": "Leave blank to use the selected product's own values." },
+    { "type": "image_picker", "id": "image",    "label": "Image override" },
+    { "type": "text",         "id": "price",    "label": "Price override",      "info": "Typed text does not convert between currencies." },
+    { "type": "url",          "id": "button_url",   "label": "Button URL override" }
   ],
   "blocks": [
     {

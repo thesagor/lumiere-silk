@@ -191,7 +191,7 @@
         assign meta_material  = product.metafields.custom.material.value  | default: 'Premium Mulberry Silk'
         assign meta_size      = product.metafields.custom.size.value       | default: '108 × 108 cm'
         assign meta_packaging = product.metafields.custom.packaging.value  | default: 'Elegantly presented'
-        assign meta_shipping  = product.metafields.custom.shipping_info.value | default: 'Canada · 2–5 business days'
+        assign meta_shipping  = product.metafields.custom.shipping_info.value | default: 'Canada &amp; U.S. · 2–5 business days'
       -%}
       <div class="product-meta">
         <div class="product-meta-item">
@@ -267,7 +267,7 @@
             {{ product.metafields.custom.shipping_tab | metafield_tag }}
           {%- else -%}
             <p>Processing time is 2–5 business days after payment confirmation.</p>
-            <p>We currently ship within Canada. Shipping rates are calculated at checkout based on your delivery address and selected method.</p>
+            <p>We currently ship to Canada and the United States. Shipping rates are calculated at checkout based on your delivery address and selected shipping method.</p>
             <p>You will receive a tracking email once your order has been dispatched.</p>
           {%- endif -%}
         </div>
